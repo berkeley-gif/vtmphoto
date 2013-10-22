@@ -1,4 +1,4 @@
-angular.module( 'ngBoilerplate.about', [
+angular.module( 'vtmphotoApp.about', [
   'ui.state',
   'placeholders',
   'ui.bootstrap',
@@ -18,7 +18,7 @@ angular.module( 'ngBoilerplate.about', [
 })
 
 .controller( 'AboutCtrl', function AboutCtrl( $scope, titleService ) {
-  titleService.setTitle( 'What is It?' );
+  titleService.setTitle( 'About' );
   
   // This is simple a demo for UI Boostrap.
   $scope.dropdownDemoItems = [
