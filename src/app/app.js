@@ -2,6 +2,7 @@ angular.module( 'vtmphotoApp', [
   'templates-app',
   'templates-common',
   'vtmphotoApp.home',
+  'vtmphotoApp.photo',
   'vtmphotoApp.about',
   'ui.state',
   'ui.route'
@@ -12,7 +13,7 @@ angular.module( 'vtmphotoApp', [
 })
 
 .run( function run ( titleService ) {
-  titleService.setSuffix( ' | vtmphotoApp' );
+  titleService.setSuffix( ' | VTM Photos' );
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {

@@ -15,7 +15,8 @@
 angular.module( 'vtmphotoApp.home', [
   'ui.state',
   'titleService',
-  'plusOne'
+  'plusOne',
+  'map'
 ])
 
 /**
@@ -41,6 +42,7 @@ angular.module( 'vtmphotoApp.home', [
 .controller( 'HomeCtrl', function HomeController( $scope, titleService ) {
   titleService.setTitle( 'Home' );
 })
+
 
 ;
 

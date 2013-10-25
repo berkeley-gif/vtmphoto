@@ -1,0 +1,36 @@
+<h1>Photos</h1>
+<h4>Total number of photos {{photos.count}}</h4>
+<div class="container">
+   <!--Resource search fields-->
+  <div class="row">
+    <div class="well">
+        Search: <input ng-model="query">
+        Sort by:
+        <select ng-model="orderProp">
+          <option value="locality">Alphabetical</option>
+          <option value="-begin_date">Newest</option>
+        </select>
+    </div>
+  </div>
+
+  <!--Resource content-->
+  <div class="row">
+    <ul class="thumbnails">
+      <li ng-repeat="photo in photos.results | filter:query | orderBy:orderProp"
+          class="span2 thumbnail">
+        <a href="#/photo/{{photo.record}}" class=""><img style="height:150px" ng-src="{{photo.media_url}}"></a>
+      </li>
+    </ul>
+  </div>
+
+    <!--Resource detail-->
+  <div ui-view class="row">
+    
+  </div>
+
+
+</div>
+
+
+
+
