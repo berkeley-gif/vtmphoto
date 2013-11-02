@@ -28,54 +28,25 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <div class="masthead">
-        <h3 class="muted">VTM Photos</h3>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav">
-                <li ui-route="/home" ng-class="{active:$uiRoute}">
-                  <a href="#/home">
-                    <i class="icon-home"></i>
-                    Home
-                  </a>
-                </li>
-                <li ui-route="/photo" ng-class="{active:$uiRoute}">
-                  <a href="#/photo">
-                    <i class="icon-info-sign"></i>
-                    Photos
-                  </a>
-                </li>
-                <li ui-route="/about" ng-class="{active:$uiRoute}">
-                  <a href="#/about">
-                    <i class="icon-info-sign"></i>
-                    About
-                  </a>
-                </li>
-              </ul>
-            </div>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">VTM Photos</a>
           </div>
+          <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav pull-right">
+                  <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-question-sign" style="color: white"></i>&nbsp;&nbsp;About</a></li>
+              </ul>
+          </div><!--/.navbar-collapse -->
         </div>
-      </div>
-    </div>
 
-    <div class="container" ui-view="main"></div>
+        <div class="row" id="container" ui-view="main"></div>
 
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <p>
-            Based on:
-            <a href="http://github.com/joshdmiller/ng-boilerplate">ngBoilerplate by Josh Miller</a>,
-            <a href="http://www.angularjs.org">AngularJS</a>,
-            <a href="http://getbootstrap.com">Bootstrap</a>,
-            <a href="http://angular-ui.github.com/bootstrap">UI Bootstrap</a>,
-            and
-            <a href="http://fortawesome.github.com/Font-Awesome">Font Awesome</a>.       
-          </p>
-        </div>
-      </div>
-    </footer>
+
   </body>
 </html>

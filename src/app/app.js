@@ -1,19 +1,25 @@
 angular.module( 'vtmphotoApp', [
   'templates-app',
   'templates-common',
-  'vtmphotoApp.home',
+  /*'vtmphotoApp.home',
   'vtmphotoApp.photo',
-  'vtmphotoApp.about',
+  'vtmphotoApp.photodetail',
+  'vtmphotoApp.about',*/
+  'vtmphotoApp.explore',
   'ui.state',
   'ui.route'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/home' );
+  $urlRouterProvider.otherwise( '/explore' );
 })
 
 .run( function run ( titleService ) {
   titleService.setSuffix( ' | VTM Photos' );
+})
+
+.constant('HOLOS_CONFIG', {
+  baseUrl: 'http:/ecoengine.berkeley.edu'
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {

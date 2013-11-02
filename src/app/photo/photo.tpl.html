@@ -19,12 +19,12 @@
       <li ng-repeat="photo in photos.results | filter:query | orderBy:orderProp"
           class="span2 thumbnail">
         <a href="#/photo/{{photo.record}}" class=""><img style="height:150px" ng-src="{{photo.media_url}}"></a>
+        <h6>{{photo.county}}, {{photo.authors}}, {{photo.begin_date | date:'MM/dd/yyyy'}}</h6>
       </li>
     </ul>
   </div>
 
-    <!--Resource detail-->
-  <div ui-view class="row">
+
     
   </div>
 
