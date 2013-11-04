@@ -33,6 +33,7 @@ angular.module( 'vtmphotoApp.explore', [
         templateUrl: 'explore/explore.tpl.html',
         resolve:{
           photos:['Photos', function (Photos) {
+            console.log('reached here');
             return Photos.query({collection_code : 'VTM'});
           }]
         }
@@ -44,7 +45,7 @@ angular.module( 'vtmphotoApp.explore', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ExploreCtrl', function HomeController( $scope,  titleService, photos) {
+.controller( 'ExploreCtrl', ['$scope', 'photos', function HomeController( $scope,  titleService, photos) {
 
   titleService.setTitle( 'Explore' );
 
@@ -89,7 +90,7 @@ angular.module( 'vtmphotoApp.explore', [
 
 
  
-})
+}])
 
 
 ;
