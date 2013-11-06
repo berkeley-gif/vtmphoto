@@ -3,11 +3,12 @@ angular.module( 'vtmphotoApp', [
   'templates-common',
   /*'vtmphotoApp.home',
   'vtmphotoApp.photo',
-  'vtmphotoApp.photodetail',
-  'vtmphotoApp.about',*/
+  'vtmphotoApp.photodetail',*/
+  //'vtmphotoApp.photodetail',
   'vtmphotoApp.explore',
   'ui.state',
   'ui.route'
+
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

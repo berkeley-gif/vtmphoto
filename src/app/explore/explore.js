@@ -33,8 +33,13 @@ angular.module( 'vtmphotoApp.explore', [
         templateUrl: 'explore/explore.tpl.html',
         resolve:{
           photos:['Photos', function (Photos) {
-            console.log('reached here');
-            return Photos.query({collection_code : 'VTM'});
+           //var temp = Photos.query({collection_code : 'VTM', format: 'json', fields: 'record,geojson,county'});
+            return Photos.query ({
+              collection_code : 'VTM',
+              format: 'json',
+              fields: 'record,geojson,county,authors,media_url,begin_date',
+              page_size: 1000
+            });
           }]
         }
       }
@@ -42,10 +47,16 @@ angular.module( 'vtmphotoApp.explore', [
   });
 })
 
+
+
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ExploreCtrl', ['$scope', 'photos', function HomeController( $scope,  titleService, photos) {
+.controller( 'ExploreCtrl', function ExploreController( $scope,  titleService, photos) {
+
+  $scope.custom = false;
+
+
 
   titleService.setTitle( 'Explore' );
 
@@ -59,38 +70,114 @@ angular.module( 'vtmphotoApp.explore', [
     tileLayer: 'http://{s}.tile.cloudmade.com/e74bf6d54e334b95af49cbb6b91a6d18/22677/256/{z}/{x}/{y}.png'
   };
 
+  $scope.data = photos.data;
+
+  $scope.results = $scope.data.results;
+
   $scope.markers = {};
-  $scope.results = [];
-  $scope.photos = photos;
-  console.log($scope.photos);
 
-/*   PhotoLocations.async().then(function(data){
-      $scope.results = data.results;
+  if ($scope.results.length > 0){
 
-   });
+           for (var i = 0, len = $scope.results.length; i < len; i++) {
+              $scope.markers[i] = {
+                name: $scope.results[i].record,
+                lat: $scope.results[i].geojson.coordinates[1],
+                lng: $scope.results[i].geojson.coordinates[0],
+                county: $scope.results[i].county,
+                authors: $scope.results[i].authors,
+                media_url: $scope.results[i].media_url,
+                begin_date: $scope.results[i].begin_date,
+                layer: 'locations',
+                message: '<img style="width:150px" src="' + $scope.results[i].media_url + '">'
+              };
+          }  
+  }
 
- console.log($scope.results);
- if ($scope.results.length > 0){
+  $scope.filteredMarkers =  $scope.markers;
 
-         for (var i = 0, len = $scope.results.length; i < len; i++) {
-            $scope.markers[i] = {
-              name: $scope.results[i].record,
-              lat: $scope.results[i].geojson.coordinates[1],
-              lng: $scope.results[i].geojson.coordinates[0]
-            };
-        }  
- }*/
+  $scope.layers = {
+                    baselayers: {
+                        cloudmade: {
+                            name: 'OpenStreetMap',
+                            type: 'xyz',
+                            url: 'http://{s}.tile.cloudmade.com/e74bf6d54e334b95af49cbb6b91a6d18/22677/256/{z}/{x}/{y}.png',
+                            layerOptions: {
+                                subdomains: ['a', 'b', 'c'],
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                                continuousWorld: true
+                            }
+                        }
+                    },
+                    overlays: {
+                        locations: {
+                            name: 'Locations',
+                            type: 'markercluster',
+                            visible: true
+                        }
+                    }
+
+  };
+
+/*$scope.$on('leafletDirectiveMarker.click', function(e, args) {
+            console.log(args);
+            temp_marker = $scope.markers[args.markerName];
+            temp_marker.leafletEvent.target.bindPopup('<img style="width:150px" src="' + temp_marker.media_url + '">');
+});*/
+
+
+$scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
+            console.log('im in the mouse over event');
+            temp_marker = $scope.filteredMarkers[args.markerName];
+            $scope.media_url = temp_marker.media_url;
+            $scope.record = temp_marker.name;
+
+});
+
+$scope.$on('leafletDirectiveMarker.mouseout', function(e, args) {
+            console.log('im in the mouse out event');
+            $scope.media_url = null;
+});
    
+ $scope.filters = {
+      county: '',
+      authors: ''
+  };
+
+  $scope.filterMarkers = function (){
+    $scope.filteredMarkers = {};
+    var i = 0;
+
+    angular.forEach($scope.markers, function(marker){
+
+      //Filter county name
+      var filterCounty = $scope.filters.county.toLowerCase();
+      var nameCounty = marker.county.toLowerCase();
+      var isSubstringCounty = ( nameCounty.indexOf( filterCounty ) !== -1 );
+
+      //Filter author name
+      var filterAuthors = $scope.filters.authors.toLowerCase();
+      var nameAuthors = marker.authors.toLowerCase();
+      var isSubstringAuthors = ( nameAuthors.indexOf( filterAuthors ) !== -1 );
+
+      if (isSubstringCounty && isSubstringAuthors){
+        $scope.filteredMarkers[i] = marker;
+        i++;
+      //console.log(marker.county + " false");
+      }
+
+    });
+
+  };
+
+  $scope.$watch('markers', function() {
+      $scope.filterMarkers();
+  });
+
+
+    
+
  
-
-
-
-
-
-
-
- 
-}])
+})
 
 
 ;

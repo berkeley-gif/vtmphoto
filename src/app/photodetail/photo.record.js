@@ -3,7 +3,7 @@
  */
 angular.module( 'vtmphotoApp.photodetail', [
   'ui.state',
-  'PhotoRes'
+  'resources.photos'
 ])
 
 /**
@@ -19,27 +19,30 @@ angular.module( 'vtmphotoApp.photodetail', [
           templateUrl: 'photodetail/photo.record.tpl.html'
         }
       },
-      data:{ pageTitle: 'Photo Detail' }
-    })
-
-
-
-    ;
+      resolve:{
+          photos:['Photos', function (Photos, $stateParams) {
+           //var temp = Photos.query({collection_code : 'VTM', format: 'json', fields: 'record,geojson,county'});
+            return Photos.getById ($stateParams.record);
+          }]
+        }
+    });
 })
 
 /**
  * And of course we define a controller for our route.
  */
 
-.controller('PhotoDetailCtrl', function PhotoDetailController ($scope, $stateParams, PhotoRes ) {
-    $scope.photo = PhotoRes.query({'record': $stateParams.record});
+.controller('PhotoDetailCtrl', function PhotoDetailController ($scope, photos) {
+    //$scope.photo = PhotoRes.query({'record': $stateParams.record});
+    $scope.photo = photos;
+    console.log($scope.photo);
 
 })
 
 /**
  * Add a resource to allow us to get at the server
  */
-.factory( 'PhotoRes', function ( $resource )  {
+/*.factory( 'PhotoRes', function ( $resource )  {
   return $resource('http://ecoengine.berkeley.edu/api/photos/:record', {record: '@record'}, {
   query: {
     method:'GET', 
@@ -51,6 +54,6 @@ angular.module( 'vtmphotoApp.photodetail', [
     isArray:false
   }
   });
-})
+})*/
 
 ;
