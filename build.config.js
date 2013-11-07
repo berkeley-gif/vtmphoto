@@ -60,7 +60,7 @@ module.exports = {
       'vendor/holos/holos-resource.js'
     ],
     css: [
-      'vendor/leaflet/css/MarkerCluster.Default.css'
+      'vendor/leaflet/css/MarkerCluster.css'
     ]
   },
 };

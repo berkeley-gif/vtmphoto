@@ -38,7 +38,7 @@ angular.module( 'vtmphotoApp.explore', [
               collection_code : 'VTM',
               format: 'json',
               fields: 'record,geojson,county,authors,media_url,begin_date',
-              page_size: 1000
+              page_size: 200
             });
           }]
         }
@@ -76,6 +76,18 @@ angular.module( 'vtmphotoApp.explore', [
 
   $scope.markers = {};
 
+    var local_icons = {
+      div_icon: L.divIcon({
+              iconSize: [10, 10],
+              className: 'custom-marker-icon',
+              popupAnchor:  [0, 0]
+      })
+
+    };
+    angular.extend($scope, {
+                icons: local_icons
+    });
+
   if ($scope.results.length > 0){
 
            for (var i = 0, len = $scope.results.length; i < len; i++) {
@@ -88,7 +100,8 @@ angular.module( 'vtmphotoApp.explore', [
                 media_url: $scope.results[i].media_url,
                 begin_date: $scope.results[i].begin_date,
                 layer: 'locations',
-                message: '<img style="width:150px" src="' + $scope.results[i].media_url + '">'
+                message: '<img style="width:150px" src="' + $scope.results[i].media_url + '">',
+                icon: local_icons.div_icon
               };
           }  
   }
@@ -112,7 +125,29 @@ angular.module( 'vtmphotoApp.explore', [
                         locations: {
                             name: 'Locations',
                             type: 'markercluster',
-                            visible: true
+                            visible: true,
+                            layerOptions: {
+                              spiderfyOnMaxZoom: false,
+                              showCoverageOnHover: false,
+                              iconCreateFunction: function (cluster) {
+
+      
+                                  var childCount = cluster.getChildCount();
+                                  var c = ' marker-cluster-';
+                                  var ptSize = 20;
+                                  if (childCount < 10) {
+                                    c += 'small';
+                                  } else if (childCount < 100) {
+                                    c += 'medium';
+                                    ptSize = 30;
+                                  } else {
+                                    c += 'large';
+                                    ptSize = 40;
+                                  }
+                                  return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
+                              },
+                              maxClusterRadius: 20
+                            }
                         }
                     }
 
