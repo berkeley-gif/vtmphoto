@@ -38,7 +38,7 @@ angular.module( 'vtmphotoApp.explore', [
               collection_code : 'VTM',
               format: 'json',
               fields: 'record,geojson,county,authors,media_url,begin_date',
-              page_size: 200
+              page_size: 100
             });
           }]
         }
@@ -63,7 +63,7 @@ angular.module( 'vtmphotoApp.explore', [
   $scope.center = {
             lat: 37,
             lng: -120,
-            zoom: 6
+            zoom: 7
   };
   
   $scope.defaults = {
@@ -78,21 +78,23 @@ angular.module( 'vtmphotoApp.explore', [
 
     var local_icons = {
       div_icon: L.divIcon({
-              iconSize: [10, 10],
-              className: 'custom-marker-icon',
-              popupAnchor:  [0, 0]
+              iconSize: [8, 8],
+              iconAnchor: [0, 0],
+              className: 'custom-marker-icon'
+
       })
 
     };
-    angular.extend($scope, {
-                icons: local_icons
-    });
+
+    $scope.icons = local_icons;
+   
 
   if ($scope.results.length > 0){
 
            for (var i = 0, len = $scope.results.length; i < len; i++) {
               $scope.markers[i] = {
                 name: $scope.results[i].record,
+                title: $scope.results[i].record,
                 lat: $scope.results[i].geojson.coordinates[1],
                 lng: $scope.results[i].geojson.coordinates[0],
                 county: $scope.results[i].county,
@@ -113,10 +115,10 @@ angular.module( 'vtmphotoApp.explore', [
                         cloudmade: {
                             name: 'OpenStreetMap',
                             type: 'xyz',
-                            url: 'http://{s}.tile.cloudmade.com/e74bf6d54e334b95af49cbb6b91a6d18/22677/256/{z}/{x}/{y}.png',
+                            url: 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
                             layerOptions: {
                                 subdomains: ['a', 'b', 'c'],
-                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                                attribution: 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.',
                                 continuousWorld: true
                             }
                         }
@@ -128,7 +130,7 @@ angular.module( 'vtmphotoApp.explore', [
                             visible: true,
                             layerOptions: {
                               spiderfyOnMaxZoom: false,
-                              showCoverageOnHover: false,
+                              //showCoverageOnHover: false,
                               iconCreateFunction: function (cluster) {
 
       
@@ -146,7 +148,9 @@ angular.module( 'vtmphotoApp.explore', [
                                   }
                                   return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
                               },
-                              maxClusterRadius: 20
+                              maxClusterRadius: 20,
+                              zoomToBoundsOnClick: false,
+                              getChildrenOnClick: true
                             }
                         }
                     }
@@ -162,6 +166,7 @@ angular.module( 'vtmphotoApp.explore', [
 
 $scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
             console.log('im in the mouse over event');
+            console.log(args);
             temp_marker = $scope.filteredMarkers[args.markerName];
             $scope.media_url = temp_marker.media_url;
             $scope.record = temp_marker.name;
@@ -172,7 +177,24 @@ $scope.$on('leafletDirectiveMarker.mouseout', function(e, args) {
             console.log('im in the mouse out event');
             $scope.media_url = null;
 });
-   
+$scope.$on('leafletDirectiveMarker.clusterclick', function(e, args) {
+            console.log('im in the cluster click event');
+            console.log(args);
+            console.log(e);
+});
+
+/*$scope.$on('leafletDirectiveMarker.clusterclick', function(e, args) {
+            console.log('im in the cluster click event');
+            console.log(args);
+            var childMarkers = args;
+            
+            console.log(childMarkers[0].getLatLng());
+            console.log(childMarkers[0].getTitle());
+            
+});*/
+
+
+
  $scope.filters = {
       county: '',
       authors: ''
