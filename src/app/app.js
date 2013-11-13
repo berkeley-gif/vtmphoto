@@ -26,5 +26,7 @@ angular.module( 'vtmphotoApp', [
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
 })
 
-;
 
+
+
+;

@@ -2,24 +2,28 @@
     <!-- Sidebar -->
     <div class="col-sm-2 col-lg-2" id="sidebar">
         <div class="panel  panel-default"> 
-            <div class="panel-title">Filters</div>
+            <div class="panel-title"><h4>Filters</h4></div>
             <div class="panel-body">
-                County: <input ng-model="filters.county" ng-change="filterMarkers()"><br/>
-                Authors: <input ng-model="filters.authors" ng-change="filterMarkers()">
+                County: <input class="text" ng-model="filters.county" ng-change="filterMarkers()"><br/>
+                Authors: <input class="text" ng-model="filters.authors" ng-change="filterMarkers()">
             </div>
         </div>
     </div> <!-- End Sidebar -->
 
 
     <!-- Map -->
-            <leaflet  class="col-sm-7 col-lg-7" id="map" center="center" defaults="defaults" layers="layers" markers="filteredMarkers">
+            <leaflet  class="col-sm-7 col-lg-7" id="map" center="center" defaults="defaults" layers="layers" markers="filteredMarkers" event-broadcast="events">
             </leaflet> 
 <!-- End Map -->
 
     <div class="col-sm-3 col-lg-3" id="imagegallery">
         <div class="panel  panel-default"> 
             <div class="panel-title">Photos</div>
-            <div class="panel-body"></div>
+            <div class="panel-body">
+                <input type="text" custom="selectedMarkers" id="myHiddenText">
+                {{selectedMarkers}}
+                <button ng-click="showLeaflet()">Fitbounds outside leaflet-directive!</button>
+            </div>
         </div>
 
     </div>

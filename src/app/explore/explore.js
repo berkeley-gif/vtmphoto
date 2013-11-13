@@ -16,7 +16,9 @@ angular.module( 'vtmphotoApp.explore', [
   'ui.state',
   'titleService',
   'leaflet-directive',
-  'resources.photos'
+  'resources.photos',
+  'custom-directive'
+  //'ngModelOnBlur-directive'
 ])
 
 /**
@@ -52,10 +54,13 @@ angular.module( 'vtmphotoApp.explore', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ExploreCtrl', function ExploreController( $scope,  titleService, photos) {
+.controller( 'ExploreCtrl', function ExploreController( $scope,  leafletData, titleService, photos) {
 
   $scope.custom = false;
 
+$scope.showLeaflet = function() {
+                leafletData.getMap().fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
+            };
 
 
   titleService.setTitle( 'Explore' );
@@ -94,7 +99,7 @@ angular.module( 'vtmphotoApp.explore', [
            for (var i = 0, len = $scope.results.length; i < len; i++) {
               $scope.markers[i] = {
                 name: $scope.results[i].record,
-                title: $scope.results[i].record,
+                title: i,
                 lat: $scope.results[i].geojson.coordinates[1],
                 lng: $scope.results[i].geojson.coordinates[0],
                 county: $scope.results[i].county,
@@ -157,12 +162,6 @@ angular.module( 'vtmphotoApp.explore', [
 
   };
 
-/*$scope.$on('leafletDirectiveMarker.click', function(e, args) {
-            console.log(args);
-            temp_marker = $scope.markers[args.markerName];
-            temp_marker.leafletEvent.target.bindPopup('<img style="width:150px" src="' + temp_marker.media_url + '">');
-});*/
-
 
 $scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
             console.log('im in the mouse over event');
@@ -177,22 +176,9 @@ $scope.$on('leafletDirectiveMarker.mouseout', function(e, args) {
             console.log('im in the mouse out event');
             $scope.media_url = null;
 });
-$scope.$on('leafletDirectiveMarker.clusterclick', function(e, args) {
-            console.log('im in the cluster click event');
-            console.log(args);
-            console.log(e);
-});
 
-/*$scope.$on('leafletDirectiveMarker.clusterclick', function(e, args) {
-            console.log('im in the cluster click event');
-            console.log(args);
-            var childMarkers = args;
-            
-            console.log(childMarkers[0].getLatLng());
-            console.log(childMarkers[0].getTitle());
-            
-});*/
 
+$scope.selectedMarkers = '1,2';
 
 
  $scope.filters = {
