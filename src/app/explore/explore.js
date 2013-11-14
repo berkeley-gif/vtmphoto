@@ -16,9 +16,7 @@ angular.module( 'vtmphotoApp.explore', [
   'ui.state',
   'titleService',
   'leaflet-directive',
-  'resources.photos',
-  'custom-directive'
-  //'ngModelOnBlur-directive'
+  'resources.photos'
 ])
 
 /**
@@ -35,12 +33,12 @@ angular.module( 'vtmphotoApp.explore', [
         templateUrl: 'explore/explore.tpl.html',
         resolve:{
           photos:['Photos', function (Photos) {
-           //var temp = Photos.query({collection_code : 'VTM', format: 'json', fields: 'record,geojson,county'});
             return Photos.query ({
               collection_code : 'VTM',
               format: 'json',
               fields: 'record,geojson,county,authors,media_url,begin_date',
-              page_size: 100
+              page_size: 1000,
+              georeferenced: 'True'
             });
           }]
         }
@@ -54,13 +52,10 @@ angular.module( 'vtmphotoApp.explore', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ExploreCtrl', function ExploreController( $scope,  leafletData, titleService, photos) {
+.controller( 'ExploreCtrl', function ExploreController( $scope, titleService, photos) {
 
   $scope.custom = false;
 
-$scope.showLeaflet = function() {
-                leafletData.getMap().fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
-            };
 
 
   titleService.setTitle( 'Explore' );
@@ -71,9 +66,9 @@ $scope.showLeaflet = function() {
             zoom: 7
   };
   
-  $scope.defaults = {
+/*  $scope.defaults = {
     tileLayer: 'http://{s}.tile.cloudmade.com/e74bf6d54e334b95af49cbb6b91a6d18/22677/256/{z}/{x}/{y}.png'
-  };
+  };*/
 
   $scope.data = photos.data;
 
@@ -97,7 +92,7 @@ $scope.showLeaflet = function() {
   if ($scope.results.length > 0){
 
            for (var i = 0, len = $scope.results.length; i < len; i++) {
-              $scope.markers[i] = {
+                $scope.markers[i] = {
                 name: $scope.results[i].record,
                 title: i,
                 lat: $scope.results[i].geojson.coordinates[1],
@@ -107,9 +102,10 @@ $scope.showLeaflet = function() {
                 media_url: $scope.results[i].media_url,
                 begin_date: $scope.results[i].begin_date,
                 layer: 'locations',
-                message: '<img style="width:150px" src="' + $scope.results[i].media_url + '">',
+                //message: '<img style="width:150px" src="' + $scope.results[i].media_url + '">',
                 icon: local_icons.div_icon
               };
+
           }  
   }
 
@@ -135,7 +131,7 @@ $scope.showLeaflet = function() {
                             visible: true,
                             layerOptions: {
                               spiderfyOnMaxZoom: false,
-                              //showCoverageOnHover: false,
+                              showCoverageOnHover: false,
                               iconCreateFunction: function (cluster) {
 
       
@@ -153,7 +149,7 @@ $scope.showLeaflet = function() {
                                   }
                                   return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
                               },
-                              maxClusterRadius: 20,
+                              maxClusterRadius: 50,
                               zoomToBoundsOnClick: false,
                               getChildrenOnClick: true
                             }
@@ -163,22 +159,41 @@ $scope.showLeaflet = function() {
   };
 
 
-$scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
-            console.log('im in the mouse over event');
-            console.log(args);
+$scope.$on('leafletDirectiveMarker.click', function(e, args) {
+            console.log('im in the marker click');
             temp_marker = $scope.filteredMarkers[args.markerName];
-            $scope.media_url = temp_marker.media_url;
-            $scope.record = temp_marker.name;
+            $scope.selectedMarkers = [];
+            $scope.selectedMarkers.push(args.markerName);
+
 
 });
 
-$scope.$on('leafletDirectiveMarker.mouseout', function(e, args) {
-            console.log('im in the mouse out event');
-            $scope.media_url = null;
-});
 
 
-$scope.selectedMarkers = '1,2';
+
+
+$scope.selectedMarkers = [72,92,93];
+
+$scope.updatePhotoMarkers = function (){
+  $scope.photoMarkers = {};
+
+
+  angular.forEach($scope.filteredMarkers, function(marker){
+    var i = 0;
+    for (var j=0; j< $scope.selectedMarkers.length; j++){
+      var markerName = $scope.selectedMarkers[j];
+      var temp_marker = $scope.filteredMarkers[markerName];
+      $scope.photoMarkers[i] = temp_marker;
+      i++;
+    }
+    
+  });
+
+};
+
+ $scope.$watch('selectedMarkers', function() {
+      $scope.updatePhotoMarkers();
+  });
 
 
  $scope.filters = {

@@ -1,9 +1,6 @@
 angular.module( 'vtmphotoApp', [
   'templates-app',
   'templates-common',
-  /*'vtmphotoApp.home',
-  'vtmphotoApp.photo',
-  'vtmphotoApp.photodetail',*/
   //'vtmphotoApp.photodetail',
   'vtmphotoApp.explore',
   'ui.state',
@@ -20,7 +17,7 @@ angular.module( 'vtmphotoApp', [
 })
 
 .constant('HOLOS_CONFIG', {
-  baseUrl: 'http:/ecoengine.berkeley.edu'
+  baseUrl: 'http://ecoengine.berkeley.edu'
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
