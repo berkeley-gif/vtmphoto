@@ -16,7 +16,9 @@ angular.module( 'vtmphotoApp.explore', [
   'ui.state',
   'titleService',
   'leaflet-directive',
-  'resources.photos'
+  'resources.photos',
+  'ui.slider',
+  'ui.unique'
 ])
 
 /**
@@ -37,8 +39,9 @@ angular.module( 'vtmphotoApp.explore', [
               collection_code : 'VTM',
               format: 'json',
               fields: 'record,geojson,county,authors,media_url,begin_date',
-              page_size: 1000,
-              georeferenced: 'True'
+              page_size: 200,
+              georeferenced: 'True',
+              county: 'Tulare'
             });
           }]
         }
@@ -61,9 +64,9 @@ angular.module( 'vtmphotoApp.explore', [
   titleService.setTitle( 'Explore' );
 
   $scope.center = {
-            lat: 37,
-            lng: -120,
-            zoom: 7
+            lat: 36.23,
+            lng: -118.8,
+            zoom: 9
   };
   
 /*  $scope.defaults = {
@@ -93,21 +96,27 @@ angular.module( 'vtmphotoApp.explore', [
 
            for (var i = 0, len = $scope.results.length; i < len; i++) {
                 $scope.markers[i] = {
-                name: $scope.results[i].record,
+                record: $scope.results[i].record,
                 title: i,
                 lat: $scope.results[i].geojson.coordinates[1],
                 lng: $scope.results[i].geojson.coordinates[0],
                 county: $scope.results[i].county,
                 authors: $scope.results[i].authors,
                 media_url: $scope.results[i].media_url,
-                begin_date: $scope.results[i].begin_date,
+                year: new Date($scope.results[i].begin_date).getFullYear(),
                 layer: 'locations',
                 //message: '<img style="width:150px" src="' + $scope.results[i].media_url + '">',
                 icon: local_icons.div_icon
               };
 
+/*              console.log(new Date($scope.results[i].begin_date).getFullYear());
+              console.log($scope.results[i].begin_date);*/
+
+
           }  
   }
+
+
 
   $scope.filteredMarkers =  $scope.markers;
 
@@ -172,7 +181,7 @@ $scope.$on('leafletDirectiveMarker.click', function(e, args) {
 
 
 
-$scope.selectedMarkers = [72,92,93];
+$scope.selectedMarkers = [12,13];
 
 $scope.updatePhotoMarkers = function (){
   $scope.photoMarkers = {};
@@ -197,27 +206,41 @@ $scope.updatePhotoMarkers = function (){
 
 
  $scope.filters = {
-      county: '',
-      authors: ''
+      county: 'Tulare',
+      authors: '',
+      year: '1927'
   };
 
   $scope.filterMarkers = function (){
     $scope.filteredMarkers = {};
     var i = 0;
 
+
     angular.forEach($scope.markers, function(marker){
+
 
       //Filter county name
       var filterCounty = $scope.filters.county.toLowerCase();
       var nameCounty = marker.county.toLowerCase();
       var isSubstringCounty = ( nameCounty.indexOf( filterCounty ) !== -1 );
 
+
+
       //Filter author name
+
       var filterAuthors = $scope.filters.authors.toLowerCase();
       var nameAuthors = marker.authors.toLowerCase();
       var isSubstringAuthors = ( nameAuthors.indexOf( filterAuthors ) !== -1 );
 
-      if (isSubstringCounty && isSubstringAuthors){
+
+
+      //Filter date
+      var filterYear = $scope.filters.year;
+      var nameYear = marker.year;
+      var isYear = ( nameYear >= filterYear );
+
+
+      if (isSubstringCounty && isSubstringAuthors && isYear){
         $scope.filteredMarkers[i] = marker;
         i++;
       //console.log(marker.county + " false");
@@ -230,9 +253,6 @@ $scope.updatePhotoMarkers = function (){
   $scope.$watch('markers', function() {
       $scope.filterMarkers();
   });
-
-
-    
 
  
 })

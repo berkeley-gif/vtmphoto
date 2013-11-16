@@ -5,7 +5,13 @@
             <div class="panel-title"><h4>Filters</h4></div>
             <div class="panel-body">
                 County: <input class="text" ng-model="filters.county" ng-change="filterMarkers()"><br/>
-                Authors: <input class="text" ng-model="filters.authors" ng-change="filterMarkers()">
+                Photographers: <input class="text" ng-model="filters.authors" ng-change="filterMarkers()">
+                <div class="sliderExample">
+                    Photos since {{filters.year}}:
+                    <div ui-slider min="1927" max="1937" ng-model="filters.year" ng-change="filterMarkers()"></div>
+                    <span class="pull-left">1927</span>
+                    <span class="pull-right">1937</span>
+        </div>
             </div>
         </div>
     </div> <!-- End Sidebar -->
