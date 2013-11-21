@@ -1,21 +1,11 @@
 {
-  "name": "ng-boilerplate",
-  "version": "0.3.0",
+  "name": "vtmphotos",
+  "version": "0.0.1",
   "devDependencies": {
     "angular": "~1.2",
-    "angular-mocks": "~1.0.7",
-    "bootstrap": "~3.0.1",
-    "angular-bootstrap": "~0.3.0",
-    "angular-ui-router": "~0.0.1",
-    "angular-ui-utils": "~0.0.3",
-    "angular-resource": "~1.2"
+    "bootstrap": "~3.0.1"
   },
   "dependencies": {
-    "jquery": "~2.0.3",
-    "angular-ui-slider": "~0.0.1"
-  },
-  "resolutions": {
-    "angular": "~1.2",
-    "jquery": "~1.9"
+    "jquery": "~2.0.3"
   }
 }

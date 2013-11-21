@@ -22,7 +22,7 @@ module.exports = {
   app_files: {
     js: [ 'src/**/*.js', '!src/**/*.spec.js' ],
     jsunit: [ 'src/**/*.spec.js' ],
-    
+
     coffee: [ 'src/**/*.coffee', '!src/**/*.spec.coffee' ],
     coffeeunit: [ 'src/**/*.spec.coffee' ],
 
@@ -54,17 +54,11 @@ module.exports = {
       'vendor/jquery/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
       'vendor/angular/angular.js',
-      'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
-      'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-ui-utils/modules/route/route.js',
-      'vendor/angular-resource/angular-resource.js',
-      'vendor/angular-ui-slider/src/slider.js',
-      'vendor/angular-ui-utils/modules/unique/unique.js',
-      'vendor/holos/holos-resource.js'
+      'vendor/angular-ui-router/release/angular-ui-router.js'
 
     ],
     css: [
-    'vendor/jquery-ui/themes/base/minified/jquery-ui.min.css', 
+    'vendor/leaflet/css/leaflet.css'
     ]
   },
 };

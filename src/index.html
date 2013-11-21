@@ -1,62 +1,42 @@
 <!DOCTYPE html>
-<html ng-app="vtmphotoApp" ng-controller="AppCtrl">
-  <head>
-    <title>VTM Photos</title>
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html  ng-app="vtmphotoApp" ng-controller="AppCtrl">
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>VTM Photos</title>
+		<!-- start: META -->
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		<!-- start: MAIN CSS -->
+		<link rel="stylesheet" href="assets/css/bootswatch-flatly.css">
+		<link rel="stylesheet" href="assets/css/custom.css">
+		<link rel="stylesheet" href="assets/css/main-responsive.css">
 
-    <!-- social media tags -->
-    <meta property="og:title" content="vtmphoto" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="localhost" />
-    <meta property="og:description" content="App for displaying VTM Photos">
+		<!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    	<link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>		  
 
-    <!-- font awesome from BootstrapCDN -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    
-
-    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
-
-    <!--[if IE 7>
-    <link rel="stylesheet" href="assets/font-awesome-ie7.min.css />
-    <![endif]-->
-
-    <script>L_DISABLE_3d = true;</script>
-    <!-- compiled JS --><% scripts.forEach( function ( file ) { %>
-    <script type="text/javascript" src="<%= file %>"></script><% }); %>
-
-  </head>
-  <body>
-
-      
-      <div class="row" id="nav">
-
-        <div class="navbar navbar-default navbar-default">
-
-
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">VTM Photos</a>
-            </div>
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav pull-right">
-                    <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-upload"></i>&nbsp;&nbsp;Upload</a></li>
-                    <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-question-sign"></i>&nbsp;&nbsp;About</a></li>
-
-                </ul>
-            </div><!--/.navbar-collapse -->
-          
-          </div>
-
-      </div> <!--end row-->
-
-      <div class="row" id="container" ui-view="main"></div>
-
-    
- 
-
-  </body>
+	</head>
+	<!-- end: HEAD -->
+	<!-- start: BODY -->
+	<body ng-controller="AppCtrl">
+		<div ng-include="'header.tpl.html'" ng-controller="HeaderCtrl"></div>
+		<!-- start: MAIN CONTAINER -->
+		<div ui-view class="main-container">
+		</div>
+		<!-- end: MAIN CONTAINER -->
+		<!-- start: COMPILED JAVASCRIPT FILES -->
+    	<!-- compiled JS --><% scripts.forEach( function ( file ) { %>
+    	<script type="text/javascript" src="<%= file %>"></script><% }); %>
+		<!-- end: JAVASCRIPT FILES -->
+	</body>
+	<!-- end: BODY -->
 </html>

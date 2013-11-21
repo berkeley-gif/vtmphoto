@@ -1,0 +1,64 @@
+
+            <!-- start: SIDEBAR -->
+            <div class="navbar-content">
+                <div ng-include src="'home/sidebar/sidebar.tpl.html'" ng-controller="SidebarCtrl">
+                </div>
+            </div>
+            <!-- end: SIDEBAR -->
+            <!-- start: MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container">
+                    <!-- start: PAGE HEADER -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-header">
+                                <h1>Explore <small>zoom to area of interest, search and filter </small></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end: PAGE HEADER -->
+                    <!-- start: PAGE CONTENT -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- start: MAP PANEL -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                 <!-- start: BREADCRUMB -->
+                                    <ol class="breadcrumb">
+                                        <li>
+                                            Map Bounds: ({{boundsArray}})
+                                        </li>
+                                        <li >
+                                            Search Term
+                                        </li>
+                                        <li >
+                                            Filters
+                                        </li>
+                                    </ol>
+                                <!-- end: BREADCRUMB -->
+                                </div>
+                                <div class="panel-body">
+                                    <div ng-include src="'home/map/map.tpl.html'" ng-controller="MapCtrl">
+                                    </div>
+                                </div>
+                                <button ng-click="showLeaflet()">Get bounds</button>
+                                <!-- end: MAP PANEL -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end: ROW -->
+                    <div class="row">
+                        <!-- start: GALLERY -->
+                        <div ng-include src="'home/gallery/gallery.tpl.html'" ng-controller="GalleryCtrl">
+                        </div>
+                        <!-- end: GALLERY -->
+                    </div>
+                    <!-- end: ROW -->
+                </div>
+                 <!-- end: CONTAINER -->
+            </div>
+            <!-- end: MAIN CONTENT -->
+
+
+ 
+

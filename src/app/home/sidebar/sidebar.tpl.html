@@ -1,0 +1,48 @@
+				<!-- start: SIDEBAR -->
+				<div class="main-navigation navbar-collapse collapse navbar-sidebar-collapse">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-sidebar-collapse"   >
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: MAIN MENU TOGGLER BUTTON -->
+					<div class="navigation-toggler">
+						<i class="glyphicon glyphicon-chevron-left"></i>
+						<i class="glyphicon glyphicon-chevron-right"></i>
+					</div>
+					<!-- end: MAIN MENU TOGGLER BUTTON -->
+					<!-- start: MAIN NAVIGATION MENU -->
+					<ul class="main-navigation-menu">
+						<li class="search-box">
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" class="form-control"placeholder="Search...">
+									<span class="input-group-btn">
+										<button class="btn" type="submit">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="title"> Counties </span>
+								<button class="btn btn-sm">
+									<span class="caret"></span>
+								</button>
+							</a>
+							<ul class="sub-menu">
+								<li ng-repeat="county in countyList">
+									<a href="#">
+										<span class="title"> {{county}} </span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<!-- end: MAIN NAVIGATION MENU -->
+				</div>
+				<!-- end: SIDEBAR -->

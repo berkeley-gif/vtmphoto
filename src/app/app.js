@@ -1,29 +1,32 @@
 angular.module( 'vtmphotoApp', [
+  'ui.router',
   'templates-app',
   'templates-common',
-  //'vtmphotoApp.photodetail',
-  'vtmphotoApp.explore',
-  'ui.state',
-  'ui.route'
-
+  'services.httpRequestTracker',
+  'home'
 ])
-
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/explore' );
-})
-
-.run( function run ( titleService ) {
-  titleService.setSuffix( ' | VTM Photos' );
-})
 
 .constant('HOLOS_CONFIG', {
   baseUrl: 'http://ecoengine.berkeley.edu'
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
-})
+.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider ) {
+    // For any unmatched url, send to /route1
+    $urlRouterProvider.otherwise("/home");
+
+}])
+
+.controller('AppCtrl', ['$scope', function ($scope) {
+
+}])
+
+.controller('HeaderCtrl', ['$scope', 'httpRequestTracker',
+  function ($scope, httpRequestTracker) {
 
 
-
+    $scope.hasPendingRequests = function () {
+      return httpRequestTracker.hasPendingRequests();
+    };
+}])
 
 ;

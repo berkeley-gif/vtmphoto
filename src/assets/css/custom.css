@@ -1,0 +1,153 @@
+/* ---------------------------------------------------------------------- */
+/*	Main Container and main content elements
+ /* ---------------------------------------------------------------------- */
+.main-container {
+	margin-top: 48px;
+}
+.header-default .main-container {
+	margin-top: 0 !important;
+}
+.main-content {
+	margin-top: 0;
+	background-color: #FFFFFF;
+	padding: 0;
+}
+.container {
+	max-width: none !important;
+	width:auto !important;
+}
+.footer-fixed .main-content .container{
+	margin-bottom:22px;
+}
+/* ---------------------------------------------------------------------- */
+/*	Main Navigation
+ /* ---------------------------------------------------------------------- */
+.main-navigation {
+	padding: 0;
+	max-height: none !important;
+	z-index: 1000;
+}
+ul.main-navigation-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.main-navigation-menu > li {
+	border: 0 none;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+ul.main-navigation-menu > li > a {
+	border: 0 none;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0;
+	padding: 10px 15px;
+	position: relative;
+	text-decoration: none;
+	border-bottom: 1px solid #DDDDDD;
+	border-top: 1px solid #FFFFFF;
+}
+ul.main-navigation-menu li  a .badge {
+    float: right;
+    margin-right: 13px;
+    margin-top: 1px;
+}
+ul.main-navigation-menu > li:last-child > a, ul.main-navigation-menu > li.last > a {
+	border-bottom-color: transparent !important;
+}
+ul.main-navigation-menu > li > a i {
+	font-size: 16px;
+	margin-right: 5px;
+	text-shadow: none;
+}
+ul.main-navigation-menu > li > a:hover .icon-arrow, ul.main-navigation-menu > li.open > a .icon-arrow {
+	opacity: 1;
+}
+/* 2nd level sub menu */
+ul.main-navigation-menu li > ul.sub-menu {
+	clear: both;
+	list-style: none;
+	margin: 8px 0;
+	display: none;
+	padding: 0;
+}
+ul.main-navigation-menu li > ul.sub-menu > li {
+	background: none;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 1px !important;
+	padding: 0;
+}
+ul.main-navigation-menu li > ul.sub-menu > li > a {
+	background: none;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0;
+	padding-bottom: 5px;
+	padding-left: 44px !important;
+	padding-right: 0;
+	padding-top: 5px;
+	text-decoration: none;
+}
+ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
+	margin-right: 20px;
+}
+/*navigation toggler*/
+.navigation-toggler {
+	cursor: pointer;
+	height: 30px;
+	margin-left: 175px;
+	margin-top: 12px;
+	margin-bottom: 10px;
+	width: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 13px;
+}
+
+/* ---------------------------------------------------------------------- */
+/*	Breadcrumb
+ /* ---------------------------------------------------------------------- */
+.breadcrumb {
+	margin: 0 -15px;
+	position: relative;
+	padding: 0px 15px;
+}
+/* ---------------------------------------------------------------------- */
+/*	Search Box
+ /* ---------------------------------------------------------------------- */
+
+ /* ---------------------------------------------------------------------- */
+/*	Page Header
+ /* ---------------------------------------------------------------------- */
+.page-header {
+	margin: 20px 0 20px;
+}
+.page-header h1 {
+	font-weight: 200;
+	letter-spacing: -1px;
+	margin: 0 0 15px;
+	padding: 0;
+}
+
+.page-header h1 small {
+	font-size: 14px;
+	font-weight: 300;
+	letter-spacing: 0;
+}
+/* ---------------------------------------------------------------------- */
+/*	Gallery
+ /* ---------------------------------------------------------------------- */
+.gallery-img {
+	margin-bottom: 20px;
+}
+.wrap-image {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}

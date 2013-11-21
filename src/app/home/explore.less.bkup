@@ -1,0 +1,121 @@
+html, body, #container {
+    height: 100%;
+    margin: 0px;
+}
+body{
+    overflow: hidden;
+}
+#nav {
+    margin-bottom: -15px;
+}
+
+#sidebar, #imagegallery {
+    height: 100%;
+}
+#map {
+    height: 100%;
+    margin: 0px;
+    border-radius: 2px;
+}
+
+.panel {
+    height: 100%;
+    background-color: #e7e1d5;
+    border-radius: 2px;
+}
+
+#imagegallery {
+    overflow-y: auto;
+}
+
+
+/* Print Handling */
+@media print {
+    .navbar, .toggle, #sidebar {
+        display: none !important;
+    }
+}
+
+.custom-marker-icon {
+    background: url(img/cluster-icon.svg);
+    background-repeat: no-repeat;
+    }
+
+.marker-cluster-small {
+    background: url(img/cluster-icon.svg);
+    background-repeat: no-repeat;
+    text-align: center;
+    line-height: 20px;
+    font: 12px bold "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: white;
+    }
+
+.marker-cluster-small #circle:hover {
+    fill: green;
+    
+}
+
+.marker-cluster-medium {
+    background: url(img/cluster-icon.svg);
+    background-repeat: no-repeat;
+    line-height: 30px;
+    text-align: center;
+    font: 12px bold "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: white;
+    }
+
+.marker-cluster-large {
+    background: url(img/cluster-icon.svg);
+    background-repeat: no-repeat;
+    text-align: center;
+    line-height: 40px;
+    font: 12px bold "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: white;
+    }
+
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+    -webkit-transition: -webkit-transform 0.2s ease-out, opacity 0.2s ease-in;
+    -moz-transition: -moz-transform 0.2s ease-out, opacity 0.2s ease-in;
+    -o-transition: -o-transform 0.2s ease-out, opacity 0.2s ease-in;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-in;
+    }
+
+
+.marker-cluster-small {
+    background-color: rgba(181, 226, 140, 0.6);
+    }
+.marker-cluster-small div {
+    background-color: rgba(110, 204, 57, 0.6);
+    }
+
+.marker-cluster-medium {
+    background-color: rgba(241, 211, 87, 0.6);
+    }
+.marker-cluster-medium div {
+    background-color: rgba(240, 194, 12, 0.6);
+    }
+
+.marker-cluster-large {
+    background-color: rgba(253, 156, 115, 0.6);
+    }
+.marker-cluster-large div {
+    background-color: rgba(241, 128, 23, 0.6);
+    }
+
+.marker-cluster {
+    background-clip: padding-box;
+    border-radius: 20px;
+    }
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+
+    text-align: center;
+    border-radius: 15px;
+    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    }
+.marker-cluster span {
+    line-height: 30px;
+    }
