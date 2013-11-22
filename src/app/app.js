@@ -1,5 +1,6 @@
 angular.module( 'vtmphotoApp', [
   'ui.router',
+  'ui.compat',
   'templates-app',
   'templates-common',
   'services.httpRequestTracker',

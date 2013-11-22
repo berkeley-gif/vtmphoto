@@ -36,7 +36,7 @@ angular.module( 'map', [
     
   $scope.icons = local_icons;
 
-  if ($scope.data.results.length > 0){
+/*  if ($scope.data.results.length > 0){
 
              for (var i = 0, len = $scope.data.results.length; i < len; i++) {
                   var result = $scope.data.results[i];
@@ -54,7 +54,7 @@ angular.module( 'map', [
                 };
 
             }  
-  }
+  }*/
 
 
 

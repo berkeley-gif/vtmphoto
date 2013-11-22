@@ -2,7 +2,7 @@
   "name": "vtmphotos",
   "version": "0.0.1",
   "devDependencies": {
-    "angular": "~1.2",
+    "angular": "~1.2.0",
     "bootstrap": "~3.0.1"
   },
   "dependencies": {

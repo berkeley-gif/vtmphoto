@@ -15,7 +15,7 @@
 angular.module( 'home', [
   'ui.router',
   'leaflet-directive',
-  'resources.photos',
+  'dataService',
   'map',
   'gallery',
   'sidebar'
@@ -30,20 +30,11 @@ angular.module( 'home', [
   $stateProvider.state( 'home', {
     url: '/home',
     templateUrl: 'home/home.tpl.html',
-    controller: 'HomeCtrl',
-    resolve:{
-          photos:['Photos', function (Photos) {
-            return Photos.query ({
-              collection_code : 'VTM',
-              format: 'json',
-              bbox: '-119,36,-118,37'
-            });
-          }]
-        }
+    controller: 'HomeCtrl'
   });
 })
 
-.controller('HomeCtrl', ['$scope', 'leafletData', 'photos', function ($scope, leafletData, photos) {
+.controller('HomeCtrl', ['$scope', 'leafletData', 'dataService', function ($scope, leafletData, dataService) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
@@ -56,8 +47,13 @@ angular.module( 'home', [
   //Get data from http response
   //TODO: Handle http error
   //TODO: Update data when map bounds are changed during pan, zoom in, zoom out
-  $scope.data = photos.data;
-  console.log($scope.data);
+
+  dataService.data_async().then(function(data) {
+      $scope.data = data;
+       console.log($scope.data);
+  });
+  
+ 
 
 
   //Initialize variables used by child scopes
@@ -66,8 +62,8 @@ angular.module( 'home', [
   
   $scope.layers = {
                     baselayers: {
-                        cloudmade: {
-                            name: 'OpenStreetMap',
+                        stamen: {
+                            name: 'Terrain',
                             type: 'xyz',
                             url: 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
                             layerOptions: {
@@ -76,39 +72,7 @@ angular.module( 'home', [
                                 continuousWorld: true
                             }
                         }
-                    },
-                    overlays: {
-                        locations: {
-                            name: 'Locations',
-                            type: 'markercluster',
-                            visible: true,
-                            layerOptions: {
-                              spiderfyOnMaxZoom: false,
-                              showCoverageOnHover: false,
-                              iconCreateFunction: function (cluster) {
-
-      
-                                  var childCount = cluster.getChildCount();
-                                  var c = ' marker-cluster-';
-                                  var ptSize = 20;
-                                  if (childCount < 10) {
-                                    c += 'small';
-                                  } else if (childCount < 100) {
-                                    c += 'medium';
-                                    ptSize = 30;
-                                  } else {
-                                    c += 'large';
-                                    ptSize = 40;
-                                  }
-                                  return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
-                              },
-                              maxClusterRadius: 50,
-                              zoomToBoundsOnClick: false,
-                              getChildrenOnClick: true
-                            }
-                        }
                     }
-
   };
 
  $scope.countyList = [];
@@ -120,6 +84,13 @@ angular.module( 'home', [
         console.log(map.getBounds());
     });
   };
+
+/*  $scope.map = leafletData.getMap();
+
+  $scope.$watch('map', function () {
+    $scope.bounds = map.getBounds();
+    console.log($scope.bounds);
+  });*/
 
 
 
