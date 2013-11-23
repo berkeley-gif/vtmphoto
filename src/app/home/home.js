@@ -15,7 +15,7 @@
 angular.module( 'home', [
   'ui.router',
   'leaflet-directive',
-  'dataService',
+  'photoService',
   'map',
   'gallery',
   'sidebar'
@@ -34,7 +34,7 @@ angular.module( 'home', [
   });
 })
 
-.controller('HomeCtrl', ['$scope', 'leafletData', 'dataService', function ($scope, leafletData, dataService) {
+.controller('HomeCtrl', ['$scope', '$timeout', 'leafletData', 'photoService', function ($scope, $timeout, leafletData, dataService) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
@@ -48,10 +48,10 @@ angular.module( 'home', [
   //TODO: Handle http error
   //TODO: Update data when map bounds are changed during pan, zoom in, zoom out
 
-  dataService.data_async().then(function(data) {
-      $scope.data = data;
+/*  photoService.getData().then(function(data) {
+      $scope.data = data.data;
        console.log($scope.data);
-  });
+  });*/
   
  
 
@@ -77,23 +77,25 @@ angular.module( 'home', [
 
  $scope.countyList = [];
 
-  //Temp function to get map bounds
-  //TODO: Figure out how to get map bounds from service
-  $scope.showLeaflet = function() {
+  //Get map bounds
+  //TODO: Figure out how to watch when bounds change
+$timeout( function() {
+    console.log ("Resolving promise");
     leafletData.getMap().then(function(map) {
-        console.log(map.getBounds());
+        var latlngBounds = map.getBounds();
+        var west = Math.round(latlngBounds.getWest());
+        var south = Math.round(latlngBounds.getSouth());
+        var east = Math.round(latlngBounds.getEast());
+        var north = Math.round(latlngBounds.getNorth());
+        $scope.bounds = west + ',' + south + ',' + east + ',' + north;
     });
-  };
-
-/*  $scope.map = leafletData.getMap();
-
-  $scope.$watch('map', function () {
-    $scope.bounds = map.getBounds();
-    console.log($scope.bounds);
-  });*/
+}  , 1000);
 
 
 
+
+
+   
 
 
 

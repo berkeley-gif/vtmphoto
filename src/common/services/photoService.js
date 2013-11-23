@@ -1,25 +1,23 @@
-angular.module( 'dataService', [
+angular.module( 'photoService', [
 ])
 
-.factory('dataService', ['$http', function ($http) {
-  var data = {};
-  var server_queried = false;
-  var promise;
+.factory('photoService', ['$http', function ($http, $q) {
+  var mapBounds = '-119,36,-118,37';
+  var queryParams = '&format=json';
+  var returnedData;
+  var doRequest = function(path) {
+      return $http({
+        url: 'http://ecoengine.berkeley.edu/api/photos/?collection_code=VTM&bbox=' + mapBounds + queryParams
+      });
+  };
   return {
-    data_async: function() {
-      if(!promise || !server_queried) {
-        promise = $http.get('http://ecoengine.berkeley.edu/api/photos/?bbox=-119,36,-118,37&collection_code=VTM&format=json').then(
-        function(response) {
-          server_queried = true;
-          data = response;
-          return data;
-        });
-      }
-      return promise;
-    }
+    getData: function() { return doRequest(); },
+    setMapBounds: function(newMapBounds) { mapBounds = newMapBounds; }
   };
 
-}]) //End: HomeCtrl
+
+
+}]) //End: Data service
 
 
 ;
