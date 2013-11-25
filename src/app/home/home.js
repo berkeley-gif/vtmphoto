@@ -15,7 +15,8 @@
 angular.module( 'home', [
   'ui.router',
   'leaflet-directive',
-  'photoService',
+  'dataService',
+  'markerService',
   'map',
   'gallery',
   'sidebar'
@@ -34,7 +35,7 @@ angular.module( 'home', [
   });
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', 'leafletData', 'photoService', function ($scope, $timeout, leafletData, dataService) {
+.controller('HomeCtrl', ['$scope', '$timeout', 'leafletData', 'dataService', 'markerService' ,function ($scope, $timeout, leafletData, dataService, markerService) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
@@ -92,7 +93,27 @@ $timeout( function() {
 }  , 1000);
 
 
+$scope.results = dataService.getData();
+$scope.markers = [];
 
+$scope.doSomething = function(results, markers) {
+     if(!dataService.isDataLoaded()) {                                        
+          console.log('Data hasn\'t been loaded, invoking dataService.loadData()');
+          dataService.loadData('http://ecoengine.berkeley.edu/api/photos/?county=Tulare&format=json')
+               .then(function() {
+                    console.log('loadData.then(), here the dataService should have loaded the values from the storageService.');
+                    $scope[results] = dataService.getData();
+                    console.log($scope[results]);
+                    $scope[markers] = markerService.getMarkerArray($scope[results]);
+                    console.log($scope[markers]);
+               });
+               
+     } else {
+          console.log('Data has already been loaded from storageService, getting cached data instead.');
+          
+          $scope[results] = dataService.getData();
+     }
+};
 
 
    

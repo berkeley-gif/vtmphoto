@@ -1,25 +1,44 @@
 angular.module( 'dataService', [
 ])
 
-.factory('dataService', ['$http', function ($http) {
-  var data = {};
-  var server_queried = false;
-  var promise;
-  return {
-    data_async: function() {
-      if(!promise || !server_queried) {
-        promise = $http.get('http://ecoengine.berkeley.edu/api/photos/?bbox=-119,36,-118,37&collection_code=VTM&format=json').then(
-        function(response) {
-          server_queried = true;
-          data = response;
-          return data;
-        });
-      }
-      return promise;
-    }
-  };
+.factory('dataService', ['$q', '$http', function($q, $http ) {
+     // private data vars
+     var aggregateData = { isLoaded: false, value: [] };
+      
+    //public functions          
+     return {
+          loadData: function(url) {
+            var deferred = $q.defer();
+  
+            function loadAll() {
+              $http.get(url)
+                 .then(function(d) {
+                      //debugger;
+                      console.log('public http.get(' + url + ').then()');
+                      console.log(d);
+                      aggregateData.value = aggregateData.value.concat(d.data.results);
+                      //aggregateData.value.push(d.data.results);
+                      if(d.data.next) {
+                         url=d.data.next;
+                         loadAll();
+                      }
+                      else {
+                         deferred.resolve(aggregateData.value);
+                      }
+                 });
+            }
+            loadAll();
+            return deferred.promise;
 
-}]) //End: HomeCtrl
+          },
+          getData: function() {
+               return aggregateData.value;
+          },
+          isDataLoaded: function() {
+               return aggregateData.isLoaded;
+          }
+     };
+}])
 
 
 ;
