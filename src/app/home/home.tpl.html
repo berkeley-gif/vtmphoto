@@ -1,7 +1,7 @@
 
             <!-- start: SIDEBAR -->
             <div class="navbar-content">
-                <div ng-include src="'home/sidebar/sidebar.tpl.html'" ng-controller="SidebarCtrl">
+                <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
                 </div>
             </div>
             <!-- end: SIDEBAR -->
@@ -26,7 +26,7 @@
                                  <!-- start: BREADCRUMB -->
                                     <ol class="breadcrumb">
                                         <li>
-                                            Map Bounds: ({{bounds}})
+                                            Map Bounds: ({{bbox}})
                                         </li>
                                         <li >
                                             Search Term
@@ -38,7 +38,7 @@
                                 <!-- end: BREADCRUMB -->
                                 </div>
                                 <div class="panel-body">
-                                    <div ng-include src="'home/map/map.tpl.html'" ng-controller="MapCtrl">
+                                    <div ng-include src="'home/map/map.tpl.html'">
                                     </div>
                                         <button type="button" class="btn btn-primary" ng-click="doSomething()">Do Something with the Data!</button>
                                 </div>

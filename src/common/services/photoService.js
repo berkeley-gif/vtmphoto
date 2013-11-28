@@ -2,7 +2,7 @@ angular.module( 'photoService', [
 ])
 
 .factory('photoService', ['$http', function ($http, $q) {
-  var mapBounds = '-119,36,-118,37';
+  var mapBounds;
   var queryParams = '&format=json';
   var returnedData;
   var doRequest = function(path) {

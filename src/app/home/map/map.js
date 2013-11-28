@@ -13,6 +13,8 @@
  * specified, as shown below.
  */
 angular.module( 'map', [
+  'markerService',
+  'leaflet-directive'
 ])
 
 /**
@@ -22,8 +24,64 @@ angular.module( 'map', [
  */
 
 
-.controller('MapCtrl', ['$scope', 'leafletData', function ($scope, leafletData) {
+.controller('MapCtrl', ['$scope', '$timeout', 'leafletData', 'markerService', function ($scope, $timeout, leafletData, markerService) {
 
+  //Set default map center and zoom
+  //TODO: Get location from user IP address
+  console.log('reached map control');
+  $scope.center = {
+            lat: 36.23,
+            lng: -118.8,
+            zoom: 9
+  };
+  //Set default layers
+  //TODO: Add satellite basemap
+  $scope.layers = {
+                    baselayers: {
+                        terrain: {
+                            name: 'Terrain',
+                            type: 'xyz',
+                            url: 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
+                            layerOptions: {
+                                subdomains: ['a', 'b', 'c'],
+                                attribution: 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.',
+                                continuousWorld: true
+                            }
+                        }
+                    },
+                    overlays: {
+                        locations: {
+                            name: 'Locations',
+                            type: 'markercluster',
+                            visible: true,
+                            layerOptions: {
+                              spiderfyOnMaxZoom: false,
+                              showCoverageOnHover: false,
+                              iconCreateFunction: function (cluster) {    
+                                  var childCount = cluster.getChildCount();
+                                  var c = ' marker-cluster-';
+                                  var ptSize = 20;
+                                  if (childCount < 10) {
+                                    c += 'small';
+                                  } else if (childCount < 100) {
+                                    c += 'medium';
+                                    ptSize = 30;
+                                  } else {
+                                    c += 'large';
+                                    ptSize = 40;
+                                  }
+                                  return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
+                              },
+                              maxClusterRadius: 50,
+                              zoomToBoundsOnClick: false,
+                              getChildrenOnClick: true
+                            }
+                        }
+                    }
+
+  };
+  //Set default icon for marker
+  //TODO: 
   var local_icons = {
     div_icon: L.divIcon({
             iconSize: [8, 8],
@@ -33,34 +91,24 @@ angular.module( 'map', [
     })
 
   };
-    
   $scope.icons = local_icons;
 
-/*  if ($scope.data.results.length > 0){
-
-             for (var i = 0, len = $scope.data.results.length; i < len; i++) {
-                  var result = $scope.data.results[i];
-                  $scope.filteredMarkers[i] = {
-                    record: result.record,
-                    title: i,
-                    lat: result.geojson.coordinates[1],
-                    lng: result.geojson.coordinates[0],
-                    county: result.county,
-                    authors: result.authors,
-                    media_url: result.media_url,
-                    year: result.begin_date,
-                    layer: 'locations',
-                    icon: local_icons.div_icon
-                };
-
-            }  
-  }*/
+  //Get map bounds and set $scope.bbox initialized on parent controller
+  //TODO: Figure out how to watch when bounds change
+  $timeout( function() {
+      console.log ("Resolving promise");
+      leafletData.getMap().then(function(map) {
+          var latlngBounds = map.getBounds();
+          var west = Math.round(latlngBounds.getWest());
+          var south = Math.round(latlngBounds.getSouth());
+          var east = Math.round(latlngBounds.getEast());
+          var north = Math.round(latlngBounds.getNorth());
+          $scope.bbox = west + ',' + south + ',' + east + ',' + north;
+      });
+  }  , 2000);
 
 
 
-
-
-  
 
 }])
 
