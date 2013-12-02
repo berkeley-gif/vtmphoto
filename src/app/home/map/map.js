@@ -24,19 +24,21 @@ angular.module( 'map', [
  */
 
 
-.controller('MapCtrl', ['$scope', '$timeout', 'leafletData', 'markerService', function ($scope, $timeout, leafletData, markerService) {
+.controller('MapCtrl', ['$scope', '$timeout', 'leafletData','markerService', function ($scope, $timeout, leafletData, markerService) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
   console.log('reached map control');
-  $scope.center = {
+  $scope.mapData.center = {
             lat: 36.23,
             lng: -118.8,
             zoom: 9
   };
+
+  $scope.mapData.markers = markerService.getMarkers();
   //Set default layers
   //TODO: Add satellite basemap
-  $scope.layers = {
+  $scope.mapData.layers = {
                     baselayers: {
                         terrain: {
                             name: 'Terrain',
@@ -91,11 +93,12 @@ angular.module( 'map', [
     })
 
   };
-  $scope.icons = local_icons;
+  $scope.mapData.icons = local_icons;
+  
 
-  //Get map bounds and set $scope.bbox initialized on parent controller
+  //Get map bounds and set bbox initialized on parent controller
   //TODO: Figure out how to watch when bounds change
-  $timeout( function() {
+/*  $timeout( function() {
       console.log ("Resolving promise");
       leafletData.getMap().then(function(map) {
           var latlngBounds = map.getBounds();
@@ -103,12 +106,28 @@ angular.module( 'map', [
           var south = Math.round(latlngBounds.getSouth());
           var east = Math.round(latlngBounds.getEast());
           var north = Math.round(latlngBounds.getNorth());
-          $scope.bbox = west + ',' + south + ',' + east + ',' + north;
+          $scope.mapData.bbox = west + ',' + south + ',' + east + ',' + north;
       });
-  }  , 2000);
+  }  , 1000);*/
 
 
+  //Watch for leaflet map event, update bbox, update markers
+  //var mapEvents = leafletEvents.getAvailableMapEvents();
+  $scope.$on('leafletDirectiveMap.moveend', function(event, args) {
+      $timeout( function() {
+        console.log ("Resolving map promise on move event");
+        leafletData.getMap().then(function(map) {
+            var latlngBounds = map.getBounds();
+            var west = Math.round(latlngBounds.getWest());
+            var south = Math.round(latlngBounds.getSouth());
+            var east = Math.round(latlngBounds.getEast());
+            var north = Math.round(latlngBounds.getNorth());
+            $scope.mapData.bbox = west + ',' + south + ',' + east + ',' + north;
+            $scope.mapData.update();
+        });
+      }  , 1000);
 
+  }); 
 
 }])
 

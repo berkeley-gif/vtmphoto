@@ -13,7 +13,8 @@
  * specified, as shown below.
  */
 angular.module( 'sidebar', [
-
+'ui.filters',
+'markerService'
 ])
 
 /**
@@ -23,11 +24,18 @@ angular.module( 'sidebar', [
  */
 
 
-.controller('SidebarCtrl', ['$scope', function ($scope) {
+.controller('SidebarCtrl', ['$scope', 'markerService', function ($scope, markerService) {
 
-		
-      $scope.countyList.push('Tulare');
-      $scope.countyList.push('Yuba');
+			
+     $scope.sidebar = {
+		markers : markerService.getMarkers()		
+     };
+
+/*     $scope.filter = {
+		county : null,
+		authors : null
+     };*/
+
 
 
 

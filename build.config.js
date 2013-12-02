@@ -56,6 +56,7 @@ module.exports = {
       'vendor/angular/angular.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
+      'vendor/angular-ui/build/angular-ui.js',
       'vendor/bootstrap/dist/js/bootstrap.js'
 
     ],

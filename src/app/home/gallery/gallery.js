@@ -13,7 +13,7 @@
  * specified, as shown below.
  */
 angular.module( 'gallery', [
-
+'markerService'
 ])
 
 /**
@@ -23,9 +23,21 @@ angular.module( 'gallery', [
  */
 
 
-.controller('GalleryCtrl', ['$scope', function ($scope) {
+.controller('GalleryCtrl', ['$scope', 'markerService',function ($scope, markerService) {
 
     console.log('reached gallery control');
+
+    $scope.gallery = {
+		markers : markerService.getMarkers(),
+		totalDisplayed: 12
+    };
+    
+
+	$scope.loadMore = function () {
+		$scope.gallery.totalDisplayed += 12;  
+	};
+
+   
     
 
 }])

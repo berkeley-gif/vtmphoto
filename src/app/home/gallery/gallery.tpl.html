@@ -1,8 +1,11 @@
 
-						<div ng-repeat="marker in markers" class="col-md-3 col-sm-4 gallery-img">
-							<div class="wrap-image">
-								<a href="#" title="{{marker.record}}">
-									<img style="height:150px;" src="{{marker.media_url}}" alt="" class="img-responsive">
-								</a>
-							</div>
-						</div>
+<div ng-controller="GalleryCtrl">
+	<div ng-repeat="marker in gallery.markers | limitTo:gallery.totalDisplayed" class="col-lg-2 col-sm-3 col-xs-4 gallery-img">
+		<div class="wrap-image">
+			<a href="#" title="{{marker.record}}">
+				<img style="height:200px;width:200px" src="{{marker.media_url}}" alt="" class="img-responsive">
+			</a>
+		</div>
+	</div>
+	<button class="btn" ng-click="loadMore()">Load more</button>
+</div>

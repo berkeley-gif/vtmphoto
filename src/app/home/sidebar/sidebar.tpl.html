@@ -1,5 +1,5 @@
 				<!-- start: SIDEBAR -->
-				<div class="main-navigation navbar-collapse collapse navbar-sidebar-collapse" ng-controller="SidebarCtrl">
+				<div class="  navbar-collapse collapse navbar-sidebar-collapse" ng-controller="SidebarCtrl">
 					<!-- start: RESPONSIVE MENU TOGGLER -->
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-sidebar-collapse"   >
 						<span class="icon-bar"></span>
@@ -14,35 +14,28 @@
 					</div>
 					<!-- end: MAIN MENU TOGGLER BUTTON -->
 					<!-- start: MAIN NAVIGATION MENU -->
-					<ul class="main-navigation-menu">
-						<li class="search-box">
-							<div class="form-group">
-								<div class="input-group">
-									<input type="text" class="form-control"placeholder="Search...">
-									<span class="input-group-btn">
-										<button class="btn" type="submit">
-											<i class="glyphicon glyphicon-search"></i>
-										</button>
-									</span>
-								</div>
-							</div>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span class="title"> Counties </span>
-								<button class="btn btn-sm">
-									<span class="caret"></span>
-								</button>
-							</a>
-							<ul class="sub-menu">
-								<li ng-repeat="county in countyList">
-									<a href="#">
-										<span class="title"> {{county}} </span>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
+					<div class="main-navigation">
+					<div class="well">
+						<form role="form">
+							<fieldset>
+	 							<div class="control-group">
+	    							<label class="control-label" for="county">County</label>
+	    							<div class="controls">
+										<select class="form-control" ng-model="filter.county" ng-options="marker.county for marker in sidebar.markers | unique:'county'">
+										</select>
+	    							</div>
+	  							</div>
+	  							<div class="control-group">
+	    							<label class="control-label" for="county">Photographer</label>
+	    							<div class="controls">
+										<select class="form-control" ng-model="filter.authors" ng-options="marker.authors for marker in sidebar.markers | unique:'authors'">
+										</select>
+	    							</div>
+	  							</div>
+  							</fieldset>
+  						</form>
+  					</div>
+  					</div>
 					<!-- end: MAIN NAVIGATION MENU -->
 				</div>
-				<!-- end: SIDEBAR -->
+				<!-- end: SIDEBAR --> 

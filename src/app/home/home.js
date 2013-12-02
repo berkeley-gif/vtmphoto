@@ -38,29 +38,29 @@ angular.module( 'home', [
 
   
   //Initialize variables used by child scopes
-  $scope.bbox = '';
-  $scope.countyList = [];
+  $scope.mapData = {bbox : null};
 
   
 
 
-  $scope.results = dataService.getData();
+
 
   //Get data from http response
   //TODO: Handle http error
   //TODO: Update data when map bounds are changed during pan, zoom in, zoom out
- 
-  $scope.updateData = function(results, markers) {
+  $scope.results = dataService.getData();
+
+  $scope.mapData.update = function(results) {
        if(!dataService.isDataLoaded()) {                                        
             console.log('Data hasn\'t been loaded, invoking dataService.loadData()');
-            dataService.loadData('http://ecoengine.berkeley.edu/api/photos/?county=Tulare&format=json&georeferenced=True&collection_code=VTM')
+            dataService.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
                  .then(function() {
                       console.log('loadData.then(), here the dataService should have loaded the values from the storageService.');
                       $scope[results] = dataService.getData();
                       console.log($scope[results]);
                       markerService.updateMarkers($scope[results]);
-                      //$scope[markers] = markerService.getMarkers();
-                      //console.log($scope[markers]);
+                      //$scope[mapData.markers] = markerService.getMarkers();
+                      //console.log ($scope.mapData.markers.length +  " markers plotted" );
                  });
                  
        } else {

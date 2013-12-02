@@ -26,7 +26,7 @@
                                  <!-- start: BREADCRUMB -->
                                     <ol class="breadcrumb">
                                         <li>
-                                            Map Bounds: ({{bbox}})
+                                            Map Bounds: ({{mapData.bbox}})
                                         </li>
                                         <li >
                                             Search Term
@@ -40,7 +40,6 @@
                                 <div class="panel-body">
                                     <div ng-include src="'home/map/map.tpl.html'">
                                     </div>
-                                        <button type="button" class="btn btn-primary" ng-click="doSomething()">Do Something with the Data!</button>
                                 </div>
                                 <!-- end: MAP PANEL -->
                             </div>
@@ -49,7 +48,7 @@
                     <!-- end: ROW -->
                     <div class="row">
                         <!-- start: GALLERY -->
-                        <div ng-include src="'home/gallery/gallery.tpl.html'" ng-controller="GalleryCtrl">
+                        <div ng-include src="'home/gallery/gallery.tpl.html'" >
                         </div>
                         <!-- end: GALLERY -->
                     </div>

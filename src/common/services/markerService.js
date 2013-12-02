@@ -1,11 +1,22 @@
-angular.module( 'markerService', [
-])
+angular.module( 'markerService', [])
 
-.factory('markerService', [function() {
+.factory('markerService', ['$filter', function($filter) {
+
      // private data vars
-     //var jsonObjectArray = dataService.getData();
      var markerArray = [];
+     var filteredArray = [];
+     var local_icons = {
+        div_icon: L.divIcon({
+                iconSize: [8, 8],
+                iconAnchor: [0, 0],
+                className: 'custom-marker-icon'
 
+        })
+
+      };
+
+
+     //private functions 
      var createMarker = function (jsonObject){
         var marker = {};
         for (var k in jsonObject) {
@@ -15,18 +26,22 @@ angular.module( 'markerService', [
               marker.lng = jsonObject.geojson.coordinates[0];
             } else {
               marker[k] = jsonObject[k];
+              marker['icon'] = local_icons.div_icon;
             }
           } 
         }
         marker.layer = 'locations';
         return marker;      
      };
+
+     //filter variables
+    
+     //var authorsFilter = $filter('filter.authors');
      
 
       //public functions          
      return {
-          updateMarkers: function(jsonObjectArray) {
-           
+          updateMarkers: function(jsonObjectArray) {          
             jsonObjectArray.forEach(function(jsonObject){
               var marker = createMarker(jsonObject);
               markerArray.push(marker);
@@ -35,6 +50,12 @@ angular.module( 'markerService', [
           },
           getMarkers: function(){
             return markerArray;
+          },
+          getFilteredMarkers: function(){
+             return filteredArray;
+          },
+          setFilteredMarkers: function(newArray){
+             filteredArray = newArray;
           }
      };
 
