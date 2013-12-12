@@ -13,12 +13,16 @@
  * specified, as shown below.
  */
 angular.module( 'home', [
+  //angular modules
   'ui.router',
-  'dataService',
-  'markerService',
+  //controllers
   'map',
   'gallery',
-  'sidebar'
+  'sidebar',
+  //services
+  'services.holosData',
+  'services.markerData'
+
 ])
 
 /**
@@ -34,7 +38,7 @@ angular.module( 'home', [
   });
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', 'dataService', 'markerService' ,function ($scope, $timeout, dataService, markerService) {
+.controller('HomeCtrl', ['$scope', '$timeout', 'holosData', 'markerData' ,function ($scope, $timeout, holosData, markerData) {
 
   
   //Initialize variables used by child scopes
@@ -48,17 +52,17 @@ angular.module( 'home', [
   //Get data from http response
   //TODO: Handle http error
   //TODO: Update data when map bounds are changed during pan, zoom in, zoom out
-  $scope.results = dataService.getData();
+  $scope.results = holosData.getData();
 
   $scope.mapData.update = function(results) {
-       if(!dataService.isDataLoaded()) {                                        
-            console.log('Data hasn\'t been loaded, invoking dataService.loadData()');
-            dataService.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
+       if(!holosData.isDataLoaded()) {                                        
+            console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
+            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
                  .then(function() {
-                      console.log('loadData.then(), here the dataService should have loaded the values from the storageService.');
-                      $scope[results] = dataService.getData();
+                      console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
+                      $scope[results] = holosData.getData();
                       console.log($scope[results]);
-                      markerService.updateMarkers($scope[results]);
+                      markerData.updateMarkers($scope[results]);
                       //$scope[mapData.markers] = markerService.getMarkers();
                       //console.log ($scope.mapData.markers.length +  " markers plotted" );
                  });
@@ -66,7 +70,7 @@ angular.module( 'home', [
        } else {
             console.log('Data has already been loaded from storageService, getting cached data instead.');
             
-            $scope[results] = dataService.getData();
+            $scope[results] = services.holosData.getData();
        }
   };
 

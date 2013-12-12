@@ -14,7 +14,8 @@
  */
 angular.module( 'sidebar', [
 'ui.filters',
-'markerService'
+//services
+'services.markerData'
 ])
 
 /**
@@ -24,11 +25,11 @@ angular.module( 'sidebar', [
  */
 
 
-.controller('SidebarCtrl', ['$scope', 'markerService', function ($scope, markerService) {
+.controller('SidebarCtrl', ['$scope', 'markerData', function ($scope, markerData) {
 
 			
      $scope.sidebar = {
-		markers : markerService.getMarkers()		
+		markers : markerData.getMarkers()		
      };
 
 /*     $scope.filter = {

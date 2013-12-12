@@ -13,7 +13,9 @@
  * specified, as shown below.
  */
 angular.module( 'map', [
-  'markerService',
+  //services
+  'services.markerData',
+  //directives
   'leaflet-directive'
 ])
 
@@ -24,7 +26,7 @@ angular.module( 'map', [
  */
 
 
-.controller('MapCtrl', ['$scope', '$timeout', 'leafletData','markerService', function ($scope, $timeout, leafletData, markerService) {
+.controller('MapCtrl', ['$scope', '$timeout', 'leafletData','markerData', function ($scope, $timeout, leafletData, markerData) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
@@ -35,7 +37,7 @@ angular.module( 'map', [
             zoom: 9
   };
 
-  $scope.mapData.markers = markerService.getMarkers();
+  $scope.mapData.markers = markerData.getMarkers();
   //Set default layers
   //TODO: Add satellite basemap
   $scope.mapData.layers = {
