@@ -29,7 +29,7 @@ angular.module( 'sidebar', [
 
 			
      $scope.sidebar = {
-		markers : markerData.getMarkers()		
+		markers : markerData.getMarkers()
      };
 
 /*     $scope.filter = {

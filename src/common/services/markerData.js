@@ -34,21 +34,19 @@ angular.module( 'services.markerData', [])
         return marker;      
      };
 
-     //filter variables
-    
-     //var authorsFilter = $filter('filter.authors');
-     
 
       //public functions          
      return {
-          updateMarkers: function(jsonObjectArray) {          
-            jsonObjectArray.forEach(function(jsonObject){
+          updateMarkers: function(data) {  
+            //empyt array of any previous markers
+            markerArray.length = 0;
+            data.forEach(function(jsonObject){
               var marker = createMarker(jsonObject);
               markerArray.push(marker);
             });
 
           },
-          getMarkers: function(){
+          getMarkers: function() {
             return markerArray;
           },
           getFilteredMarkers: function(){

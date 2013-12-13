@@ -1,11 +1,32 @@
 
 <div ng-controller="GalleryCtrl">
-	<div ng-repeat="marker in gallery.markers | limitTo:gallery.totalDisplayed" class="col-lg-2 col-sm-3 col-xs-4 gallery-img">
-		<div class="wrap-image">
-			<a href="#" title="{{marker.record}}">
-				<img style="height:200px;width:200px" src="{{marker.media_url}}" alt="" class="img-responsive">
-			</a>
-		</div>
+	<div ng-repeat="photos in pagedPhotos[0]">
+		photos
+<!-- 		<div ng-repeat="photo in photos" class="col-lg-2 col-sm-3 col-xs-4 gallery-img">
+			<div class="wrap-image">
+				<a href="#" title="{{photo.record}}">
+					<img style="height:200px;width:200px" src="{{photo.media_url}}" alt="" class="img-responsive">
+				</a>
+			</div>
+		</div> -->
 	</div>
-	<button class="btn" ng-click="loadMore()">Load more</button>
+
+
+
+	<div class="pagination-centered">
+	<ul>
+	  <li ng-class="{disabled: currentPage == 0}">
+	    <a href ng-click="prevPage()">« Prev</a>
+	  </li>
+	  <li ng-repeat="n in range(pagedPhotos.length)"
+	    ng-class="{active: n == currentPage}"
+	    ng-click="setPage()">
+	    <a href ng-bind="n + 1">1</a>
+	  </li>
+	  <li ng-class="{disabled: currentPage == pagedPhotos.length - 1}">
+	    <a href ng-click="nextPage()">Next »</a>
+	  </li>
+	</ul>
+	</div>
+
 </div>

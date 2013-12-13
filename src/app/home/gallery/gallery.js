@@ -24,18 +24,66 @@ angular.module( 'gallery', [
  */
 
 
-.controller('GalleryCtrl', ['$scope', 'markerData',function ($scope, markerData) {
+.controller('GalleryCtrl', ['$scope', 'markerData', function ($scope, markerData) {
 
     console.log('reached gallery control');
 
     $scope.gallery = {
-		markers : markerData.getMarkers(),
-		totalDisplayed: 12
+		markers : markerData.getMarkers()
     };
     
+	var itemsPerPage = 6;
+	$scope.pagedPhotos = [];
+	$scope.currentPage = 0;
 
-	$scope.loadMore = function () {
-		$scope.gallery.totalDisplayed += 12;  
+	$scope.$watchCollection('gallery.markers', function(){
+		$scope.totalItems = $scope.gallery.markers.length;
+		$scope.currentPage = 0;
+		$scope.groupToPages();
+		console.log('photos', $scope.totalItems);
+	});
+
+	// calc pages in place
+	$scope.groupToPages = function () {
+		$scope.pagedPhotos = [];
+
+		for (var i = 0; i < $scope.totalItems; i++) {
+			if (i % itemsPerPage === 0) {
+				console.log($scope.gallery.markers[i]);
+				$scope.pagedPhotos[Math.floor(i / itemsPerPage)] = [ $scope.gallery.markers[i] ];
+		} else {
+				$scope.pagedPhotos[Math.floor(i / itemsPerPage)].push($scope.gallery.markers[i]);
+			}
+		}
+	};
+
+	$scope.prevPage = function () {
+		if ($scope.currentPage > 0) {
+			$scope.currentPage--;
+		}
+	};
+
+	$scope.nextPage = function () {
+		if ($scope.currentPage < $scope.pagedPhotos.length - 1) {
+			$scope.currentPage++;
+		}
+	};
+
+	$scope.setPage = function () {
+		$scope.currentPage = this.n;
+	};
+
+	// like python's range fn
+	$scope.range = function (start, end) {
+		var ret = [];
+		if (!end) {
+			end = start;
+			start = 0;
+		}
+		for (var i = start; i < end; i++) {
+			ret.push(i);
+		}
+		return ret;
 	};
 
    

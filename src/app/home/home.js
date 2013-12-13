@@ -20,9 +20,8 @@ angular.module( 'home', [
   'gallery',
   'sidebar',
   //services
-  'services.holosData',
-  'services.markerData'
-
+  'services.markerData',
+  'services.holosData'
 ])
 
 /**
@@ -42,40 +41,34 @@ angular.module( 'home', [
 
   
   //Initialize variables used by child scopes
-  $scope.mapData = {bbox : null};
+  $scope.mapData = {
+      bbox : null
 
-  
+  };
 
 
-
-
-  //Get data from http response
+     //Get data from http response
   //TODO: Handle http error
   //TODO: Update data when map bounds are changed during pan, zoom in, zoom out
-  $scope.results = holosData.getData();
+  //$scope.results = holosData.getData();
+  //console.log($scope.results);
 
-  $scope.mapData.update = function(results) {
+  $scope.mapData.update = function() {
        if(!holosData.isDataLoaded()) {                                        
             console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
             holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
                  .then(function() {
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
-                      $scope[results] = holosData.getData();
-                      console.log($scope[results]);
-                      markerData.updateMarkers($scope[results]);
-                      //$scope[mapData.markers] = markerService.getMarkers();
-                      //console.log ($scope.mapData.markers.length +  " markers plotted" );
+                      var data = holosData.getData();
+                      markerData.updateMarkers(data);
                  });
                  
        } else {
             console.log('Data has already been loaded from storageService, getting cached data instead.');
             
-            $scope[results] = services.holosData.getData();
+            $scope[results] = holosData.getData();
        }
   };
-
-
-   
 
 
 
