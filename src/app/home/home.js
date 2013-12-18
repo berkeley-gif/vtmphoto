@@ -61,6 +61,7 @@ angular.module( 'home', [
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
                       var data = holosData.getData();
                       markerData.updateMarkers(data);
+                      markerData.resetFilteredMarkers();
                  });
                  
        } else {

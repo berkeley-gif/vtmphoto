@@ -4,6 +4,7 @@ angular.module( 'services.markerData', [])
 
      // private data vars
      var markerArray = [];
+     var markerCount;
      var filteredArray = [];
      var local_icons = {
         div_icon: L.divIcon({
@@ -44,6 +45,7 @@ angular.module( 'services.markerData', [])
               var marker = createMarker(jsonObject);
               markerArray.push(marker);
             });
+            markerCount = markerArray.length;
 
           },
           getMarkers: function() {
@@ -52,8 +54,13 @@ angular.module( 'services.markerData', [])
           getFilteredMarkers: function(){
              return filteredArray;
           },
-          setFilteredMarkers: function(newArray){
-             filteredArray = newArray;
+          updateFilteredMarkers: function(newArray){
+             angular.copy(newArray, filteredArray);
+             console.log('from service');
+             console.log(filteredArray);
+          },
+          resetFilteredMarkers: function(){
+            angular.copy(markerArray, filteredArray);
           }
      };
 

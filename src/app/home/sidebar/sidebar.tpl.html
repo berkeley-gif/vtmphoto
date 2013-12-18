@@ -21,19 +21,28 @@
 	 							<div class="control-group">
 	    							<label class="control-label" for="county">County</label>
 	    							<div class="controls">
-										<select class="form-control" ng-model="filter.county" ng-options="marker.county for marker in sidebar.markers | unique:'county'">
+										<select class="form-control" ng-model="filter.county" ng-change="filterMarkers()" ng-options="marker.county as marker.county for marker in sidebar.markers | unique:'county'">
+											<option value="">All</option>
 										</select>
 	    							</div>
 	  							</div>
 	  							<div class="control-group">
-	    							<label class="control-label" for="county">Photographer</label>
+	    							<label class="control-label" for="authors">Photographer</label>
 	    							<div class="controls">
-										<select class="form-control" ng-model="filter.authors" ng-options="marker.authors for marker in sidebar.markers | unique:'authors'">
+										<select class="form-control" ng-model="filter.authors" ng-change="filterMarkers()" ng-options="marker.authors as marker.authors for marker in sidebar.markers | unique:'authors'">
+											<option value="">All</option>
 										</select>
+	    							</div>
+	  							</div>
+	  							<div class="control-group">
+	    							<label class="control-label" for="date">Year Range</label>
+	    							<div class="controls">
+	    								<div ui-slider="{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" ng-model="yearSlider.range" ng-change="filterMarkers()"></div>
 	    							</div>
 	  							</div>
   							</fieldset>
   						</form>
+  						Displaying {{filteredCount}} of {{markerCount}} results
   					</div>
   					</div>
 					<!-- end: MAIN NAVIGATION MENU -->

@@ -14,6 +14,7 @@
  */
 angular.module( 'sidebar', [
 'ui.filters',
+'ui.slider',
 //services
 'services.markerData'
 ])
@@ -25,18 +26,80 @@ angular.module( 'sidebar', [
  */
 
 
-.controller('SidebarCtrl', ['$scope', 'markerData', function ($scope, markerData) {
+.controller('SidebarCtrl', ['$scope', '$filter', 'markerData', function ($scope, $filter, markerData) {
 
 			
-     $scope.sidebar = {
+	$scope.sidebar = {
 		markers : markerData.getMarkers()
-     };
+	};
 
-/*     $scope.filter = {
-		county : null,
-		authors : null
-     };*/
 
+
+	$scope.$watchCollection('sidebar.markers', function(){		
+		$scope.markerCount = $scope.sidebar.markers.length;
+		$scope.filteredMarkers = $scope.sidebar.markers;
+		$scope.filteredCount = $scope.filteredMarkers.length;
+
+	});
+
+	var currentYear = new Date().getFullYear();
+	//initialize slider variables
+	$scope.yearSlider = {
+		min: 1920,
+		max: currentYear,
+		range: [1920, currentYear]
+	};
+
+
+	//filter function
+	$scope.filterMarkers = function (){
+
+		//reset filtered markers to all markers in scope
+		$scope.filteredMarkers = $scope.sidebar.markers;
+		
+		var filtered;
+		filtered = $filter('filter')($scope.filteredMarkers, function (marker) {
+
+			var countyMatch = true;
+			var authorsMatch = true;
+			var yearMatch = true;
+
+			if ($scope.filter.county != 'All'){
+				countyMatch = searchMatch(marker.county, $scope.filter.county);
+			}
+			if ($scope.filter.authors != 'All') {
+				authorsMatch = searchMatch(marker.authors, $scope.filter.authors);
+			}
+			console.log($scope.yearSlider.range);
+			if (($scope.yearSlider.range[0] != 1920) || ($scope.yearSlider.range[1] != currentYear)) {
+				var year = new Date(marker.begin_date).getFullYear();
+				if ((year < $scope.yearSlider.range[0]) || (year > $scope.yearSlider.range[1])) {
+					yearMatch = false;
+				}
+			}
+
+			return (countyMatch && authorsMatch && yearMatch);
+		});
+
+		if (filtered){
+			$scope.filteredCount = filtered.length;
+			$scope.filteredMarkers = filtered;
+			markerData.updateFilteredMarkers($scope.filteredMarkers);
+		}
+
+		
+
+	};
+
+	
+
+	// search helper function
+	var searchMatch = function (haystack, needle) {
+		if (!needle) {
+			return true;
+		}
+		return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+	};
 
 
 

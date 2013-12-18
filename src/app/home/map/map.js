@@ -40,7 +40,7 @@ angular.module( 'map', [
 
   
 
-  $scope.mapData.markers = markerData.getMarkers();
+  $scope.mapData.markers = markerData.getFilteredMarkers();
   //Set default layers
   //TODO: Add satellite basemap
   $scope.mapData.layers = {

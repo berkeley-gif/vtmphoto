@@ -29,10 +29,11 @@ angular.module( 'gallery', [
     console.log('reached gallery control');
 
     $scope.gallery = {
-		markers : markerData.getMarkers()
+		markers : markerData.getFilteredMarkers()
     };
+
     
-	var itemsPerPage = 6;
+	var itemsPerPage = 12;
 	$scope.pagedPhotos = [];
 	$scope.currentPage = 0;
 
@@ -49,7 +50,6 @@ angular.module( 'gallery', [
 
 		for (var i = 0; i < $scope.totalItems; i++) {
 			if (i % itemsPerPage === 0) {
-				console.log($scope.gallery.markers[i]);
 				$scope.pagedPhotos[Math.floor(i / itemsPerPage)] = [ $scope.gallery.markers[i] ];
 		} else {
 				$scope.pagedPhotos[Math.floor(i / itemsPerPage)].push($scope.gallery.markers[i]);
