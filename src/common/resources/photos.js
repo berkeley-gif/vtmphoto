@@ -1,7 +1,7 @@
 angular.module('resources.photos', ['resources.holos']);
-angular.module('resources.photos').factory('Photos', ['resources.holos', function (holosResource) {
+angular.module('resources.photos').factory('Photos', ['resources.holos', function (holos) {
 
-  var photoResource = holosResource('photos');
+  var photoResource = holos('photos');
 /*  userResource.prototype.getFullName = function () {
     return this.lastName + " " + this.firstName + " (" + this.email + ")";
   };*/

@@ -1,21 +1,23 @@
 				<!-- start: SIDEBAR -->
-				<div class="  navbar-collapse collapse navbar-sidebar-collapse" ng-controller="SidebarCtrl">
+				<div class="sidebar-inner" ng-controller="SidebarCtrl">
 					<!-- start: RESPONSIVE MENU TOGGLER -->
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-sidebar-collapse"   >
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<!-- end: RESPONSIVE MENU TOGGLER -->
-					<!-- start: MAIN MENU TOGGLER BUTTON -->
-					<div class="navigation-toggler">
-						<i class="glyphicon glyphicon-chevron-left"></i>
-						<i class="glyphicon glyphicon-chevron-right"></i>
+					<div class="size-toggle">
+						<a class="btn btn-sm" id="sizeToggle">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+						<a class="btn btn-sm pull-right" href="login.html">
+							<i class="fa fa-power-off"></i>
+						</a>
 					</div>
-					<!-- end: MAIN MENU TOGGLER BUTTON -->
+					<!-- end: RESPONSIVE MENU TOGGLER -->
 					<!-- start: MAIN NAVIGATION MENU -->
-					<div class="main-navigation">
-					<div class="well">
+					<div class="user-block">
+						<h4>User Profile</h4>
+					</div>
+					<div class="filter-block">
+						<h4>Filters</h4>
 						<form role="form">
 							<fieldset>
 	 							<div class="control-group">
@@ -42,9 +44,11 @@
 	  							</div>
   							</fieldset>
   						</form>
+  					</div>
+  					<div class="results-block">
   						Displaying {{filteredCount}} of {{markerCount}} results
   					</div>
-  					</div>
+  						
 					<!-- end: MAIN NAVIGATION MENU -->
 				</div>
 				<!-- end: SIDEBAR --> 

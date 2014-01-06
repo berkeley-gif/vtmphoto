@@ -1,31 +1,26 @@
-angular.module( 'vtmphotoApp.about', [
-  'ui.state',
-  'placeholders',
-  'ui.bootstrap',
-  'titleService'
+angular.module( 'about', [
+  //angular modules
+  'ui.router'
 ])
 
-.config(function config( $stateProvider ) {
+/**
+ * Each section or module of the site can also have its own routes. AngularJS
+ * will handle ensuring they are all available at run-time, but splitting it
+ * this way makes each module more "self-contained".
+ */
+.config(function config($stateProvider) {
   $stateProvider.state( 'about', {
     url: '/about',
-    views: {
-      "main": {
-        controller: 'AboutCtrl',
-        templateUrl: 'about/about.tpl.html'
-      }
-    }
+    templateUrl: 'about/about.tpl.html',
+    controller: 'AboutCtrl'
   });
 })
 
-.controller( 'AboutCtrl', function AboutCtrl( $scope, titleService ) {
-  titleService.setTitle( 'About' );
+.controller('AboutCtrl', ['$scope', function ($scope) {
+
   
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
-})
+
+}]) //End: AboutCtrl
 
 ;
+

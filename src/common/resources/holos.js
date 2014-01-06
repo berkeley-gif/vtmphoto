@@ -2,8 +2,8 @@ angular.module('resources.holos', []).factory('resources.holos', ['HOLOS_CONFIG'
 
   function HolosResourceFactory(resourceName) {
 
-    var url = HOLOS_CONFIG.baseUrl + '/api/' + resourceName + '/';
-    var defaultParams = {};
+    var url = HOLOS_CONFIG.baseUrl + '/api/' + resourceName;
+    var defaultParams = {format: 'json'};
     if (HOLOS_CONFIG.apiKey) {
       defaultParams.apiKey = HOLOS_CONFIG.apiKey;
     }

@@ -1,10 +1,12 @@
 angular.module( 'vtmphotoApp', [
   'ui.router',
-  //'ui.compat',
+  'ui.compat',
   'templates-app',
   'templates-common',
   'services.httpRequestTracker',
-  'home'
+  'home',
+  'about',
+  'detail'
 ])
 
 .constant('HOLOS_CONFIG', {
@@ -12,6 +14,7 @@ angular.module( 'vtmphotoApp', [
 })
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider ) {
+    
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/home");
 

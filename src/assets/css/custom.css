@@ -17,13 +17,68 @@
 	width:auto !important;
 }
 .footer-fixed .main-content .container{
-	margin-bottom:22px;
+	margin-bottom: 22px;
 }
+.panel .panel-default {
+	box-shadow: 0 2px 3px rgba(0,0,0,.3);
+}
+/* ---------------------------------------------------------------------- */
+/*	Sidebar
+ /* ---------------------------------------------------------------------- */
+.sidebar-inner {
+	position: fixed;
+	display: block;
+	float: left;
+	width: 225px;
+	z-index: 1000;
+	height:	100%;
+	background-color: #f9f9f9;
+	padding: 15px;
+}
+.sidebar-inner > div {
+	border-bottom: 1px solid #ecf0f1;
+	padding-top: 10px;
+	padding-bottom: 10px;
+} 
+.sidebar-inner .control-group {
+	padding-bottom: 10px;
+}
+.sidebar-inner .form-control {
+	height: 30px;
+	padding: 5px 5px;
+	font-size: 13px;
+}
+.sidebar-inner .control-label {
+	font-weight: normal;
+	margin-bottom: 3px;
+}
+.size-toggle .btn {
+	col or: #777;
+}
+.size-toggle .btn .icon-bar {
+	background-color: #a1a4bd;
+	display: block;
+	width: 13px;
+	height: 2px;
+	margin-bottom: 2px;
+	border-radius: 1px;
+	transition: all 0.2s ease;
+}
+
+
+
+
+
+
+
+
+
+
 /* ---------------------------------------------------------------------- */
 /*	Main Navigation
  /* ---------------------------------------------------------------------- */
 .main-navigation {
-	padding: 0;
+	padding: 15px;
 	max-height: none !important;
 	z-index: 1000;
 }
@@ -230,10 +285,22 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 .ui-slider .ui-slider-handle {
 	position: absolute;
 	z-index: 2;
-	width: 1.2em;
-	height: 1.2em;
+	width: 1em;
+	height: 1em;
 	cursor: default;
+	border-radius: 1em/1em;
 }
+.ui-slider .ui-slider-handle:after {
+	content: '';
+	background-color: #cccccc;
+	width: 7px;
+	height: 7px;
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	border-radius: 1em/1em;
+}
+
 .ui-slider .ui-slider-range {
 	position: absolute;
 	z-index: 1;
@@ -250,7 +317,7 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 }
 
 .ui-slider-horizontal {
-	height: .8em;
+	height: .5em;
 }
 .ui-slider-horizontal .ui-slider-handle {
 	top: -.3em;
@@ -318,7 +385,7 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 	font-size: 1.1em;
 }
 .ui-widget-content {
-	border: 1px solid #aaaaaa;
+	border: 1px solid #dce4ec;
 	background: #ffffff;
 	color: #222222;
 }
@@ -328,7 +395,7 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #d3d3d3;
-	background: #e6e6e6;
+	background: #ffffff;
 	font-weight: normal;
 	color: #555555;
 }
@@ -345,7 +412,7 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #999999;
-	background: #dadada;
+	background: #ffffff;
 	font-weight: normal;
 	color: #212121;
 }
