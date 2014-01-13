@@ -49,8 +49,8 @@ module.exports = {
    */
   vendor_files: {
     js: [
-      'vendor/leaflet/leaflet-src.js',     
-      'vendor/leaflet/plugins/leaflet.markercluster-src.js',  
+      'vendor/leaflet-dist/leaflet-src.js',     
+      'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  
       'vendor/jquery/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
       'vendor/angular/angular.js',
@@ -58,11 +58,12 @@ module.exports = {
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
+      'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',
       'vendor/bootstrap/dist/js/bootstrap.js'
 
     ],
     css: [
-    'vendor/leaflet/css/leaflet.css'
+    'vendor/leaflet-dist/leaflet.css'
     ]
   },
 };

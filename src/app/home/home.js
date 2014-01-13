@@ -41,10 +41,10 @@ angular.module( 'home', [
 
   
   //Initialize variables used by child scopes
-  $scope.mapData = {
+/*  $scope.mapData = {
       bbox : null
 
-  };
+  };*/
 
 
      //Get data from http response
@@ -53,23 +53,23 @@ angular.module( 'home', [
   //$scope.results = holosData.getData();
   //console.log($scope.results);
 
-  $scope.mapData.update = function() {
-       if(!holosData.isDataLoaded()) {                                        
-            console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
-            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
-                 .then(function() {
-                      console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
-                      var data = holosData.getData();
-                      markerData.updateMarkers(data);
-                      markerData.resetFilteredMarkers();
-                 });
+  // $scope.mapData.update = function() {
+  //      if(!holosData.isDataLoaded()) {                                        
+  //           console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
+  //           holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
+  //                .then(function() {
+  //                     console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
+  //                     var data = holosData.getData();
+  //                     markerData.updateMarkers(data);
+  //                     markerData.resetFilteredMarkers();
+  //                });
                  
-       } else {
-            console.log('Data has already been loaded from storageService, getting cached data instead.');
+  //      } else {
+  //           console.log('Data has already been loaded from storageService, getting cached data instead.');
             
-            $scope[results] = holosData.getData();
-       }
-  };
+  //           $scope[results] = holosData.getData();
+  //      }
+  // };
 
 
 

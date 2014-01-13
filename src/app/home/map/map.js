@@ -27,23 +27,33 @@ angular.module( 'map', [
  */
 
 
-.controller('MapCtrl', ['$scope', '$timeout', 'leafletData','markerData', function ($scope, $timeout, leafletData, markerData) {
+.controller('MapCtrl', ['$scope', '$timeout', 'leafletData','markerData', 'holosData', function ($scope, $timeout, leafletData, markerData, holosData) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
   console.log('reached map control');
-  $scope.mapData.center = {
+
+  angular.extend($scope, {
+    center : {
+      lat: 36.23,
+      lng: -118.8,
+      zoom: 9
+    }
+  });
+/*  $scope.mapData.center = {
             lat: 36.23,
             lng: -118.8,
             zoom: 9
   };
+*/
+  $scope.bbox = null;
 
   
 
-  $scope.mapData.markers = markerData.getFilteredMarkers();
+  $scope.markers = markerData.getFilteredMarkers();
   //Set default layers
   //TODO: Add satellite basemap
-  $scope.mapData.layers = {
+  $scope.layers = {
                     baselayers: {
                         streets: {
                             name: 'Streets',
@@ -98,7 +108,6 @@ angular.module( 'map', [
 
   };
   //Set default icon for marker
-  //TODO: 
   var local_icons = {
     div_icon: L.divIcon({
             iconSize: [8, 8],
@@ -108,7 +117,9 @@ angular.module( 'map', [
     })
 
   };
-  $scope.mapData.icons = local_icons;
+  $scope.icons = local_icons;
+
+ 
   
 
   //Get map bounds and set bbox initialized on parent controller
@@ -129,6 +140,22 @@ angular.module( 'map', [
   //Watch for leaflet map event, update bbox, update markers
   //var mapEvents = leafletEvents.getAvailableMapEvents();
   $scope.$on('leafletDirectiveMap.moveend', function(event, args) {
+        console.log ("Updating map bounds on move event");
+        leafletData.getMap().then(function(map) {
+            var latlngBounds = map.getBounds();
+            var west = latlngBounds.getWest();
+            var south = latlngBounds.getSouth();
+            var east = latlngBounds.getEast();
+            var north = latlngBounds.getNorth();
+            $scope.bbox = west + ',' + south + ',' + east + ',' + north;
+            console.log($scope.bbox);
+            //$scope.mapData.update();
+            //console.log('markers', $scope.mapData.markers.length);
+        });
+  }); 
+
+  //Watch for leaflet map event, update bbox, update markers
+/*  $scope.$on('bbox', function(event, args) {
       //$timeout( function() {
         console.log ("Resolving map promise on move event");
         leafletData.getMap().then(function(map) {
@@ -143,7 +170,26 @@ angular.module( 'map', [
         });
       //}  , 1000);
 
-  }); 
+  });*/
+
+  $scope.$watch('bbox', updateData);
+
+   $scope.updateData = function() {
+       if(!holosData.isDataLoaded()) {                                        
+            console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
+            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
+                 .then(function() {
+                      console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
+                      var data = holosData.getData();
+                      markerData.updateMarkers(data);
+                      markerData.resetFilteredMarkers();
+                 });
+                 
+       } else {
+            console.log('Data has already been loaded from storageService, getting cached data instead.');            
+            $scope[results] = holosData.getData();
+       }
+  };
 
 
 
