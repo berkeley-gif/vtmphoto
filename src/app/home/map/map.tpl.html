@@ -1,5 +1,24 @@
 <div ng-controller="MapCtrl" >
-		<leaflet  class ="map" center="center" markers="markers" layers="layers">
-         </leaflet>
+	<div class="panel panel-default" >
+	    <div class="panel-heading">
+	     <!-- start: BREADCRUMB -->
+	        <ol class="breadcrumb">
+	            <li>
+	                Map Bounds: ({{bbox}})
+	            </li>
+	            <li >
+	                Search Term
+	            </li>
+	            <li >
+	                Filters
+	            </li>
+	        </ol>
+	    <!-- end: BREADCRUMB -->
+	    </div>
+	    <div class="panel-body">
+	        <leaflet  class ="map" center="center" markers="markers" layers="layers" watch-markers="no">
+	         </leaflet>
+	    </div>
+	</div>
 </div>
 			

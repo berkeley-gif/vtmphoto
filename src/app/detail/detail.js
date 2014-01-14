@@ -4,6 +4,8 @@
 angular.module( 'detail', [
   //angular modules
   'ui.router',
+  'record',
+  'sidebar',
    //services
   'resources.photos'
 ])
@@ -24,7 +26,7 @@ angular.module( 'detail', [
           },*/
           photos:['Photos', '$stateParams', function (Photos, $stateParams) {
            //var temp = Photos.query({collection_code : 'VTM', format: 'json', fields: 'record,geojson,county'});
-            //console.log(record);
+            console.log($stateParams.record);
             return Photos.getById ($stateParams.record);
           }]
       }
@@ -34,7 +36,7 @@ angular.module( 'detail', [
 .controller('DetailCtrl', ['$scope', 'photos' , function ($scope, photos) {
 
        $scope.record = photos.data;
-       console.log($scope.record);
+       console.log('from parent', $scope.record);
 
 
 

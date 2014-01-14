@@ -40,12 +40,7 @@ angular.module( 'map', [
       zoom: 9
     }
   });
-/*  $scope.mapData.center = {
-            lat: 36.23,
-            lng: -118.8,
-            zoom: 9
-  };
-*/
+
   $scope.bbox = null;
 
   
@@ -109,33 +104,16 @@ angular.module( 'map', [
   };
   //Set default icon for marker
   var local_icons = {
-    div_icon: L.divIcon({
+    div_icon: {
+            type: 'div',
             iconSize: [8, 8],
             iconAnchor: [0, 0],
             className: 'custom-marker-icon'
 
-    })
-
+    }
   };
-  $scope.icons = local_icons;
-
- 
   
-
-  //Get map bounds and set bbox initialized on parent controller
-  //TODO: Figure out how to watch when bounds change
-/*  $timeout( function() {
-      console.log ("Resolving promise");
-      leafletData.getMap().then(function(map) {
-          var latlngBounds = map.getBounds();
-          var west = Math.round(latlngBounds.getWest());
-          var south = Math.round(latlngBounds.getSouth());
-          var east = Math.round(latlngBounds.getEast());
-          var north = Math.round(latlngBounds.getNorth());
-          $scope.mapData.bbox = west + ',' + south + ',' + east + ',' + north;
-      });
-  }  , 1000);*/
-
+  $scope.icons = local_icons;
 
   //Watch for leaflet map event, update bbox, update markers
   //var mapEvents = leafletEvents.getAvailableMapEvents();
@@ -154,41 +132,20 @@ angular.module( 'map', [
         });
   }); 
 
-  //Watch for leaflet map event, update bbox, update markers
-/*  $scope.$on('bbox', function(event, args) {
-      //$timeout( function() {
-        console.log ("Resolving map promise on move event");
-        leafletData.getMap().then(function(map) {
-            var latlngBounds = map.getBounds();
-            var west = latlngBounds.getWest();
-            var south = latlngBounds.getSouth();
-            var east = latlngBounds.getEast();
-            var north = latlngBounds.getNorth();
-            $scope.mapData.bbox = west + ',' + south + ',' + east + ',' + north;
-            $scope.mapData.update();
-            console.log('markers', $scope.mapData.markers.length);
-        });
-      //}  , 1000);
+  $scope.$watch('bbox', function() {
+      $scope.updateData();
+  });
 
-  });*/
-
-  $scope.$watch('bbox', updateData);
-
-   $scope.updateData = function() {
-       if(!holosData.isDataLoaded()) {                                        
+  $scope.updateData = function() {
+       //if(!holosData.isDataLoaded()) {                                        
             console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
-            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.mapData.bbox)
+            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.bbox)
                  .then(function() {
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
                       var data = holosData.getData();
                       markerData.updateMarkers(data);
                       markerData.resetFilteredMarkers();
-                 });
-                 
-       } else {
-            console.log('Data has already been loaded from storageService, getting cached data instead.');            
-            $scope[results] = holosData.getData();
-       }
+                  });
   };
 
 

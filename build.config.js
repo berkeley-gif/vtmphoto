@@ -63,7 +63,7 @@ module.exports = {
 
     ],
     css: [
-    'vendor/leaflet-dist/leaflet.css'
+      'vendor/leaflet-dist/leaflet.css'
     ]
   },
 };

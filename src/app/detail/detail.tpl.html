@@ -1,9 +1,7 @@
 
-
-
             <!-- start: SIDEBAR -->
             <div class="navbar-content">
-                <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
+                <div ng-include src="'detail/sidebar/sidebar.tpl.html'" >
                 </div>
             </div>
             <!-- end: SIDEBAR -->
@@ -14,7 +12,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-header">
-                                <h1>{{record.authors}} <small>{{record.begn_date}}</small></h1>
+                                <p>{{record.photog_notes}}</p>
                             </div>
                         </div>
                     </div>
@@ -22,26 +20,19 @@
                     <!-- start: PAGE CONTENT -->
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- start: MAP PANEL -->
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                   <img src="{{record.media_url}}" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <!-- end: MAP PANEL -->
+                            <!-- start: PHOTO PANEL -->
+                             <div ng-include src="'detail/record/record.tpl.html'">
                             </div>
+                            <!-- end: PHOTO PANEL -->
                         </div>
                     </div>
                     <!-- end: ROW -->
-  
                 </div>
                  <!-- end: CONTAINER -->
             </div>
             <!-- end: MAIN CONTENT -->
+            <!-- end: MAIN CONTENT -->
 
 
  
-
-
-
 

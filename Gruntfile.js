@@ -128,16 +128,16 @@ module.exports = function ( grunt ) {
           }
         ]
       },
-build_vendorcss: {
-    files: [
-        {
-            src: [ '<%= vendor_files.css %>' ],
-            dest: '<%= build_dir %>/',
-            cwd: '.',
-            expand: true
-        }
-    ]
-},
+      build_vendorcss: {
+          files: [
+              {
+                  src: [ '<%= vendor_files.css %>' ],
+                  dest: '<%= build_dir %>/',
+                  cwd: '.',
+                  expand: true
+              }
+          ]
+      },
       compile_assets: {
         files: [
           {
