@@ -30,7 +30,7 @@
 	display: block;
 	float: left;
 	width: 225px;
-	z-index: 1000;
+	z-index: 1015;
 	height:	100%;
 	background-color: #f9f9f9;
 	padding: 15px;
@@ -52,19 +52,7 @@
 	font-weight: normal;
 	margin-bottom: 3px;
 }
-.size-toggle .btn {
-	col or: #777;
-}
-.size-toggle .btn .icon-bar {
-	background-color: #a1a4bd;
-	display: block;
-	width: 13px;
-	height: 2px;
-	margin-bottom: 2px;
-	border-radius: 1px;
-	transition: all 0.2s ease;
-}
-
+*/
 /* ---------------------------------------------------------------------- */
 /*	Map
  /* ---------------------------------------------------------------------- */

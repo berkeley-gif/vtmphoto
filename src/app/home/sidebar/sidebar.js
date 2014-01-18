@@ -16,7 +16,8 @@ angular.module( 'sidebar', [
 'ui.filters',
 'ui.slider',
 //services
-'services.markerData'
+'services.markerData',
+'bnSlideShow'
 ])
 
 /**
@@ -28,13 +29,26 @@ angular.module( 'sidebar', [
 
 .controller('SidebarCtrl', ['$scope', '$filter', 'markerData', function ($scope, $filter, markerData) {
 
-			
+	// Initialize markers		
 	$scope.sidebar = {
 		markers : markerData.getMarkers()
 	};
 
+	// Initialize filter fields
+	$scope.filter = {
+		county : "",
+		authors : ""
+	};
 
+	// Initialize slider values
+	var currentYear = new Date().getFullYear();
+	$scope.yearSlider = {
+		min: 1920,
+		max: currentYear,
+		range: [1920, currentYear]
+	};
 
+	// Watch markers
 	$scope.$watchCollection('sidebar.markers', function(){		
 		$scope.markerCount = $scope.sidebar.markers.length;
 		$scope.filteredMarkers = $scope.sidebar.markers;
@@ -42,19 +56,10 @@ angular.module( 'sidebar', [
 
 	});
 
-	var currentYear = new Date().getFullYear();
-	//initialize slider variables
-	$scope.yearSlider = {
-		min: 1920,
-		max: currentYear,
-		range: [1920, currentYear]
-	};
-
-
-	//filter function
+	// Filter function
 	$scope.filterMarkers = function (){
 
-		//reset filtered markers to all markers in scope
+		//Reset filtered markers to all markers in scope
 		$scope.filteredMarkers = $scope.sidebar.markers;
 		
 		var filtered;
@@ -91,15 +96,22 @@ angular.module( 'sidebar', [
 
 	};
 
-	
 
-	// search helper function
+	// Search helper function
 	var searchMatch = function (haystack, needle) {
 		if (!needle) {
 			return true;
 		}
 		return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
 	};
+
+	// Toggle sidebar function
+	$scope.toggle = function() {
+		$scope.isVisible = ! $scope.isVisible;
+	};
+ 
+    // Default the blocks to be visible.
+    $scope.isVisible = true;
 
 
 

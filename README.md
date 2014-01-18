@@ -9,8 +9,8 @@ An opinionated kickstarter for [AngularJS](http://angularjs.org) projects.
 Install Node.js and then:
 
 ```sh
-$ git clone git://github.com/joshdmiller/ng-boilerplate
-$ cd ng-boilerplate
+$ git clone git://github.com/berkeley-gif/vtmphoto
+$ cd vtmphoto
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
