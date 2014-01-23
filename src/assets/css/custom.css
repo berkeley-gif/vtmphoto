@@ -74,6 +74,7 @@
     transition: transform 0.2s ease-out, opacity 0.2s ease-in;
 }
 
+
 .marker-cluster-small {
     background: url(img/cluster-icon.svg);
     background-repeat: no-repeat;

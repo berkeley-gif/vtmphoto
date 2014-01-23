@@ -11,7 +11,8 @@
     "angular-leaflet": "~0.7.3",
     "angular-leaflet-directive": "~0.7.3",
     "angular-resource": "~1.2.8",
-    "angular-ui-router": "~0.2.7"
+    "angular-ui-router": "~0.2.7",
+    "ui-bootstrap": "~0.10.0"
   },
   "resolutions": {
     "angular": "~1.2.8",

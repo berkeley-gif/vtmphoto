@@ -33,15 +33,33 @@ angular.module( 'map', [
   //TODO: Get location from user IP address
   console.log('reached map control');
 
+   //Set default icon for marker
+  var local_icons = {
+    div_icon: {
+            type: 'div',
+            iconSize: [8, 8],
+            iconAnchor: [0, 0],
+            className: 'custom-marker-icon'
+
+    }
+  };
+
   angular.extend($scope, {
     center : {
       lat: 36.23,
       lng: -118.8,
       zoom: 9
-    }
+    },
+    defaults : {
+      icon: {
+        type: 'div',
+        iconSize: [8, 8],
+        iconAnchor: [0, 0],
+        className: 'custom-marker-icon'
+      },
+      bbox : null
+    } 
   });
-
-  $scope.bbox = null;
 
   
 
@@ -102,18 +120,7 @@ angular.module( 'map', [
                     }
 
   };
-  //Set default icon for marker
-  var local_icons = {
-    div_icon: {
-            type: 'div',
-            iconSize: [8, 8],
-            iconAnchor: [0, 0],
-            className: 'custom-marker-icon'
-
-    }
-  };
-  
-  $scope.icons = local_icons;
+ 
 
   //Watch for leaflet map event, update bbox, update markers
   //var mapEvents = leafletEvents.getAvailableMapEvents();
@@ -134,6 +141,24 @@ angular.module( 'map', [
 
   $scope.$watch('bbox', function() {
       $scope.updateData();
+  });
+
+  $scope.$watch('bbox', function( newValue, oldValue ) {
+    console.log('newvalue', newValue);
+    console.log('oldvalue ', oldValue);
+
+    // Ignore initial setup
+    if ( newValue === oldValue ) {
+      return;
+    }
+
+    // Load data from service
+    if ($scope.bbox === newValue ) {
+       return;
+    } else {
+      $scope.updateData();
+    }
+
   });
 
   $scope.updateData = function() {

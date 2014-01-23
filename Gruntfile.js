@@ -138,6 +138,16 @@ module.exports = function ( grunt ) {
               }
           ]
       },
+      build_leafletimg: {
+          files: [
+              {
+                  src: [ '**' ],
+                  dest: '<%= build_dir %>/vendor/leaflet-dist/images',
+                  cwd: 'vendor/leaflet-dist/images',
+                  expand: true
+              }
+          ]
+      },
       compile_assets: {
         files: [
           {
@@ -550,7 +560,7 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee','recess:build',
-    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss',
+    'copy:build_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss','copy:build_leafletimg',
     'index:build', 'karmaconfig', 'karma:continuous' 
   ]);
 

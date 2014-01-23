@@ -59,6 +59,7 @@ module.exports = {
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+      'vendor/ui-bootstrap/src/modal/modal.js',
       'vendor/bootstrap/dist/js/bootstrap.js'
 
     ],

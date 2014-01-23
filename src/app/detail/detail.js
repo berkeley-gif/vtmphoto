@@ -4,6 +4,7 @@
 angular.module( 'detail', [
   //angular modules
   'ui.router',
+  'ui.bootstrap.modal',
   'record',
   'sidebar',
    //services
