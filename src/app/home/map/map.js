@@ -27,22 +27,11 @@ angular.module( 'map', [
  */
 
 
-.controller('MapCtrl', ['$scope', '$timeout', 'leafletData','markerData', 'holosData', function ($scope, $timeout, leafletData, markerData, holosData) {
+.controller('MapCtrl', ['$scope', '$timeout', 'leafletData', 'markerData', 'holosData', function ($scope, $timeout, leafletData, markerData, holosData) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
   console.log('reached map control');
-
-   //Set default icon for marker
-  var local_icons = {
-    div_icon: {
-            type: 'div',
-            iconSize: [8, 8],
-            iconAnchor: [0, 0],
-            className: 'custom-marker-icon'
-
-    }
-  };
 
   angular.extend($scope, {
     center : {
@@ -58,12 +47,17 @@ angular.module( 'map', [
         className: 'custom-marker-icon'
       },
       bbox : null
-    } 
+    }
   });
 
-  
+
+
+
 
   $scope.markers = markerData.getFilteredMarkers();
+
+
+  
   //Set default layers
   //TODO: Add satellite basemap
   $scope.layers = {
@@ -96,7 +90,7 @@ angular.module( 'map', [
                             visible: true,
                             layerOptions: {
                               spiderfyOnMaxZoom: false,
-                              showCoverageOnHover: false,
+                              showCoverageOnHover: true,
                               iconCreateFunction: function (cluster) {    
                                   var childCount = cluster.getChildCount();
                                   var c = ' marker-cluster-';
@@ -113,7 +107,7 @@ angular.module( 'map', [
                                   return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
                               },
                               maxClusterRadius: 50,
-                              zoomToBoundsOnClick: false,
+                              zoomToBoundsOnClick: true,
                               getChildrenOnClick: true
                             }
                         }
@@ -139,10 +133,6 @@ angular.module( 'map', [
         });
   }); 
 
-  $scope.$watch('bbox', function() {
-      $scope.updateData();
-  });
-
   $scope.$watch('bbox', function( newValue, oldValue ) {
     console.log('newvalue', newValue);
     console.log('oldvalue ', oldValue);
@@ -153,10 +143,8 @@ angular.module( 'map', [
     }
 
     // Load data from service
-    if ($scope.bbox === newValue ) {
-       return;
-    } else {
-      $scope.updateData();
+    if ( newValue ) {
+       $scope.updateData();
     }
 
   });
@@ -173,6 +161,18 @@ angular.module( 'map', [
                   });
   };
 
+
+
+  $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+        console.log ("Inside click event");
+        console.log('args', args);
+        console.log('event', event);
+        var temp_marker = $scope.markers[args.markerName];
+        $scope.selectedMarker.length = 0;
+        $scope.selectedMarker.push(temp_marker);
+        console.log($scope.selectedMarker[0]);
+
+  }); 
 
 
 

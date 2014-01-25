@@ -49,17 +49,22 @@ module.exports = {
    */
   vendor_files: {
     js: [
-      'vendor/leaflet-dist/leaflet-src.js',     
-      'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  
+      // Jquery modules
       'vendor/jquery/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
+      // Angular modules
       'vendor/angular/angular.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
+      // Leaflet modules
+      'vendor/leaflet-dist/leaflet-src.js',     
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-      'vendor/ui-bootstrap/src/modal/modal.js',
+      'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  
+      // Bootstrap modules
+      'vendor/angular-bootstrap/ui-bootstrap.js',
+      'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
       'vendor/bootstrap/dist/js/bootstrap.js'
 
     ],

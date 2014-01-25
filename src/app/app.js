@@ -4,8 +4,7 @@ angular.module( 'vtmphotoApp', [
   'templates-common',
   'services.httpRequestTracker',
   'home',
-  'about',
-  'detail'
+  'about'
 ])
 
 .constant('HOLOS_CONFIG', {

@@ -14,7 +14,10 @@
  */
 angular.module( 'gallery', [
 //services
-'services.markerData'
+'services.markerData',
+'ui.bootstrap',
+'detail',
+'resources.photos'
 ])
 
 /**
@@ -24,7 +27,7 @@ angular.module( 'gallery', [
  */
 
 
-.controller('GalleryCtrl', ['$scope', 'markerData', function ($scope, markerData) {
+.controller('GalleryCtrl', ['$scope', 'markerData', '$modal', '$log' ,function ($scope, markerData, $modal, $log) {
 
     console.log('reached gallery control');
 
@@ -44,7 +47,7 @@ angular.module( 'gallery', [
 		console.log('photos', $scope.totalItems);
 	});
 
-	// calc pages in place
+	// Calculate pages in place
 	$scope.groupToPages = function () {
 		$scope.pagedPhotos = [];
 
@@ -84,6 +87,39 @@ angular.module( 'gallery', [
 			ret.push(i);
 		}
 		return ret;
+	};
+
+
+	// Open detail template in a modal dialog
+	// TODO: Transition state
+	$scope.showModal = function (record) {
+
+		$scope.record = record;
+
+		var modalInstance = $modal.open({
+			backdrop: true,
+			backdropClick: true,
+			dialogFade: false,
+			keyboard: true,
+			templateUrl: 'detail/detail.tpl.html',
+			controller: 'DetailCtrl',
+			resolve: {
+				photos:['Photos', function (Photos) {
+					console.log($scope.record);
+					return Photos.getById ($scope.record);
+				}]
+			}
+			
+		});
+
+		modalInstance.result.then(function () {
+			//on ok button press
+			//$scope.selected = selectedItem;
+		}, function () {
+			//on cancel button press
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+
 	};
 
    

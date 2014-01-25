@@ -35,6 +35,7 @@
 	  							<div class="control-group">
 	    							<label class="control-label" for="date">Year Range</label>
 	    							<div class="controls">
+	    								<p>{{yearSlider.range[0]}} - {{yearSlider.range[1]}}</p>
 	    								<div ui-slider="{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" ng-model="yearSlider.range" ng-change="filterMarkers()"></div>
 	    							</div>
 	  							</div>

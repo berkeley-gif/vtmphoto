@@ -40,7 +40,7 @@ angular.module( 'home', [
 .controller('HomeCtrl', ['$scope', '$timeout', 'holosData', 'markerData' ,function ($scope, $timeout, holosData, markerData) {
 
   
-
+        $scope.selectedMarker = [];
 
 
 

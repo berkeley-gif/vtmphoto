@@ -12,7 +12,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-header">
-                                <p>{{record.photog_notes}}</p>
+                                <h1>{{record.record}}
+                                    <small>
+                                        link to <a href="{{record.remote_resource}}" target="_newtab">CalPhotos </a> database
+                                    </small>
+                                </h1>
+                                <p>Notes: {{record.photog_notes}}</p>
                             </div>
                         </div>
                     </div>

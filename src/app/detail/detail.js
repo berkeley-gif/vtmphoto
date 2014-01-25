@@ -4,7 +4,7 @@
 angular.module( 'detail', [
   //angular modules
   'ui.router',
-  'ui.bootstrap.modal',
+  'ui.bootstrap',
   'record',
   'sidebar',
    //services
@@ -34,7 +34,7 @@ angular.module( 'detail', [
     });
 })
 
-.controller('DetailCtrl', ['$scope', 'photos' , function ($scope, photos) {
+.controller('DetailCtrl', ['$scope', 'photos', '$modalInstance', function ($scope, photos, $modalInstance) {
 
        $scope.record = photos.data;
        console.log('from parent', $scope.record);
