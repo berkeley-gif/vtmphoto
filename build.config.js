@@ -52,12 +52,14 @@ module.exports = {
       // Jquery modules
       'vendor/jquery/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
+      'vendor/jquery-throttle-debounce-plugin.js',
       // Angular modules
       'vendor/angular/angular.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
+      'vendor/ngStorage/src/angularLocalStorage.js',
       // Leaflet modules
       'vendor/leaflet-dist/leaflet-src.js',     
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',

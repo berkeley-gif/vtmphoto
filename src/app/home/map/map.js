@@ -16,6 +16,7 @@ angular.module( 'map', [
   //services
   'services.markerData',
   'services.holosData',
+  'services.debounce',
   //directives
   'leaflet-directive'
 ])
@@ -25,9 +26,28 @@ angular.module( 'map', [
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
+ .config(function config($stateProvider) {
+  $stateProvider
+    .state( 'home.map', {
+      url: '',
+      parent: 'home',
+/*      templateUrl: 'home/map/home.tpl.html',
+      controller: 'MapCtrl'*/
+      views: {
+        'map': {
+          templateUrl: 'home/map/map.tpl.html',
+          controller: 'MapCtrl'
+        }
+      }
+      
+    })
 
 
-.controller('MapCtrl', ['$scope', '$timeout', 'leafletData', 'markerData', 'holosData', function ($scope, $timeout, leafletData, markerData, holosData) {
+    ;
+})
+
+
+.controller('MapCtrl', ['$scope', '$timeout', '$debounce','leafletData', 'markerData', 'holosData', function ($scope, $timeout, $debounce, leafletData, markerData, holosData) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
@@ -50,7 +70,25 @@ angular.module( 'map', [
     }
   });
 
+  $scope.$watch('coords', function(newValue, oldValue){
 
+    // Ignore initial setup
+    if ( newValue === oldValue ) {
+      return;
+    }
+
+    // Load data from service
+    if ( newValue ) {
+      $scope.center.lat = $scope.coords.lat;
+      $scope.center.lng = $scope.coords.lng;
+      $scope.center.zoom = 12;
+    }
+
+  });
+
+ /* $scope.center.lat = $scope.map.search.lat;
+  $scope.center.lng = $scope.map.search.lng;
+  $scope.center.zoom = $scope.map.search.zoom;*/
 
 
 
@@ -116,7 +154,7 @@ angular.module( 'map', [
   };
  
 
-  //Watch for leaflet map event, update bbox, update markers
+  //Watch for leaflet map event, update bbox
   //var mapEvents = leafletEvents.getAvailableMapEvents();
   $scope.$on('leafletDirectiveMap.moveend', function(event, args) {
         console.log ("Updating map bounds on move event");
@@ -127,15 +165,13 @@ angular.module( 'map', [
             var east = latlngBounds.getEast();
             var north = latlngBounds.getNorth();
             $scope.bbox = west + ',' + south + ',' + east + ',' + north;
-            console.log($scope.bbox);
+            //console.log($scope.bbox);
             //$scope.mapData.update();
             //console.log('markers', $scope.mapData.markers.length);
         });
   }); 
 
   $scope.$watch('bbox', function( newValue, oldValue ) {
-    console.log('newvalue', newValue);
-    console.log('oldvalue ', oldValue);
 
     // Ignore initial setup
     if ( newValue === oldValue ) {
@@ -144,7 +180,7 @@ angular.module( 'map', [
 
     // Load data from service
     if ( newValue ) {
-       $scope.updateData();
+      $debounce($scope.updateData, 1000);
     }
 
   });
@@ -173,6 +209,7 @@ angular.module( 'map', [
         console.log($scope.selectedMarker[0]);
 
   }); 
+
 
 
 

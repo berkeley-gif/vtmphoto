@@ -20,8 +20,7 @@ angular.module( 'home', [
   'gallery',
   'sidebar',
   //services
-  'services.markerData',
-  'services.holosData'
+ 'services.geolocation'
 ])
 
 /**
@@ -30,19 +29,54 @@ angular.module( 'home', [
  * this way makes each module more "self-contained".
  */
 .config(function config($stateProvider) {
-  $stateProvider.state( 'home', {
-    url: '/home',
-    templateUrl: 'home/home.tpl.html',
-    controller: 'HomeCtrl'
-  });
+  $stateProvider
+    .state( 'home', {
+      url: '/',
+      templateUrl: 'home/home.tpl.html',
+      controller: 'HomeCtrl'
+/*      views: {
+        'map': {
+          templateUrl: 'home/map/map.tpl.html',
+          controller: 'MapCtrl'
+        }
+      }*/
+      
+    })
+
+
+    ;
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', 'holosData', 'markerData' ,function ($scope, $timeout, holosData, markerData) {
+.controller('HomeCtrl', ['$scope', '$timeout', '$rootScope', 'geolocation' , 'geolocation_msgs', function ($scope, $timeout, $rootScope, geolocation, geolocation_msgs) {
 
   
-        $scope.selectedMarker = [];
+    $scope.selectedMarker = [];
+
+    $scope.address = "";
+
+    geolocation.getLocation().then(function(data){
+      $scope.coords = {lat:data.coords.latitude, lng:data.coords.longitude};
+      console.log($scope.coords);
+      $rootScope.$on('error', function(){
+        alert('I am received');
+      });
+      
+      
+    });
 
 
+
+    $scope.getCurrent = function (){
+      return geolocation.getLocation().then(function(data){
+        $scope.coords = {lat:data.coords.latitude, lng:data.coords.longitude};
+      });
+    };
+
+
+
+
+
+    
 
 
 

@@ -7,7 +7,7 @@
 						Photographer: <br>
 						{{record.authors}} <br>
 						Date Range: <br>
-						{{record.begin_date}} to {{record.end_date}} <br>
+						{{record.begin_date | date:'yyyy'}} to {{record.end_date | date:'yyyy'}} <br>
 						County: <br>
 						{{record.county}} <br>
 

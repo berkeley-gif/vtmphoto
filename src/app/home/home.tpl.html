@@ -1,8 +1,9 @@
 
             <!-- start: SIDEBAR -->
             <div class="navbar-content">
-                <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
-                </div>
+<!--                 <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
+                </div> -->
+                <div ui-view="sidebar"></div>
             </div>
             <!-- end: SIDEBAR -->
             <!-- start: MAIN CONTENT -->
@@ -21,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <!-- start: MAP PANEL -->
-                             <div ng-include src="'home/map/map.tpl.html'">
+                             <div ui-view="map">
                             </div>
                             <!-- end: MAP PANEL -->
                         </div>
@@ -29,7 +30,7 @@
                     <!-- end: ROW -->
                     <div class="row">
                         <!-- start: GALLERY -->
-                        <div ng-include src="'home/gallery/gallery.tpl.html'" >
+                        <div ui-view="gallery" >
                         </div>
                         <!-- end: GALLERY -->
                     </div>

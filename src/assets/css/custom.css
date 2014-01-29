@@ -328,7 +328,7 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 	text-align: left;
 }
 .ui-slider a {
-	outline: none;
+	outline: none; /* overrides bootswatch style */
 }
 .ui-slider .ui-slider-handle {
 	position: absolute;

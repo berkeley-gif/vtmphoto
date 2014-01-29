@@ -9,11 +9,12 @@ angular.module( 'about', [
  * this way makes each module more "self-contained".
  */
 .config(function config($stateProvider) {
-  $stateProvider.state( 'about', {
-    url: '/about',
-    templateUrl: 'about/about.tpl.html',
-    controller: 'AboutCtrl'
-  });
+  $stateProvider
+	.state( 'about', {
+		url: '/about',
+		templateUrl: 'about/about.tpl.html',
+		controller: 'AboutCtrl'
+	});
 })
 
 .controller('AboutCtrl', ['$scope', function ($scope) {

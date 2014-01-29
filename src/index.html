@@ -29,7 +29,43 @@
 	<!-- end: HEAD -->
 	<!-- start: BODY -->
 	<body ng-controller="AppCtrl">
-		<div ng-include src="'header.tpl.html'" ng-controller="HeaderCtrl"></div>
+		<!-- start: HEADER -->
+		<div class="navbar navbar-default navbar-fixed-top">
+			<!-- start: TOP NAVIGATION CONTAINER -->
+			<div class="container">
+				<div class="navbar-header">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-header-collapse"   >
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: LOGO -->
+					<a class="navbar-brand" ui-sref="home">
+						VTM Photos
+					</a>
+					<!-- end: LOGO -->
+				</div>
+				<div class="navbar-collapse collapse navbar-header-collapse">
+                	<ul class="nav navbar-nav pull-right">
+                    	<li ng-class="{ active: $state.includes('upload') }">
+                    		<a ui-sref="upload" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    			<i class="fa fa-arrow-circle-up"></i>&nbsp;&nbsp;Upload
+                    		</a>
+                    	</li>
+                   		<li ng-class="{ active: $state.includes('about') }">
+                   			<a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">
+                   				<i class="fa fa-question-circle"></i>&nbsp;&nbsp;About
+                   			</a>
+                   		</li>
+                   	</ul>
+            	</div><!--/.navbar-collapse -->
+					<!-- end: TOP NAVIGATION MENU -->
+			</div>
+			<!-- end: TOP NAVIGATION CONTAINER -->
+		</div>
+		<!-- end: HEADER -->
 		<!-- start: MAIN CONTAINER -->
 		<div ui-view class="main-container">
 		</div>
@@ -38,6 +74,7 @@
     	<!-- compiled JS --><% scripts.forEach( function ( file ) { %>
     	<script type="text/javascript" src="<%= file %>"></script><% }); %>
 		<!-- end: JAVASCRIPT FILES -->
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	</body>
 	<!-- end: BODY -->
 </html>

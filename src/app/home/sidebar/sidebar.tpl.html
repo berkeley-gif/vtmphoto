@@ -2,12 +2,20 @@
 				<div  ng-controller="SidebarCtrl" >
 				<div class="sidebar-inner" bn-slide-show="isVisible" slide-show-duration="2000">
 					<!-- start: RESPONSIVE MENU TOGGLER -->
-					<div class="size-toggle">
-						<span class="h4"> &nbsp        
-							<button type="button" class="btn btn-primary btn-xs pull-right" ng-click="toggle()">
-								<i class="fa fa-chevron-left"></i>
-							</button>
-						</span>
+					<div class="search-block">
+						<form role="search" method="get" name="form-geo" ng-submit="searchAddress()">
+							<fieldset>
+	 							<div class="input-group">
+	 								<span class="input-group-btn">
+										<button class="btn btn-sm btn-default" ng-click="getCurrent()" type="button"><i class="fa fa-map-marker"></i></button>
+									</span>
+									<input type="search" ng-model="address" placeholder="Current location" class="form-control">
+									<span class="input-group-btn">
+										<button class="btn btn-sm btn-default" ng-click="searchAddress()" type="button">Go!</button>
+									</span>
+	  							</div>
+  							</fieldset>
+  						</form>
 							
 					</div>
 					<!-- end: RESPONSIVE MENU TOGGLER -->
@@ -36,7 +44,7 @@
 	    							<label class="control-label" for="date">Year Range</label>
 	    							<div class="controls">
 	    								<p>{{yearSlider.range[0]}} - {{yearSlider.range[1]}}</p>
-	    								<div ui-slider="{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" ng-model="yearSlider.range" ng-change="filterMarkers()"></div>
+	    								<div ui-slider="{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" ng-model="yearSlider.range"></div>
 	    							</div>
 	  							</div>
   							</fieldset>
