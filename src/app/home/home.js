@@ -33,14 +33,7 @@ angular.module( 'home', [
     .state( 'home', {
       url: '/',
       templateUrl: 'home/home.tpl.html',
-      controller: 'HomeCtrl'
-/*      views: {
-        'map': {
-          templateUrl: 'home/map/map.tpl.html',
-          controller: 'MapCtrl'
-        }
-      }*/
-      
+      controller: 'HomeCtrl'     
     })
 
 

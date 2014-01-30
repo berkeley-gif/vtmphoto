@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html>
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>VTM Photos</title>
+		<!-- start: META -->
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		<!-- start: MAIN CSS -->
+		<link rel="stylesheet" href="assets/css/bootswatch-flatly.css">
+		<link rel="stylesheet" href="assets/css/custom.css">
+		<link rel="stylesheet" href="assets/css/main-responsive.css">
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+		<!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    	<link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>		  
+
+	</head>
+	<!-- end: HEAD -->
+	<!-- start: BODY -->
+	<body ng-controller="AppCtrl">
+		<!-- start: HEADER -->
+		<div class="navbar navbar-default navbar-fixed-top">
+			<!-- start: TOP NAVIGATION CONTAINER -->
+			<div class="container">
+				<div class="navbar-header">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-header-collapse"   >
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: LOGO -->
+					<a class="navbar-brand" ui-sref="home">
+						VTM Photos
+					</a>
+					<!-- end: LOGO -->
+				</div>
+				<div class="navbar-collapse collapse navbar-header-collapse">
+                	<ul class="nav navbar-nav pull-right">
+                    	<li ng-class="{ active: $state.includes('upload') }">
+                    		<a ui-sref="upload" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    			<i class="fa fa-arrow-circle-up"></i>&nbsp;&nbsp;Upload
+                    		</a>
+                    	</li>
+                   		<li ng-class="{ active: $state.includes('about') }">
+                   			<a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">
+                   				<i class="fa fa-question-circle"></i>&nbsp;&nbsp;About
+                   			</a>
+                   		</li>
+                   	</ul>
+            	</div><!--/.navbar-collapse -->
+					<!-- end: TOP NAVIGATION MENU -->
+			</div>
+			<!-- end: TOP NAVIGATION CONTAINER -->
+		</div>
+		<!-- end: HEADER -->
+		<!-- start: MAIN CONTAINER -->
+		<div ui-view class="main-container">
+			<div class="row">
+				<div class="col-md-4">
+					Filters
+				</div>
+				<div class="col-md-8">
+					Content block
+					<div class="col-md-12">
+						Map block
+					</div>
+					<div class="col-md-12">
+						Gallery block
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end: MAIN CONTAINER -->
+		<!-- start: COMPILED JAVASCRIPT FILES -->
+    	<!-- compiled JS --><% scripts.forEach( function ( file ) { %>
+    	<script type="text/javascript" src="<%= file %>"></script><% }); %>
+		<!-- end: JAVASCRIPT FILES -->
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	</body>
+	<!-- end: BODY -->
+</html>

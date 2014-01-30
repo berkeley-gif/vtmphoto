@@ -25,33 +25,26 @@
 /* ---------------------------------------------------------------------- */
 /*	Sidebar
  /* ---------------------------------------------------------------------- */
-.sidebar-inner {
-	position: fixed;
-	display: block;
-	float: left;
-	width: 225px;
+.sidebar {
 	z-index: 1015;
-	height:	95%;
 	background-color: #f9f9f9;
 	padding: 15px;
 	border-radius: 3px;
-	margin-left: 5px;
-	margin-top: 18px;
 }
-.sidebar-inner > div {
+.sidebar > div {
 	border-bottom: 1px solid #ecf0f1;
 	padding-top: 10px;
 	padding-bottom: 10px;
 } 
-.sidebar-inner .control-group {
+.sidebar .control-group {
 	padding-bottom: 10px;
 }
-.sidebar-inner .form-control {
+.sidebar .form-control {
 	height: 30px;
 	padding: 5px 5px;
 	font-size: 13px;
 }
-.sidebar-inner .control-label {
+.sidebar .control-label {
 	font-weight: normal;
 	margin-bottom: 3px;
 }
@@ -59,10 +52,8 @@
 /* ---------------------------------------------------------------------- */
 /*	Map
  /* ---------------------------------------------------------------------- */
-
-
 .map {
-    height: 300px;
+    height: 50%;
 }
 .custom-marker-icon {
     background: url(img/cluster-icon.svg);
@@ -117,99 +108,6 @@
 	width: 95%;
 }
 
-
-
-/* ---------------------------------------------------------------------- */
-/*	Main Navigation
- /* ---------------------------------------------------------------------- */
-.main-navigation {
-	padding: 15px;
-	max-height: none !important;
-	z-index: 1000;
-}
-ul.main-navigation-menu {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-ul.main-navigation-menu > li {
-	border: 0 none;
-	display: block;
-	margin: 0;
-	padding: 0;
-}
-ul.main-navigation-menu > li > a {
-	border: 0 none;
-	display: block;
-	font-size: 14px;
-	font-weight: 300;
-	margin: 0;
-	padding: 10px 15px;
-	position: relative;
-	text-decoration: none;
-	border-bottom: 1px solid #DDDDDD;
-	border-top: 1px solid #FFFFFF;
-}
-ul.main-navigation-menu li  a .badge {
-    float: right;
-    margin-right: 13px;
-    margin-top: 1px;
-}
-ul.main-navigation-menu > li:last-child > a, ul.main-navigation-menu > li.last > a {
-	border-bottom-color: transparent !important;
-}
-ul.main-navigation-menu > li > a i {
-	font-size: 16px;
-	margin-right: 5px;
-	text-shadow: none;
-}
-ul.main-navigation-menu > li > a:hover .icon-arrow, ul.main-navigation-menu > li.open > a .icon-arrow {
-	opacity: 1;
-}
-/* 2nd level sub menu */
-ul.main-navigation-menu li > ul.sub-menu {
-	clear: both;
-	list-style: none;
-	margin: 8px 0;
-	/*display: none;*/
-	padding: 0;
-}
-ul.main-navigation-menu li > ul.sub-menu > li {
-	background: none;
-	margin-bottom: 0;
-	margin-left: 0;
-	margin-right: 0;
-	margin-top: 1px !important;
-	padding: 0;
-}
-ul.main-navigation-menu li > ul.sub-menu > li > a {
-	background: none;
-	display: block;
-	font-size: 14px;
-	font-weight: 300;
-	margin: 0;
-	padding-bottom: 5px;
-	padding-left: 44px !important;
-	padding-right: 0;
-	padding-top: 5px;
-	text-decoration: none;
-}
-ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
-	margin-right: 20px;
-}
-/*navigation toggler*/
-.navigation-toggler {
-	cursor: pointer;
-	height: 30px;
-	margin-left: 175px;
-	margin-top: 12px;
-	margin-bottom: 10px;
-	width: 30px;
-	line-height: 30px;
-	text-align: center;
-	font-size: 13px;
-}
-
 /* ---------------------------------------------------------------------- */
 /*	Breadcrumb
  /* ---------------------------------------------------------------------- */
@@ -243,6 +141,11 @@ ul.main-navigation-menu > li > ul.sub-menu li > a .icon-arrow {
 /* ---------------------------------------------------------------------- */
 /*	Gallery
  /* ---------------------------------------------------------------------- */
+.gallery{
+	height: 50%;
+	margin-top: 100px;
+
+}
 .gallery-img {
 	margin-bottom: 20px;
 }

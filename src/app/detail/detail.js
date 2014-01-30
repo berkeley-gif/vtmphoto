@@ -21,12 +21,8 @@ angular.module( 'detail', [
       controller: 'DetailCtrl',
       templateUrl: 'detail/detail.tpl.html',
       resolve:{
-/*          record: function($stateParams) {
-            console.log($stateParams);
-            return $stateParams.record;
-          },*/
           photos:['Photos', '$stateParams', function (Photos, $stateParams) {
-           //var temp = Photos.query({collection_code : 'VTM', format: 'json', fields: 'record,geojson,county'});
+           
             console.log($stateParams.record);
             return Photos.getById ($stateParams.record);
           }]
@@ -34,7 +30,7 @@ angular.module( 'detail', [
     });
 })
 
-.controller('DetailCtrl', ['$scope', 'photos', '$modalInstance', function ($scope, photos, $modalInstance) {
+.controller('DetailCtrl', ['$scope', 'photos', function ($scope, photos) {
 
        $scope.record = photos.data;
        console.log('from parent', $scope.record);

@@ -6,7 +6,7 @@ angular.module( 'services.markerData', [])
      var markerArray = [];
      var markerCount;
      var filteredArray = [];
-     var local_icons = {
+/*     var local_icons = {
         div_icon: L.divIcon({
                 iconSize: [8, 8],
                 iconAnchor: [0, 0],
@@ -14,7 +14,7 @@ angular.module( 'services.markerData', [])
 
         })
 
-      };
+      };*/
 
 
      //private functions 
@@ -27,7 +27,7 @@ angular.module( 'services.markerData', [])
               marker.lng = jsonObject.geojson.coordinates[0];
             } else {
               marker[k] = jsonObject[k];
-              marker['icon'] = local_icons.div_icon;
+              //marker['icon'] = local_icons.div_icon;
             }
           } 
         }

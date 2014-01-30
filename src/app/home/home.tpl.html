@@ -1,45 +1,28 @@
 
-            <!-- start: SIDEBAR -->
-            <div class="navbar-content">
-<!--                 <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
-                </div> -->
-                <div ui-view="sidebar"></div>
-            </div>
-            <!-- end: SIDEBAR -->
-            <!-- start: MAIN CONTENT -->
-            <div class="main-content">
-                <div class="container">
-                    <!-- start: PAGE HEADER -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="page-header">
-                                <h1>Explore <small>zoom to area of interest, search and filter </small></h1>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-md-3 sidebar" >
+                    <!-- start: SIDEBAR -->
+                    <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
                     </div>
-                    <!-- end: PAGE HEADER -->
-                    <!-- start: PAGE CONTENT -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- start: MAP PANEL -->
-                             <div ui-view="map">
-                            </div>
-                            <!-- end: MAP PANEL -->
-                        </div>
+                    <!-- end: SIDEBAR -->
+                </div>
+                <div class="col-md-9">
+                    <div class="col-md-12 page-header" >
+                        <!-- start: PAGE HEADER -->
+                        <h1>Explore <small>zoom to area of interest, search and filter </small></h1>
+                        <!-- end: PAGE HEADER -->
                     </div>
-                    <!-- end: ROW -->
-                    <div class="row">
+                    <div class="col-md-12 map" >
+                        <!-- start: MAP PANEL -->
+                        <div ng-include src="'home/map/map.tpl.html'" >
+                        </div>
+                        <!-- end: MAP PANEL -->
+                    </div>
+                    <div class="col-md-12 gallery" >
                         <!-- start: GALLERY -->
-                        <div ui-view="gallery" >
+                        <div ng-include src="'home/gallery/gallery.tpl.html'" >
                         </div>
                         <!-- end: GALLERY -->
                     </div>
-                    <!-- end: ROW -->
                 </div>
-                 <!-- end: CONTAINER -->
-            </div>
-            <!-- end: MAIN CONTENT -->
-
-
- 
-
+            </div>            
