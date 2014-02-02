@@ -13,6 +13,9 @@
  * specified, as shown below.
  */
 angular.module( 'gallery', [
+//angular modules
+'ngRoute',
+'ui.router',
 //services
 'services.markerData',
 'ui.bootstrap',
@@ -27,7 +30,8 @@ angular.module( 'gallery', [
  */
 
 
-.controller('GalleryCtrl', ['$scope', 'markerData', '$modal', '$log' ,function ($scope, markerData, $modal, $log) {
+.controller('GalleryCtrl', ['$scope', '$location', '$rootScope', 'markerData', '$modal', '$log' ,
+	function ($scope, $location, $rootScope, markerData, $modal, $log) {
 
     console.log('reached gallery control');
 
@@ -90,11 +94,85 @@ angular.module( 'gallery', [
 	};
 
 
-	// Open detail template in a modal dialog
-	// TODO: Transition state
-	$scope.showModal = function (record) {
+	////////////////////////
+    //  OVERLAY HANDLING  //
+    ////////////////////////
 
-		$scope.record = record;
+    
+
+	//we want to cancel the state change to detail, and instead launch an overlay
+    //however we must keep the URL to detail
+	/*$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+		//state change is prevented from home to detail
+		//but the URL is preserved
+		if(fromState.name === 'home' && toState.name === 'detail'){
+			event.preventDefault();
+		}
+	});*/
+
+
+	/**
+     * Opens the overlay. This modifies the dialog options just as it is
+     * opening to inject the ideaId and locationParams. This also registers
+     * a closing callback when the overlay closes.
+     * @param  {Number} ideaId Id of the Idea
+     * @return {Void}
+     */
+	/*$scope.showModal = function(recordID){
+
+		//setting up the overlay options
+		var modalInstance = $modal.open({
+			backdrop: true,
+			backdropClick: true,
+			dialogFade: false,
+			keyboard: true,
+			templateUrl: 'detail/detail.tpl.html',
+			controller: 'DetailCtrl',
+			resolve: {
+				recordID: function(){ return recordID; },
+				locationParamsAndHash: function(){ 
+					return {
+						path: $location.path(),
+						search: $location.search(),
+						hash: $location.hash()
+					};
+				}
+			}		
+		});
+
+		//ideaId is to be injected to the overlay controller to get the correct idea
+		//locationParamsAndHash is the current URL state before the overlay launches
+		//it will be used when the overlay closes, and we want to return to original URL state
+/*		modalInstance.resolve = {
+			recordID: function(){ return recordID; },
+			locationParamsAndHash: function(){ 
+				return {
+					path: $location.path(),
+					search: $location.search(),
+					hash: $location.hash()
+				};
+			}
+		};*/
+
+		//closing callback will receive the previous locationParams through the overlay
+/*		modalInstance.result.then(function(locationParamsAndHash){
+
+			$rootScope.viewingOverlay = false;
+			$location.path(locationParamsAndHash.path);
+			$location.search(locationParamsAndHash.search);
+			$location.hash(locationParamsAndHash.hash);
+
+		});
+
+	};*/
+
+
+
+
+	$scope.showModal = function (record) {
+		
+		//console.log($location.path());
+		$scope.updateLocation(record);
 
 		var modalInstance = $modal.open({
 			backdrop: true,
@@ -105,24 +183,43 @@ angular.module( 'gallery', [
 			controller: 'DetailCtrl',
 			resolve: {
 				photos:['Photos', function (Photos) {
-					console.log($scope.record);
-					return Photos.getById ($scope.record);
+					return Photos.getById (record);
 				}]
 			}
 			
 		});
+
+		
 
 		modalInstance.result.then(function () {
 			//on ok button press
 			//$scope.selected = selectedItem;
 		}, function () {
 			//on cancel button press
+			//history.pushState({}, '#', '#/detail/'+ record);
 			$log.info('Modal dismissed at: ' + new Date());
+			history.replaceState({}, '#/detail/'+ record, '#');
 		});
 
 	};
 
-   
+	$scope.updateLocation = function(record){
+		$location.path('/detail/'+record);
+		var currentState = history.state;
+		//console.log(currentState);
+		history.replaceState({}, '#', '#/detail/'+ record);
+		console.log($location.path());
+		
+	};
+
+
+	$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+		//state change is prevented from home to detail
+		//but the URL is preserved
+		if(fromState.name === 'home' && toState.name === 'detail'){
+			event.preventDefault();
+		}
+	});
     
 
 }])

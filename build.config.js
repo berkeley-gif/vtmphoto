@@ -59,7 +59,7 @@ module.exports = {
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
-      'vendor/ngStorage/src/angularLocalStorage.js',
+      'vendor/angular-route/angular-route.js',
       // Leaflet modules
       'vendor/leaflet-dist/leaflet-src.js',     
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',

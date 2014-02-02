@@ -16,24 +16,51 @@ angular.module( 'detail', [
  */
 .config(function config( $stateProvider ) {
   $stateProvider
-    .state( '/detail/:record', {
+    .state( 'detail', {
       url: '/detail/:record',
       controller: 'DetailCtrl',
       templateUrl: 'detail/detail.tpl.html',
       resolve:{
           photos:['Photos', '$stateParams', function (Photos, $stateParams) {
-           
-            console.log($stateParams.record);
             return Photos.getById ($stateParams.record);
           }]
       }
     });
 })
 
+/*.controller('DetailCtrl', ['$scope', '$rootScope', 'Photos', '$modalInstance',  'recordID', 'locationParamsAndHash',
+  function ($scope, $rootScope, Photos, $modalInstance, recordID, locationParamsAndHash) {
+
+    $rootScope.viewingOverlay = true;
+    console.log(recordID);
+    console.log(locationParamsAndHash);
+
+    $scope.closeOverlay = function(){
+    //this can only pass in a single param
+      $modalInstance.close(locationParamsAndHash);
+    };
+
+    //and load in the appropriate data
+    $scope.record = {};
+
+    Photos.getById(
+      recordID,
+      function(response){
+        console.log(response);
+        $scope.record = response.data;
+      },
+      function(response){
+        console.log(response.data);
+      }
+    );*/
+
+
 .controller('DetailCtrl', ['$scope', 'photos', function ($scope, photos) {
 
        $scope.record = photos.data;
        console.log('from parent', $scope.record);
+
+
 
 
 

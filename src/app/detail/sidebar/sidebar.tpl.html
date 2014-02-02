@@ -1,27 +1,28 @@
-				<!-- start: SIDEBAR -->
-				<div class="sidebar-inner" ng-controller="SidebarCtrl">
 
-					<!-- start: MAIN NAVIGATION MENU -->
+			<div ng-controller="SidebarCtrl" >
+				<div class="panel panel-default" >
+				<div class="panel-body">
+					<!-- start: LOCATION SEARCH BLOCK -->
 					<div class="description-block">
-						<h5>Description</h5>
-						Photographer: <br>
-						{{record.authors}} <br>
-						Date Range: <br>
-						{{record.begin_date | date:'yyyy'}} to {{record.end_date | date:'yyyy'}} <br>
-						County: <br>
-						{{record.county}} <br>
+						<ul>
+							<li>{{record.photog_notes}} </li>
+							<li>{{record.authors}}, {{record.begin_date | date:'yyyy'}} </li>
+							<li>{{record.county}} </li>
+							<li>{{record.geojson.coordinates[1]}},{{record.geojson.coordinates[0]}} </li>
 
-  					</div>
-  					<div class="observations-block">
-  						<h5>Associated observations</h5>
+						</ul>						
+					</div>
+					<!-- end: LOCATION SEARCH BLOCK -->
+					<!-- start: ASSOCIATIONS BLOCK -->
+  					<div class="associations-block">
   						<ul>
-                    		<li ng-repeat="rec in record.observations" >
-                        		<a href="{{rec.remote_resource}}" target="_newtab">{{rec.scientific_name}}
+                    		<li ng-repeat="obs in record.observations" >
+                        		<a href="{{obs.remote_resource}}" target="_newtab">{{obs.scientific_name}}
                         		</a>
 							</li>
 						</ul>
-  					</div>
-  						
-					<!-- end: MAIN NAVIGATION MENU -->
+  					</div> 						
+					<!-- end: ASSOCIATIONS BLOCK -->
 				</div>
-				<!-- end: SIDEBAR --> 
+				</div>
+			</div> <!-- end: SidebarCntrl -->

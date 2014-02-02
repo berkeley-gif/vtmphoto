@@ -1,7 +1,8 @@
-				<!-- start: SIDEBAR -->
-				<div  ng-controller="SidebarCtrl" >
-				<div class="sidebar-inner" bn-slide-show="isVisible" slide-show-duration="2000">
-					<!-- start: RESPONSIVE MENU TOGGLER -->
+
+			<div ng-controller="SidebarCtrl" >
+				<div class="panel panel-default" >
+				<div class="panel-body">
+					<!-- start: LOCATION SEARCH BLOCK -->
 					<div class="search-block">
 						<form role="search" method="get" name="form-geo" ng-submit="searchAddress()">
 							<fieldset>
@@ -18,8 +19,8 @@
   						</form>
 							
 					</div>
-					<!-- end: RESPONSIVE MENU TOGGLER -->
-					<!-- start: MAIN NAVIGATION MENU -->
+					<!-- end: LOCATION SEARCH BLOCK -->
+					<!-- start: FILTER BLOCK -->
 					<div class="filter-block">
 						<h4>Filters</h4>
 						<form role="form">
@@ -50,11 +51,12 @@
   							</fieldset>
   						</form>
   					</div>
+  					<!-- end: FILTER BLOCK -->
+					<!-- start: RESULTS BLOCK -->
   					<div class="results-block">
   						Displaying {{filteredCount}} of {{markerCount}} results
-  					</div>
-  						
-					<!-- end: MAIN NAVIGATION MENU -->
+  					</div> 						
+					<!-- end: RESULTS BLOCK -->
 				</div>
 				</div>
-				<!-- end: SIDEBAR --> 
+			</div> <!-- end: SidebarCntrl -->

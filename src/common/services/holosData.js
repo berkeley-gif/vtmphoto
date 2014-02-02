@@ -15,8 +15,8 @@ angular.module( 'services.holosData', [])
               $http.get(url)
                  .then(function(d) {
                       //debugger;
-                      console.log('public http.get(' + url + ').then()');
-                      console.log(d);
+                      //console.log('public http.get(' + url + ').then()');
+                      //console.log(d);
                       aggregateData.value = aggregateData.value.concat(d.data.results);
                       if(d.data.next) {
                          url=d.data.next;

@@ -33,14 +33,15 @@ angular.module( 'home', [
     .state( 'home', {
       url: '/',
       templateUrl: 'home/home.tpl.html',
-      controller: 'HomeCtrl'     
+      controller: 'HomeCtrl',
+      reloadOnSearch: false      
     })
 
 
     ;
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', '$rootScope', 'geolocation' , 'geolocation_msgs', function ($scope, $timeout, $rootScope, geolocation, geolocation_msgs) {
+.controller('HomeCtrl', ['$scope', '$timeout', '$rootScope', '$location', 'geolocation' , 'geolocation_msgs', function ($scope, $timeout, $rootScope, $location, geolocation, geolocation_msgs) {
 
   
     $scope.selectedMarker = [];
@@ -64,6 +65,27 @@ angular.module( 'home', [
         $scope.coords = {lat:data.coords.latitude, lng:data.coords.longitude};
       });
     };
+
+    /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        console.log('tostate', toState.url);
+        console.log('fromstate', fromState);
+        if (toState.url == '/detail/:record' && fromState.url == '/') {
+          //$location.path('/detail/'+record);
+          event.preventDefault();
+        }
+        
+    });*/
+
+  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+    if(fromState.name === 'home' && toState.name === 'detail'){
+      event.preventDefault();
+    }
+
+/*    if(fromState.name === 'about' && toState.name === 'home'){
+      event.preventDefault();
+    }*/
+
+  });
 
 
 

@@ -1,33 +1,38 @@
 
 <div ng-controller="GalleryCtrl">
-	<div>
-		<div ng-repeat="photo in pagedPhotos[currentPage]" class="col-lg-2 col-sm-3 col-xs-4 gallery-img">
-			<div class="wrap-image">
-<!-- 				<a href="#detail/{{photo.record}}" title="{{photo.record}}">
-					<img style="height:150px;width:150px" src="{{photo.media_url}}" alt="" class="img-responsive">
-				</a> -->
-				<a href="" ng-click="showModal(photo.record)" title="{{photo.record}}">
-					<img style="height:150px" ng-src="{{photo.media_url}}" alt="" class="img-responsive">
-				</a>
+	<div class="row">
+		<div class="col-md-12">
+			<div ng-repeat="photo in pagedPhotos[currentPage]" class="col-lg-2 col-sm-3 col-xs-4 gallery-img">
+				<div class="wrap-image">
+	<!-- 				<a href="#detail/{{photo.record}}" title="{{photo.record}}">
+						<img style="height:150px;width:150px" src="{{photo.media_url}}" alt="" class="img-responsive">
+					</a> -->
+					<a href="#/detail/{{photo.record}}" ng-click="showModal(photo.record)" title="{{photo.record}}">
+						<img style="height:150px" ng-src="{{photo.media_url}}" alt="" class="img-responsive">
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<div class="pagination-centered">
-		<ul >
-		  <li ng-class="{disabled: currentPage == 0}">
-		    <a href ng-click="prevPage()">«</a>
-		  </li>
-		  <li ng-repeat="n in range(pagedPhotos.length)"
-		    ng-class="{active: n == currentPage}"
-		    ng-click="setPage()">
-		    <a href ng-bind="n + 1">1</a>
-		  </li>
-		  <li ng-class="{disabled: currentPage == pagedPhotos.length - 1}">
-		    <a href ng-click="nextPage()">»</a>
-		  </li>
-		</ul>
+	<div class="row">
+		<div class="col-md-12 pagination-centered">
+			<ul >
+			  <li ng-class="{disabled: currentPage == 0}">
+			    <a href ng-click="prevPage()">«</a>
+			  </li>
+			  <li ng-repeat="n in range(pagedPhotos.length)"
+			    ng-class="{active: n == currentPage}"
+			    ng-click="setPage()">
+			    <a href ng-bind="n + 1">1</a>
+			  </li>
+			  <li ng-class="{disabled: currentPage == pagedPhotos.length - 1}">
+			    <a href ng-click="nextPage()">»</a>
+			  </li>
+			</ul>
+		</div>
 	</div>
+
 
 </div>

@@ -65,9 +65,9 @@ angular.module( 'map', [
         iconSize: [8, 8],
         iconAnchor: [0, 0],
         className: 'custom-marker-icon'
-      },
-      bbox : null
-    }
+      }
+    },
+    bounds: null
   });
 
   $scope.$watch('coords', function(newValue, oldValue){
@@ -159,20 +159,23 @@ angular.module( 'map', [
   $scope.$on('leafletDirectiveMap.moveend', function(event, args) {
         console.log ("Updating map bounds on move event");
         leafletData.getMap().then(function(map) {
-            var latlngBounds = map.getBounds();
+/*            var latlngBounds = map.getBounds();
             var west = latlngBounds.getWest();
             var south = latlngBounds.getSouth();
             var east = latlngBounds.getEast();
             var north = latlngBounds.getNorth();
             $scope.bbox = west + ',' + south + ',' + east + ',' + north;
-            //console.log($scope.bbox);
+            console.log('bbox', $scope.bbox);*/
             //$scope.mapData.update();
             //console.log('markers', $scope.mapData.markers.length);
+            bounds = map.getBounds();
+            console.log('bounds', bounds);
         });
   }); 
 
-  $scope.$watch('bbox', function( newValue, oldValue ) {
 
+  /*$scope.$watch('bounds', function( newValue, oldValue ) {
+    //console.log('bounds', $scope.bounds);
     // Ignore initial setup
     if ( newValue === oldValue ) {
       return;
@@ -183,7 +186,7 @@ angular.module( 'map', [
       $debounce($scope.updateData, 1000);
     }
 
-  });
+  });*/
 
   $scope.updateData = function() {
        //if(!holosData.isDataLoaded()) {                                        
