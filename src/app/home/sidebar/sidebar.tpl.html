@@ -4,15 +4,15 @@
 				<div class="panel-body">
 					<!-- start: LOCATION SEARCH BLOCK -->
 					<div class="search-block">
-						<form role="search" method="get" name="form-geo" ng-submit="searchAddress()">
+						<form role="search" name="form-geo" >
 							<fieldset>
 	 							<div class="input-group">
 	 								<span class="input-group-btn">
-										<button class="btn btn-sm btn-default" ng-click="getCurrent()" type="button"><i class="fa fa-map-marker"></i></button>
+										<button class="btn btn-sm btn-default" ng-click="getUserLocation()" type="button"><i class="fa fa-map-marker"></i></button>
 									</span>
-									<input type="search" ng-model="address" placeholder="Current location" class="form-control">
+									<input type="search" ng-model="user.address" placeholder="Current location" class="form-control">
 									<span class="input-group-btn">
-										<button class="btn btn-sm btn-default" ng-click="searchAddress()" type="button">Go!</button>
+										<button class="btn btn-sm btn-default" ng-click="searchAddress()"> Go!</button>
 									</span>
 	  							</div>
   							</fieldset>

@@ -20,7 +20,8 @@ angular.module( 'home', [
   'gallery',
   'sidebar',
   //services
- 'services.geolocation'
+ 'services.geolocation',
+ 'services.geocoder'
 ])
 
 /**
@@ -41,49 +42,48 @@ angular.module( 'home', [
     ;
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', '$rootScope', '$location', 'geolocation' , 'geolocation_msgs', function ($scope, $timeout, $rootScope, $location, geolocation, geolocation_msgs) {
+.controller('HomeCtrl', ['$scope', '$timeout', '$location', 'geolocation' , 'geolocation_msgs', 'geocoder', 
+  function ($scope, $timeout, $location, geolocation, geolocation_msgs, geocoder) {
 
   
     $scope.selectedMarker = [];
 
-    $scope.address = "";
+
+    /////////////////////////////////
+    //  USER GEOLOCATION HANDLING  //
+    /////////////////////////////////
+
+    $scope.user = {};
 
     geolocation.getLocation().then(function(data){
-      $scope.coords = {lat:data.coords.latitude, lng:data.coords.longitude};
-      console.log($scope.coords);
-      $rootScope.$on('error', function(){
-        alert('I am received');
-      });
-      
-      
+      $scope.user.location = {lat:data.coords.latitude, lng:data.coords.longitude};
+      console.log($scope.user.location);       
     });
 
-
-
-    $scope.getCurrent = function (){
+    $scope.getUserLocation = function (){
       return geolocation.getLocation().then(function(data){
-        $scope.coords = {lat:data.coords.latitude, lng:data.coords.longitude};
+        $scope.user.location = {lat:data.coords.latitude, lng:data.coords.longitude};
       });
     };
 
-    /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        console.log('tostate', toState.url);
-        console.log('fromstate', fromState);
-        if (toState.url == '/detail/:record' && fromState.url == '/') {
-          //$location.path('/detail/'+record);
-          event.preventDefault();
-        }
-        
-    });*/
+    $scope.searchAddress = function (){
+      var address = $scope.user.address;
+      return geocoder.codeAddress(address).then(function(data){
+        console.log($scope.user.location);
+        $scope.user.location = {lat:data.lat, lng:data.lng};
+      });
+    };
 
-  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-    if(fromState.name === 'home' && toState.name === 'detail'){
+    /////////////////////////////////
+    //  UI RELATED                 //
+    /////////////////////////////////
+
+    //Prevent state change when the detail modal window overlays the home window
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      if(fromState.name === 'home' && toState.name === 'detail'){
       event.preventDefault();
     }
 
-/*    if(fromState.name === 'about' && toState.name === 'home'){
-      event.preventDefault();
-    }*/
 
   });
 

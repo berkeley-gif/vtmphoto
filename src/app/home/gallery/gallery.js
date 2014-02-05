@@ -20,7 +20,8 @@ angular.module( 'gallery', [
 'services.markerData',
 'ui.bootstrap',
 'detail',
-'resources.photos'
+'resources.photos',
+'filters.thumbnail'
 ])
 
 /**
@@ -212,14 +213,6 @@ angular.module( 'gallery', [
 		
 	};
 
-
-	$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-		//state change is prevented from home to detail
-		//but the URL is preserved
-		if(fromState.name === 'home' && toState.name === 'detail'){
-			event.preventDefault();
-		}
-	});
     
 
 }])

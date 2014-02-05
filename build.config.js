@@ -52,6 +52,7 @@ module.exports = {
       // Jquery modules
       'vendor/jquery/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
+      'vendor/jquery.ui.touch-punch.min.js', //enables touch support for jquery-ui widgets (slider)
       'vendor/jquery-throttle-debounce-plugin.js',
       // Angular modules
       'vendor/angular/angular.js',

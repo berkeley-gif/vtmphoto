@@ -26,38 +26,35 @@ angular.module( 'map', [
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
- .config(function config($stateProvider) {
-  $stateProvider
-    .state( 'home.map', {
-      url: '',
-      parent: 'home',
-/*      templateUrl: 'home/map/home.tpl.html',
-      controller: 'MapCtrl'*/
-      views: {
-        'map': {
-          templateUrl: 'home/map/map.tpl.html',
-          controller: 'MapCtrl'
-        }
-      }
-      
-    })
-
-
-    ;
-})
-
-
-.controller('MapCtrl', ['$scope', '$timeout', '$debounce','leafletData', 'markerData', 'holosData', function ($scope, $timeout, $debounce, leafletData, markerData, holosData) {
+ 
+.controller('MapCtrl', ['$scope', '$timeout', '$debounce', 'leafletBoundsHelpers', 'markerData', 'holosData', function ($scope, $timeout, $debounce, leafletBoundsHelpers, markerData, holosData) {
 
   //Set default map center and zoom
   //TODO: Get location from user IP address
   console.log('reached map control');
+  console.log(leafletBoundsHelpers);
+
+  var bounds = leafletBoundsHelpers.createBoundsFromArray([
+        [ 31.653, -125.727 ],
+        [ 42.163, -85.781 ]
+    ]);
 
   angular.extend($scope, {
     center : {
       lat: 36.23,
       lng: -118.8,
       zoom: 9
+    },
+    bounds: bounds,
+    maxBounds: {
+      southWest: {
+        lat: 31.653,
+        lng: -125.727
+      },
+      northEast: {
+        lat: 42.163,
+        lng: -85.781
+      }
     },
     defaults : {
       icon: {
@@ -67,10 +64,10 @@ angular.module( 'map', [
         className: 'custom-marker-icon'
       }
     },
-    bounds: null
+    bbox: null
   });
 
-  $scope.$watch('coords', function(newValue, oldValue){
+  $scope.$watch('user', function(newValue, oldValue){
 
     // Ignore initial setup
     if ( newValue === oldValue ) {
@@ -79,12 +76,13 @@ angular.module( 'map', [
 
     // Load data from service
     if ( newValue ) {
-      $scope.center.lat = $scope.coords.lat;
-      $scope.center.lng = $scope.coords.lng;
+      console.log($scope.user);
+      $scope.center.lat = $scope.user.location.lat;
+      $scope.center.lng = $scope.user.location.lng;
       $scope.center.zoom = 12;
     }
 
-  });
+  }, true);
 
  /* $scope.center.lat = $scope.map.search.lat;
   $scope.center.lng = $scope.map.search.lng;
@@ -101,9 +99,19 @@ angular.module( 'map', [
   $scope.layers = {
                     baselayers: {
                         streets: {
-                            name: 'Streets',
+                            name: 'Mapquest Streets',
                             type: 'xyz',
                             url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+                            layerOptions: {
+                                subdomains: ['1', '2', '3', '4'],
+                                attribution: 'Map tiles by MapQuest. Data by OpenStreetMap',
+                                continuousWorld: true
+                            }
+                        },
+                        aerial: {
+                            name: 'Mapquest Aerial',
+                            type: 'xyz',
+                            url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png',
                             layerOptions: {
                                 subdomains: ['1', '2', '3', '4'],
                                 attribution: 'Map tiles by MapQuest. Data by OpenStreetMap',
@@ -128,7 +136,7 @@ angular.module( 'map', [
                             visible: true,
                             layerOptions: {
                               spiderfyOnMaxZoom: false,
-                              showCoverageOnHover: true,
+                              showCoverageOnHover: false,
                               iconCreateFunction: function (cluster) {    
                                   var childCount = cluster.getChildCount();
                                   var c = ' marker-cluster-';
@@ -145,8 +153,7 @@ angular.module( 'map', [
                                   return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
                               },
                               maxClusterRadius: 50,
-                              zoomToBoundsOnClick: true,
-                              getChildrenOnClick: true
+                              zoomToBoundsOnClick: true
                             }
                         }
                     }
@@ -154,27 +161,26 @@ angular.module( 'map', [
   };
  
 
-  //Watch for leaflet map event, update bbox
+  //Watch for leaflet map event, update bounds
   //var mapEvents = leafletEvents.getAvailableMapEvents();
-  $scope.$on('leafletDirectiveMap.moveend', function(event, args) {
+/*  $scope.$on('leafletDirectiveMap.moveend', function(event, args) {
+
         console.log ("Updating map bounds on move event");
         leafletData.getMap().then(function(map) {
-/*            var latlngBounds = map.getBounds();
+            var latlngBounds = map.getBounds();
             var west = latlngBounds.getWest();
             var south = latlngBounds.getSouth();
             var east = latlngBounds.getEast();
             var north = latlngBounds.getNorth();
+            console.log(latlngBounds);
             $scope.bbox = west + ',' + south + ',' + east + ',' + north;
-            console.log('bbox', $scope.bbox);*/
-            //$scope.mapData.update();
-            //console.log('markers', $scope.mapData.markers.length);
-            bounds = map.getBounds();
-            console.log('bounds', bounds);
+            console.log('bounds', $scope.bbox);
         });
-  }); 
+  });*/ 
 
+console.log('bounds', $scope.bounds);
 
-  /*$scope.$watch('bounds', function( newValue, oldValue ) {
+  $scope.$watch('bounds', function( newValue, oldValue ) {
     //console.log('bounds', $scope.bounds);
     // Ignore initial setup
     if ( newValue === oldValue ) {
@@ -183,15 +189,16 @@ angular.module( 'map', [
 
     // Load data from service
     if ( newValue ) {
-      $debounce($scope.updateData, 1000);
+      console.log('call update data');
+      //$debounce($scope.updateData, 1000);
     }
 
-  });*/
+  }, true);
 
   $scope.updateData = function() {
        //if(!holosData.isDataLoaded()) {                                        
             console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
-            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + $scope.bbox)
+            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bounds=' + $scope.bbox)
                  .then(function() {
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
                       var data = holosData.getData();

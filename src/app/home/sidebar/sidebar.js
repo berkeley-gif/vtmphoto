@@ -14,7 +14,7 @@
  */
 angular.module( 'sidebar', [
 'ui.filters',
-'ui.slider',
+//'ui.slider',
 //services
 'services.markerData',
 'services.debounce'

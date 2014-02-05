@@ -1,105 +1,41 @@
-
-
-angular.module( 'services.geocoder', ['ngStorage'])
-
-.constant('geolocation_msgs', {
-        'errors.location.unsupportedBrowser':'Browser does not support location services',
-        'errors.location.permissionDenied':'You have rejected access to your location',
-        'errors.location.positionUnavailable':'Unable to determine your location',
-        'errors.location.timeout':'Service timeout has been reached'
-})
-
-
+angular.module( 'services.geocoder', [])
 // to get the current latitude and longitude from browser
 // credits https://github.com/arunisrael/angularjs-geolocation
 
-.factory('geocoder', ['$q','$timeout','$localStorage',function ($q, $timeout, $localStorage) {
 
-  var locations = $localStorage.locations ? JSON.parse($localStorage.locations) : {};
- 
-  var queue = [];
- 
-  // Amount of time (in milliseconds) to pause between each trip to the
-  // Geocoding API, which places limits on frequency.
-  var queryPause = 250;
- 
-  /**
-   * executeNext() - execute the next function in the queue. 
-   *                  If a result is returned, fulfill the promise.
-   *                  If we get an error, reject the promise (with message).
-   *                  If we receive OVER_QUERY_LIMIT, increase interval and try again.
-   */
-  var executeNext = function () {
-    var task = queue[0],
-      geocoder = new google.maps.Geocoder();
- 
-    geocoder.geocode({ address : task.address }, function (result, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        var latLng = {
-          lat: result[0].geometry.location.lat(),
-          lng: result[0].geometry.location.lng()
-        };
- 
-        queue.shift();
- 
-        locations[task.address] = latLng;
-        $localStorage.locations = JSON.stringify(locations);
- 
-        task.d.resolve(latLng);
- 
-        if (queue.length) {
-          $timeout(executeNext, queryPause);
+.factory('geocoder', ['$q', function($q) {
+
+  //Private variables
+  var geocoder = new google.maps.Geocoder();
+  var deferred = $q.defer();
+
+  // Public functions
+  return { 
+    codeAddress: function(address) {
+      geocoder.geocode( {'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+                      console.log(results);
+          return deferred.resolve({
+            latitude: results[0].geometry.location.lat(),
+            longitude: results[0].geometry.location.lng()
+          });
         }
-      } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
-        queue.shift();
-        task.d.reject({
-          type: 'zero',
-          message: 'Zero results for geocoding address ' + task.address
-        });
-      } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-        queryPause += 250;
-        $timeout(executeNext, queryPause);        
-      } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
-        queue.shift();
-        task.d.reject({
-          type: 'denied',
-          message: 'Request denied for geocoding address ' + task.address
-        });
-      } else if (status === google.maps.GeocoderStatus.INVALID_REQUEST) {
-        queue.shift();
-        task.d.reject({
-          type: 'invalid',
-          message: 'Invalid request for geocoding address ' + task.address
-        });
-      }
-    });
-  };
- 
-  return {
-    latLngForAddress : function (address) {
-      var d = $q.defer();
- 
-      if (_.has(locations, address)) {
-        $timeout(function () {
-          d.resolve(locations[address]);
-        });
-      } else {
-        queue.push({
-          address: address,
-          d: d
-        });
- 
-        if (queue.length === 1) {
-          executeNext();
+        return deferred.reject();
+      });
+      return deferred.promise;
+    },
+    codeLatLng: function(coords) {
+      var lat = parseFloat(coords.lat);
+      var lng = parseFloat(coords.lng);
+      var latlng = new google.maps.LatLng(lat, lng);
+      geocoder.geocode( {'latlng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          return deferred.resolve(results[0].formatted_address);
         }
-      }
- 
-      return d.promise;
+        return deferred.reject();
+      });
+      return deferred.promise;
     }
+
   };
-
-
-
-}])
-
-;
+}]);
