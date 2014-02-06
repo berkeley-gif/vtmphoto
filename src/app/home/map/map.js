@@ -35,25 +35,25 @@ angular.module( 'map', [
   console.log(leafletBoundsHelpers);
 
   var bounds = leafletBoundsHelpers.createBoundsFromArray([
-        [ 31.653, -125.727 ],
-        [ 42.163, -85.781 ]
+        [ 37.52, -123.28 ],
+        [ 38.17, -121.17 ]
     ]);
 
   angular.extend($scope, {
     center : {
-      lat: 36.23,
-      lng: -118.8,
-      zoom: 9
+      lat: 37.85,
+      lng: -122.23,
+      zoom: 10
     },
     bounds: bounds,
     maxBounds: {
       southWest: {
-        lat: 31.653,
-        lng: -125.727
+        lat: 32.1,
+        lng: -114.5
       },
       northEast: {
-        lat: 42.163,
-        lng: -85.781
+        lat: 42.55,
+        lng: -125.0
       }
     },
     defaults : {
@@ -63,8 +63,7 @@ angular.module( 'map', [
         iconAnchor: [0, 0],
         className: 'custom-marker-icon'
       }
-    },
-    bbox: null
+    }
   });
 
   $scope.$watch('user', function(newValue, oldValue){

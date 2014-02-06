@@ -1,18 +1,37 @@
 {
-  "name": "vtmphotos",
-  "version": "0.0.1",
-  "devDependencies": {},
+  "name": "vtmphoto",
+  "version": "0.0.2",
+  "homepage": "https://github.com/berkeley-gif/vtmphoto",
+  "authors": [
+    "Shruti Mukhtyar <mukhtyar@berkeley.edu>"
+  ],
+  "description": "Map and explore photos from the Wieslander Vegetation Type Mapping project compiled in the 1920s and 30s and compare with recent photo retakes",
+  "keywords": [
+    "vtm",
+    "photo",
+    "retakes"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
   "dependencies": {
+    "angular": "1.2.8",
     "bootstrap": "~3.1.0",
-    "angular-ui": "~0.4.0",
-    "angular-leaflet-directive": "~0.7.3",
-    "angular-ui-router": "0.2.7",
     "jquery-ui": "~1.10.3",
+    "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.10.0",
-    "angular": "1.2.8"
+    "angular-leaflet-directive": "~0.7.3",
+    "angular-ui-router": "0.2.7"
   },
   "resolutions": {
-    "bootstrap": "~3.1.0",
-    "angular": "1.2.8"
+    "angular": "1.2.8",
+    "bootstrap": "~3.1.0"
   }
 }

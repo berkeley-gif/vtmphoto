@@ -49,27 +49,26 @@ module.exports = {
    */
   vendor_files: {
     js: [
-      // Jquery modules
+      // Jquery
       'vendor/jquery/jquery.min.js',    
-      'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
+      'vendor/jquery-ui/ui/minified/jquery-ui.js', 
       'vendor/jquery.ui.touch-punch.min.js', //enables touch support for jquery-ui widgets (slider)
       'vendor/jquery-throttle-debounce-plugin.js',
+      // Bootstrap
+      'vendor/bootstrap/dist/js/bootstrap.js',
       // Angular modules
       'vendor/angular/angular.js',
+      'vendor/angular-route/angular-route.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
-      'vendor/angular-route/angular-route.js',
-      // Leaflet modules
-      'vendor/leaflet-dist/leaflet-src.js',     
-      'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-      'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  
-      // Bootstrap modules
       'vendor/angular-bootstrap/ui-bootstrap.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-      'vendor/bootstrap/dist/js/bootstrap.js'
-
+      // Leaflet
+      'vendor/leaflet-dist/leaflet-src.js',     
+      'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  
+      'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js'
     ],
     css: [
       'vendor/leaflet-dist/leaflet.css'

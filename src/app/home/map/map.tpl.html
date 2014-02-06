@@ -5,12 +5,13 @@
 	        <ol class="breadcrumb">
 	            <li>
 	                Map center at {{center.lat | number:3}}, {{center.lng | number:3}}
+	                {{bounds}}
 	            </li>
 	        </ol>
 	    <!-- end: BREADCRUMB -->
 	    </div>
 	    <div class="panel-body">
-	        <leaflet  class ="map" maxbounds="maxBounds" bounds="bounds" center="center" markers="markers" layers="layers" defaults="defaults">
+	        <leaflet  class="map" center="center" defaults="defaults" bounds="bounds"  layers="layers" markers="markers" max-bounds="maxBounds">
 	         </leaflet>
 	    </div>
 	</div>

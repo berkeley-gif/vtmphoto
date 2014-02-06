@@ -1,28 +1,32 @@
 
             <div class="row">
-                <div class="col-md-3 sidebar" >
-                    <!-- start: SIDEBAR -->
-                    <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
-                    </div>
-                    <!-- end: SIDEBAR -->
+                <div class="col-md-12 page-header" >
+                    <!-- start: PAGE HEADER -->
+                    <h1>Explore <small>zoom to area of interest, search and filter </small></h1>
+                    <!-- end: PAGE HEADER -->
                 </div>
-                <div class="col-md-9">
-                    <div class="col-md-12 page-header" >
-                        <!-- start: PAGE HEADER -->
-                        <h1>Explore <small>zoom to area of interest, search and filter </small></h1>
-                        <!-- end: PAGE HEADER -->
-                    </div>
-                    <div class="col-md-12 map" >
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                         <!-- start: MAP PANEL -->
-                        <div ng-include src="'home/map/map.tpl.html'" >
+                        <div class="map">
+                            <div ng-include src="'home/map/map.tpl.html'" ></div>
                         </div>
                         <!-- end: MAP PANEL -->
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12 sidebar" >
+                        <!-- start: SIDEBAR -->
+                        <div ng-include src="'home/sidebar/sidebar.tpl.html'" >
+                        </div>
+                        <!-- end: SIDEBAR -->
                     </div>
                     <div class="col-md-12 gallery" >
                         <!-- start: GALLERY -->
                         <div ng-include src="'home/gallery/gallery.tpl.html'" >
                         </div>
                         <!-- end: GALLERY -->
-                    </div>
+                    </div>            
                 </div>
-            </div>            
+
+            </div>
