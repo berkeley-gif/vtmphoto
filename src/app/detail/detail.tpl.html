@@ -1,26 +1,13 @@
 
 
-            <div class="row">
-                <div class="col-md-3 sidebar" >
-                    <!-- start: SIDEBAR -->
-                    <div ng-include src="'detail/sidebar/sidebar.tpl.html'" >
+                <div class="detail">
+                    <!-- start: DETAIL PAGE -->
+                    <div ng-include src="'detail/record/record.tpl.html'" >
                     </div>
-                    <!-- end: SIDEBAR -->
+                    <!-- end: DETAIL PAGE -->
                 </div>
-                <div class="col-md-9">
-                    <div class="col-md-12 page-header" >
-                        <!-- start: PAGE HEADER -->
-                        <a href="{{record.remote_resource}}" target="_newtab">{{record.record}}
-                        </a>
-                        <!-- end: PAGE HEADER -->
-                    </div>
-                    <div class="col-md-12 image" >
-                        <!-- start: MAP PANEL -->
-                        <div ng-include src="'detail/record/record.tpl.html'" >
-                        </div>
-                        <!-- end: MAP PANEL -->
-                    </div>
-                </div>
-            </div>            
+
+
+        
  
 

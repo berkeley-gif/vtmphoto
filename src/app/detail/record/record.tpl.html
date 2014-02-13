@@ -1,7 +1,28 @@
-<div ng-controller="RecordCtrl" >
-    <div class="panel panel-default" >
-        <div class="panel-body">
-            <img src="{{record.media_url}}" alt="" class="img-responsive">
-        </div>
-    </div>
-</div>
+
+
+			<div ng-controller="RecordCtrl" >
+
+				<div class="row">
+	                <div class="col-md-12 page-header" >
+	                	<div class="description-block">
+							<p class="notes">{{record.photog_notes}}.</p>
+							<ul>
+								<li>{{record.authors}}, {{record.begin_date | date:'yyyy'}} </li>
+								<li>{{record.county}} </li>
+								<li>{{record.geojson.coordinates[1]}},{{record.geojson.coordinates[0]}} </li>
+
+						</ul>
+	                	</div>
+	                </div>
+	            </div>
+	            <div class="row text-center">
+	                <div class="col-md-12" >
+	                    <!-- start: PAGE HEADER -->
+	                     <img src="{{record.media_url}}" alt="" >
+	                    <!-- end: PAGE HEADER -->
+	                </div>
+	            </div>
+
+			           
+
+			</div>

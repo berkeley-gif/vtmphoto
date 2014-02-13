@@ -2,12 +2,19 @@
 	<div class="panel panel-default" >
 	    <div class="panel-heading">
 	     <!-- start: BREADCRUMB -->
-	        <ol class="breadcrumb">
-	            <li>
-	                Map center at {{center.lat | number:3}}, {{center.lng | number:3}}
-	                {{bounds}}
-	            </li>
-	        </ol>
+				<form role="search" name="form-geo" >
+						<fieldset>
+ 							<div class="input-group">
+ 								<span class="input-group-btn">
+									<button class="btn btn-sm btn-default" ng-click="getUserLocation()" type="button"><i class="fa fa-map-marker"></i></button>
+								</span>
+								<input type="search" ng-model="user.address" placeholder="Current location" class="form-control">
+								<span class="input-group-btn">
+									<button class="btn btn-sm btn-default" ng-click="searchAddress()"> Go!</button>
+								</span>
+  							</div>
+							</fieldset>
+						</form>
 	    <!-- end: BREADCRUMB -->
 	    </div>
 	    <div class="panel-body">

@@ -51,13 +51,31 @@ module.exports = {
     js: [
       // Jquery
       'vendor/jquery/jquery.min.js',    
-      'vendor/jquery-ui/ui/minified/jquery-ui.js', 
+      'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
       'vendor/jquery.ui.touch-punch.min.js', //enables touch support for jquery-ui widgets (slider)
       'vendor/jquery-throttle-debounce-plugin.js',
+      'vendor/dragslider.js',
       // Bootstrap
-      'vendor/bootstrap/dist/js/bootstrap.js',
-      // Angular modules
-      'vendor/angular/angular.js',
+      //'vendor/bootstrap/dist/js/bootstrap.js',
+
+      // Angular
+      'vendor/angular/angular.js',    
+
+/*      //Angular-Masonry and it's dependecies
+      'vendor/jquery-bridget/jquery.bridget.js',
+      'vendor/get-style-property/get-style-property.js',
+      'vendor/get-size/get-size.js',
+      'vendor/eventEmitter/EventEmitter.js',
+      'vendor/eventie/eventie.js',
+      'vendor/doc-ready/doc-ready.js',
+      'vendor/matches-selector/matches-selector.js',
+      'vendor/outlayer/item.js',
+      'vendor/outlayer/outlayer.js',
+      'vendor/masonry/masonry.js',
+      'vendor/imagesloaded/imagesloaded.js',
+      'vendor/angular-masonry/angular-masonry.js',*/
+
+      //Other Angular modules
       'vendor/angular-route/angular-route.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
@@ -65,6 +83,8 @@ module.exports = {
       'vendor/angular-ui-slider/src/slider.js',
       'vendor/angular-bootstrap/ui-bootstrap.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+
+
       // Leaflet
       'vendor/leaflet-dist/leaflet-src.js',     
       'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  

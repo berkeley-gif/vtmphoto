@@ -14,7 +14,7 @@
  */
 angular.module( 'sidebar', [
 'ui.filters',
-//'ui.slider',
+'ui.slider',
 //services
 'services.markerData',
 'services.debounce'
@@ -45,10 +45,15 @@ angular.module( 'sidebar', [
 	// Initialize slider values
 	var startYear = 1920;
 	var currentYear = new Date().getFullYear();
-	$scope.yearSlider = {
-		min: startYear,
-		max: currentYear,
-		range: [1920, currentYear]
+	$scope.slider = {
+		range: [1920, currentYear],
+		options: {
+			range: true,
+			min: startYear,
+			max: currentYear,
+			rangeDrag: true,
+			step: 1
+		}
 	};
 
 	// Watch markers
@@ -60,7 +65,7 @@ angular.module( 'sidebar', [
 	});
 
 
-	$scope.$watch('yearSlider.range', function(newValue, oldValue) {
+	$scope.$watch('slider.range', function(newValue, oldValue) {
 		if (newValue === oldValue) { return; }
 		$debounce($scope.filterMarkers, 1000);
 	});
@@ -84,10 +89,10 @@ angular.module( 'sidebar', [
 			if ($scope.filter.authors != 'All') {
 				authorsMatch = searchMatch(marker.authors, $scope.filter.authors);
 			}
-			console.log($scope.yearSlider.range);
-			if (($scope.yearSlider.range[0] != startYear) || ($scope.yearSlider.range[1] != currentYear)) {
+			console.log($scope.slider.range);
+			if (($scope.slider.range[0] != startYear) || ($scope.slider.range[1] != currentYear)) {
 				var year = new Date(marker.begin_date).getFullYear();
-				if ((year < $scope.yearSlider.range[0]) || (year > $scope.yearSlider.range[1])) {
+				if ((year < $scope.slider.range[0]) || (year > $scope.slider.range[1])) {
 					yearMatch = false;
 				}
 			}

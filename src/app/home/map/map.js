@@ -27,24 +27,26 @@ angular.module( 'map', [
  * this way makes each module more "self-contained".
  */
  
-.controller('MapCtrl', ['$scope', '$timeout', '$debounce', 'leafletBoundsHelpers', 'markerData', 'holosData', function ($scope, $timeout, $debounce, leafletBoundsHelpers, markerData, holosData) {
+.controller('MapCtrl', ['$scope', '$timeout', '$debounce', 'markerData', 'holosData', 'leafletData', 'leafletBoundsHelpers', 'leafletMarkersHelpers',function ($scope, $timeout, $debounce, markerData, holosData, leafletData, leafletBoundsHelpers, leafletMarkersHelpers) {
 
-  //Set default map center and zoom
-  //TODO: Get location from user IP address
+  ////////////////////////////
+  //    INITIALIZE MAP     //
+  ///////////////////////////
   console.log('reached map control');
-  console.log(leafletBoundsHelpers);
+
+  var center = {
+      lat: 34.306,
+      lng: -118.181,
+      zoom: 9
+    };
 
   var bounds = leafletBoundsHelpers.createBoundsFromArray([
-        [ 37.52, -123.28 ],
-        [ 38.17, -121.17 ]
+        [ center.lat-0.1, center.lng-0.1 ],
+        [ center.lat+0.1, center.lng+0.1 ]
     ]);
 
   angular.extend($scope, {
-    center : {
-      lat: 37.85,
-      lng: -122.23,
-      zoom: 10
-    },
+    center : center,
     bounds: bounds,
     maxBounds: {
       southWest: {
@@ -56,20 +58,97 @@ angular.module( 'map', [
         lng: -125.0
       }
     },
-    defaults : {
-      icon: {
-        type: 'div',
-        iconSize: [8, 8],
-        iconAnchor: [0, 0],
-        className: 'custom-marker-icon'
+    layers: {
+      baselayers: {
+          streets: {
+              name: 'Mapquest Streets',
+              type: 'xyz',
+              url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+              layerOptions: {
+                  subdomains: ['1', '2', '3', '4'],
+                  attribution: 'Map tiles by MapQuest. Data by OpenStreetMap',
+                  continuousWorld: true
+              }
+          },
+          aerial: {
+              name: 'Mapquest Aerial',
+              type: 'xyz',
+              url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png',
+              layerOptions: {
+                  subdomains: ['1', '2', '3', '4'],
+                  attribution: 'Map tiles by MapQuest. Data by OpenStreetMap',
+                  continuousWorld: true
+              }
+          },
+          terrain: {
+              name: 'Terrain',
+              type: 'xyz',
+              url: 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
+              layerOptions: {
+                  subdomains: ['a', 'b', 'c'],
+                  attribution: 'Map tiles by Stamen Design. Data by OpenStreetMap',
+                  continuousWorld: true
+              }
+          }
+      },
+      overlays: {
+          locations: {
+              name: 'Locations',
+              type: 'markercluster',
+              visible: true,
+              top: true,
+              layerOptions: {
+                spiderfyOnMaxZoom: false,
+                showCoverageOnHover: false,
+                iconCreateFunction: function (cluster) {    
+                    var childCount = cluster.getChildCount();
+                    var c = ' marker-cluster-';
+                    var ptSize = 20;
+                    if (childCount < 10) {
+                      c += 'small';
+                    } else if (childCount < 100) {
+                      c += 'medium';
+                      ptSize = 30;
+                    } else {
+                      c += 'large';
+                      ptSize = 40;
+                    }
+                    return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
+                },
+                maxClusterRadius: 50,
+                zoomToBoundsOnClick: true
+              }
+          }
       }
+    },
+    defaults : {
     }
+
   });
+
+  $scope.markers = markerData.getFilteredMarkers();
+
+  /////////////////////////////////////////////////////
+  //    GET REFERENCE TO NATIVE LEAFLET OBJECTS      //
+  /////////////////////////////////////////////////////
+
+  $timeout(function(){
+
+    leafletData.getLayers().then(function(layers) {
+      $scope.markerClusterGrp = layers.overlays.locations;
+    });
+
+    leafletData.getMap().then(function(map) {
+      $scope.map = map;
+    });
+
+  },1000);
+
 
   $scope.$watch('user', function(newValue, oldValue){
 
     // Ignore initial setup
-    if ( newValue === oldValue ) {
+    if ( newValue === oldValue) {
       return;
     }
 
@@ -83,82 +162,6 @@ angular.module( 'map', [
 
   }, true);
 
- /* $scope.center.lat = $scope.map.search.lat;
-  $scope.center.lng = $scope.map.search.lng;
-  $scope.center.zoom = $scope.map.search.zoom;*/
-
-
-
-  $scope.markers = markerData.getFilteredMarkers();
-
-
-  
-  //Set default layers
-  //TODO: Add satellite basemap
-  $scope.layers = {
-                    baselayers: {
-                        streets: {
-                            name: 'Mapquest Streets',
-                            type: 'xyz',
-                            url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-                            layerOptions: {
-                                subdomains: ['1', '2', '3', '4'],
-                                attribution: 'Map tiles by MapQuest. Data by OpenStreetMap',
-                                continuousWorld: true
-                            }
-                        },
-                        aerial: {
-                            name: 'Mapquest Aerial',
-                            type: 'xyz',
-                            url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png',
-                            layerOptions: {
-                                subdomains: ['1', '2', '3', '4'],
-                                attribution: 'Map tiles by MapQuest. Data by OpenStreetMap',
-                                continuousWorld: true
-                            }
-                        },
-                        terrain: {
-                            name: 'Terrain',
-                            type: 'xyz',
-                            url: 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
-                            layerOptions: {
-                                subdomains: ['a', 'b', 'c'],
-                                attribution: 'Map tiles by Stamen Design. Data by OpenStreetMap',
-                                continuousWorld: true
-                            }
-                        }
-                    },
-                    overlays: {
-                        locations: {
-                            name: 'Locations',
-                            type: 'markercluster',
-                            visible: true,
-                            layerOptions: {
-                              spiderfyOnMaxZoom: false,
-                              showCoverageOnHover: false,
-                              iconCreateFunction: function (cluster) {    
-                                  var childCount = cluster.getChildCount();
-                                  var c = ' marker-cluster-';
-                                  var ptSize = 20;
-                                  if (childCount < 10) {
-                                    c += 'small';
-                                  } else if (childCount < 100) {
-                                    c += 'medium';
-                                    ptSize = 30;
-                                  } else {
-                                    c += 'large';
-                                    ptSize = 40;
-                                  }
-                                  return L.divIcon({ html: childCount, className: 'marker-cluster' + c, iconSize: new L.Point(ptSize, ptSize) });
-                              },
-                              maxClusterRadius: 50,
-                              zoomToBoundsOnClick: true
-                            }
-                        }
-                    }
-
-  };
- 
 
   //Watch for leaflet map event, update bounds
   //var mapEvents = leafletEvents.getAvailableMapEvents();
@@ -177,8 +180,6 @@ angular.module( 'map', [
         });
   });*/ 
 
-console.log('bounds', $scope.bounds);
-
   $scope.$watch('bounds', function( newValue, oldValue ) {
     //console.log('bounds', $scope.bounds);
     // Ignore initial setup
@@ -189,7 +190,7 @@ console.log('bounds', $scope.bounds);
     // Load data from service
     if ( newValue ) {
       console.log('call update data');
-      //$debounce($scope.updateData, 1000);
+      $debounce($scope.updateData, 1000);
     }
 
   }, true);
@@ -197,7 +198,11 @@ console.log('bounds', $scope.bounds);
   $scope.updateData = function() {
        //if(!holosData.isDataLoaded()) {                                        
             console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
-            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bounds=' + $scope.bbox)
+            var southWest = $scope.bounds.southWest;
+            var northEast = $scope.bounds.northEast;
+            var boundsStr = southWest.lng + ',' + southWest.lat + ',' + northEast.lng + ',' + northEast.lat;
+            console.log('boundsStr', boundsStr);
+            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + boundsStr)
                  .then(function() {
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
                       var data = holosData.getData();
@@ -206,18 +211,100 @@ console.log('bounds', $scope.bounds);
                   });
   };
 
-
+  ////////////////////////////////////////////////////////////
+  //    HGHLIGHT PHOTO/S IN GALLERY ON MAP MARKER CLICK     //
+  ///////////////////////////////////////////////////////////
 
   $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-        console.log ("Inside click event");
-        console.log('args', args);
-        console.log('event', event);
-        var temp_marker = $scope.markers[args.markerName];
-        $scope.selectedMarker.length = 0;
-        $scope.selectedMarker.push(temp_marker);
-        console.log($scope.selectedMarker[0]);
+
+    var temp_marker = $scope.markers[args.markerName];
+    temp_marker.focus = true;
 
   }); 
+
+  $scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
+    // Args will contain the marker name and other relevant information
+    //do nothing.
+    console.log(e);
+    console.log(args);
+    e.preventDefault();
+  });
+
+
+/*  $scope.markerClusterGrp.on('clustermouseover', function(a){
+        console.log('cluster ', a.layer.getAllChildMarkers());
+  });*/
+
+
+
+  ////////////////////////////////////////////////////////////
+  //    HGHLIGHT MAP MARKER ON IMAGE GALLERY MOUSEOVER     //
+  ///////////////////////////////////////////////////////////
+
+  $scope.selectedMarker = markerData.getSelectedMarker();
+
+  $scope.$watch('selectedMarker.length', function( newValue, oldValue ) {
+      // Ignore initial setup
+      if ( newValue === oldValue || newValue === 0) {
+        $scope.removeHighlightMarker();
+        return;
+      }
+      // Find visible parent of marker and highlight
+      if ( newValue ) {
+        $scope.addHighlightMarker();
+      }
+
+  });
+
+  var highlightMarker;
+
+  var highlightIcon = L.icon({
+    iconUrl: 'assets/img/cluster-icon-select.svg',
+    iconSize: [10, 10],
+    iconAnchor: [5, 5],
+    className: 'highlight-icon'
+  });
+
+  $scope.removeHighlightMarker = function (){
+    if ($scope.map) {
+      $scope.map.removeLayer(highlightMarker);
+    }
+
+  };
+
+  $scope.addHighlightMarker = function (){
+  //Iterate through all leaflet marker objects
+  //console.log($scope.markerClusterGrp.getLayers());
+    var clusters = $scope.markerClusterGrp.getLayers();
+    for (var i in clusters){
+
+      if ($scope.selectedMarker[0].title == clusters[i].options.title) {
+        var temp_marker = clusters[i];
+        var visibleOne = $scope.markerClusterGrp.getVisibleParent(temp_marker);
+        var pos = {
+            lat: visibleOne._latlng.lat,
+            lng: visibleOne._latlng.lng
+        };
+        if (visibleOne._childCount){
+          var childCount = visibleOne._childCount;
+          if (childCount < 10) {
+            highlightIcon.options.iconSize = [25,25];
+            highlightIcon.options.iconAnchor = [13,13];
+          } else if (childCount < 100) {
+            highlightIcon.options.iconSize = [35,35];
+            highlightIcon.options.iconAnchor = [17,17];
+          } else {
+            highlightIcon.options.iconSize = [45,45];
+            highlightIcon.options.iconAnchor = [22,22];
+          }
+        }
+        console.log(highlightIcon);
+        highlightMarker = L.marker([pos.lat, pos.lng], {icon:highlightIcon});
+        $scope.map.addLayer(highlightMarker);
+
+      }
+    }
+  };
 
 
 

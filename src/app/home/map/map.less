@@ -1,12 +1,10 @@
-
 .map {
     height: 300px;
 }
-.custom-marker-icon {
+.default-marker-icon {
     background: url(img/cluster-icon.svg);
     background-repeat: no-repeat;
 }
-
 
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
     -webkit-transition: -webkit-transform 0.2s ease-out, opacity 0.2s ease-in;
@@ -15,6 +13,7 @@
     transition: transform 0.2s ease-out, opacity 0.2s ease-in;
 }
 
+
 .marker-cluster-small {
     background: url(img/cluster-icon.svg);
     background-repeat: no-repeat;
@@ -22,11 +21,6 @@
     line-height: 20px;
     font: 12px bold "Helvetica Neue", Arial, Helvetica, sans-serif;
     color: white;
-}
-
-.marker-cluster-small #circle:hover {
-    fill: green;
-    
 }
 
 .marker-cluster-medium {
@@ -45,4 +39,8 @@
     line-height: 40px;
     font: 12px bold "Helvetica Neue", Arial, Helvetica, sans-serif;
     color: white;
+}
+
+.highlight-icon {
+    background-repeat: no-repeat;
 }

@@ -14,7 +14,6 @@
  */
 angular.module( 'gallery', [
 //angular modules
-'ngRoute',
 'ui.router',
 //services
 'services.markerData',
@@ -22,6 +21,7 @@ angular.module( 'gallery', [
 'detail',
 'resources.photos',
 'filters.thumbnail'
+
 ])
 
 /**
@@ -40,16 +40,24 @@ angular.module( 'gallery', [
 		markers : markerData.getFilteredMarkers()
     };
 
-    
-	var itemsPerPage = 12;
+
+	////////////////////////
+    //    PAGINATION      //
+    ////////////////////////
+
+	$scope.totalItems = 0;
+	$scope.currentPage = 1;
+	$scope.maxSize = 5;
+	$scope.itemsPerPage = 12;
 	$scope.pagedPhotos = [];
-	$scope.currentPage = 0;
+
 
 	$scope.$watchCollection('gallery.markers', function(){
 		$scope.totalItems = $scope.gallery.markers.length;
-		$scope.currentPage = 0;
+		$scope.currentPage = 1;
 		$scope.groupToPages();
 		console.log('photos', $scope.totalItems);
+		console.log('currentPage', $scope.currentPage);
 	});
 
 	// Calculate pages in place
@@ -57,43 +65,15 @@ angular.module( 'gallery', [
 		$scope.pagedPhotos = [];
 
 		for (var i = 0; i < $scope.totalItems; i++) {
-			if (i % itemsPerPage === 0) {
-				$scope.pagedPhotos[Math.floor(i / itemsPerPage)] = [ $scope.gallery.markers[i] ];
+			if (i % $scope.itemsPerPage === 0) {
+				$scope.pagedPhotos[Math.floor(i / $scope.itemsPerPage)] = [ $scope.gallery.markers[i] ];
 		} else {
-				$scope.pagedPhotos[Math.floor(i / itemsPerPage)].push($scope.gallery.markers[i]);
+				$scope.pagedPhotos[Math.floor(i / $scope.itemsPerPage)].push($scope.gallery.markers[i]);
 			}
 		}
-	};
 
-	$scope.prevPage = function () {
-		if ($scope.currentPage > 0) {
-			$scope.currentPage--;
-		}
+		$scope.numPages = $scope.pagedPhotos.length;
 	};
-
-	$scope.nextPage = function () {
-		if ($scope.currentPage < $scope.pagedPhotos.length - 1) {
-			$scope.currentPage++;
-		}
-	};
-
-	$scope.setPage = function () {
-		$scope.currentPage = this.n;
-	};
-
-	// like python's range fn
-	$scope.range = function (start, end) {
-		var ret = [];
-		if (!end) {
-			end = start;
-			start = 0;
-		}
-		for (var i = start; i < end; i++) {
-			ret.push(i);
-		}
-		return ret;
-	};
-
 
 	////////////////////////
     //  OVERLAY HANDLING  //
@@ -169,7 +149,6 @@ angular.module( 'gallery', [
 
 
 
-
 	$scope.showModal = function (record) {
 		
 		//console.log($location.path());
@@ -214,6 +193,48 @@ angular.module( 'gallery', [
 	};
 
     
+  ////////////////////////////////////////////////////////////
+  // HANDLERS FOR IMAGE MOUSELEAVE AND MOUSEENTER EVENTS   //
+  ///////////////////////////////////////////////////////////
+
+	$scope.selectMarker = function (marker){
+		//console.log('in mouseover', marker);
+		markerData.selectMarker(marker);
+	};
+	$scope.unselectMarker = function (){
+		//console.log('in mouseover', marker);
+		markerData.unselectMarker();
+	};
+
+   ////////////////////////////////////////////////////////////
+  // HIGHLIGHT PHOTO ON MAP MARKER CLICK                    //
+  ///////////////////////////////////////////////////////////
+
+/*	$scope.selectedMarker = markerData.getSelectedMarker();
+
+	$scope.$watch('selectedMarker.length', function( newValue, oldValue ) {
+	// Ignore initial setup
+		if ( newValue === oldValue || newValue === 0) {
+			//$scope.removeImageHighlight();
+			return;
+		}
+		// Find visible parent of marker and highlight
+		if ( newValue ) {
+			$scope.addImageHighlight();
+		}
+
+	});
+
+	$scope.addImageHighlight = function(){
+
+		for (var i in $scope.gallery.markers){
+
+			if ($scope.selectedMarker[0].title == $scope.gallery.markers[i].title) {
+				var temp_marker = $scope.gallery.markers[i];
+				console.log(temp_marker);
+			}
+		}
+	};*/
 
 }])
 

@@ -28,10 +28,13 @@
     "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.10.0",
     "angular-leaflet-directive": "~0.7.3",
-    "angular-ui-router": "0.2.7"
+    "angular-ui-router": "0.2.7",
+    "angular-ui-slider": "~0.0.1",
+    "angular-masonry": "~0.7.0"
   },
   "resolutions": {
     "angular": "1.2.8",
-    "bootstrap": "~3.1.0"
+    "bootstrap": "~3.1.0",
+    "jquery": "2.0.x"
   }
 }

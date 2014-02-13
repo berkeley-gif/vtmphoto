@@ -1,18 +1,20 @@
 
-			<div ng-controller="SidebarCtrl" >
-				<div class="panel panel-default" >
+		<div ng-controller="SidebarCtrl" >
+			<div class="panel panel-default" >
+			    <div class="panel-heading">
+			    	Filters
+			    <div>
 				<div class="panel-body">
 					<!-- start: LOCATION SEARCH BLOCK -->
 					<div class="search-block">
-						<form role="search" name="form-geo" >
+						<form role="search" name="form-search" >
 							<fieldset>
 	 							<div class="input-group">
-	 								<span class="input-group-btn">
-										<button class="btn btn-sm btn-default" ng-click="getUserLocation()" type="button"><i class="fa fa-map-marker"></i></button>
-									</span>
-									<input type="search" ng-model="user.address" placeholder="Current location" class="form-control">
+									<input type="search" ng-model="searchStr" placeholder="" class="form-control">
 									<span class="input-group-btn">
-										<button class="btn btn-sm btn-default" ng-click="searchAddress()"> Go!</button>
+										<button class="btn btn-sm btn-default" disabled="true">
+											<i class="fa fa-search"></i>
+										</button>
 									</span>
 	  							</div>
   							</fieldset>
@@ -22,7 +24,6 @@
 					<!-- end: LOCATION SEARCH BLOCK -->
 					<!-- start: FILTER BLOCK -->
 					<div class="filter-block">
-						<h4>Filters</h4>
 						<form role="form">
 							<fieldset>
 	 							<div class="control-group">
@@ -44,8 +45,11 @@
 	  							<div class="control-group">
 	    							<label class="control-label" for="date">Year Range</label>
 	    							<div class="controls">
-	    								<p>{{yearSlider.range[0]}} - {{yearSlider.range[1]}}</p>
-	    								<div ui-slider="{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" ng-model="yearSlider.range"></div>
+	    								<p>{{slider.range[0]}} - {{slider.range[1]}}</p>
+	    								<div ui-slider="slider.options" ng-model="slider.range"></div>
+
+	    								<!-- "{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" --> 
+
 	    							</div>
 	  							</div>
   							</fieldset>
@@ -58,5 +62,5 @@
   					</div> 						
 					<!-- end: RESULTS BLOCK -->
 				</div>
-				</div>
-			</div> <!-- end: SidebarCntrl -->
+			</div>
+		</div>
