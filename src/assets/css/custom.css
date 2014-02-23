@@ -1,8 +1,40 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0; 
+	padding: 0;
+}
+
+.navbar {
+	border: none;
+	border-radius: 2px;
+	min-height: 50px;
+}
+
 /* ---------------------------------------------------------------------- */
 /*	Main Container and main content elements
  /* ---------------------------------------------------------------------- */
-.container.main {
-	margin-top: 48px;
+.container-fluid {
+	/*margin-top: 48px;*/
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.container-fluid.main {
+	margin-left: 25px;
+	margin-right: 25px;
+	height: 90%;
+}
+
+#map {
+     height: 95%;
+}
+
+.row.sidebar, .row.gallery {
+	margin-right: -5px;
 }
 /*.header-default .main-container {
 	margin-top: 0 !important;
@@ -56,7 +88,12 @@
 	font-weight: normal;
 	margin-bottom: 3px;
 }
-*/
+/* ---------------------------------------------------------------------- */
+/*	Detail View
+ /* ---------------------------------------------------------------------- */
+.detail {
+	margin-top: 20px;
+}
 /* ---------------------------------------------------------------------- */
 /*	Map
  /* ---------------------------------------------------------------------- */
@@ -111,9 +148,7 @@
 /* ---------------------------------------------------------------------- */
 /*	Modal Window
  /* ---------------------------------------------------------------------- */
-.modal-dialog {
-	width: 95%;
-}
+/* modified styles in bootswatch-flatly.css for modal-dialog*/
 
 /* ---------------------------------------------------------------------- */
 /*	Breadcrumb
@@ -162,12 +197,20 @@
 .wrap-image {
 	position: relative;
 	width: 100%;
-	height: 150px;
+	height: 120px;
 	overflow: hidden;
+	border: 6px solid #fff;
+  	border-bottom: 6px solid #fff;
+  	-webkit-box-shadow: 3px 3px 3px #777;
+    -moz-box-shadow: 3px 3px 3px #777;
+    box-shadow: 3px 3px 3px #777;
 }
-.wrap-image img {
+/*.wrap-image img {
+	position: absolute;
 	width: 100%;
-}
+	clip: rect(5px, 200px, 200px, 5px);
+}*/
+
 .wrap-image > .tools {
 	background-color: rgba(0, 0, 0, 0.55);
 	bottom: 0;

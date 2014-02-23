@@ -10,7 +10,7 @@ angular.module( 'services.markerData', [])
      var local_icons = {
         defaultIcon: {
           type: 'div',
-          iconSize: [8, 8],
+          iconSize: [12, 12],
           iconAnchor: [0, 0],
           className: 'default-marker-icon'
         }
@@ -32,7 +32,7 @@ angular.module( 'services.markerData', [])
               var url = jsonObject['media_url'];
               var thumbnailUrl = url.replace(/imgs\/(.*?)(\/)/, "imgs/128x192/");
               var content = '<img src="' + thumbnailUrl + '" alt="" class="img-responsive">';
-              marker['message'] = content;
+              //marker['message'] = content;
             }
           } 
         }
@@ -71,7 +71,7 @@ angular.module( 'services.markerData', [])
             for (var i = 0; i < filteredArray.length; i++) {
               if (filteredArray[i].record === marker.record) {
                 selectedMarker.push(filteredArray[i]);
-                console.log(selectedMarker[0]);
+                //console.log(selectedMarker[0]);
               }
             }
           },

@@ -15,6 +15,7 @@
 angular.module( 'sidebar', [
 'ui.filters',
 'ui.slider',
+'ui.bootstrap',
 //services
 'services.markerData',
 'services.debounce'
@@ -29,7 +30,9 @@ angular.module( 'sidebar', [
 
 .controller('SidebarCtrl', ['$scope', '$filter', '$debounce', 'markerData', function ($scope, $filter, $debounce, markerData) {
 
-	
+	$scope.isCollapsed = true;
+ 
+
 
 	// Initialize markers		
 	$scope.sidebar = {

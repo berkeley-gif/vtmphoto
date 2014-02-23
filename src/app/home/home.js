@@ -15,6 +15,7 @@
 angular.module( 'home', [
   //angular modules
   'ui.router',
+  'ui.bootstrap',
   //controllers
   'map',
   'gallery',
@@ -48,6 +49,7 @@ angular.module( 'home', [
   
     $scope.selectedMarker = [];
 
+ 
 
     /////////////////////////////////
     //  USER GEOLOCATION HANDLING  //

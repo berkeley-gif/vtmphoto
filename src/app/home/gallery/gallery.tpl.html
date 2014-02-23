@@ -1,6 +1,6 @@
 
 <div ng-controller="GalleryCtrl">
-	<div class="panel panel-default">
+<!-- 	<div class="panel panel-default">
 		<div class="panel-heading">
 			Photos
 		</div>
@@ -10,7 +10,8 @@
 					<div ng-repeat="photo in pagedPhotos[currentPage-1]" class="col-md-3 col-sm-4 gallery-img">
 						<div class="wrap-image">
 							<a href="#/detail/{{photo.record}}" ng-click="showModal(photo.record)" ng-mouseenter="selectMarker(photo)" ng-mouseleave="unselectMarker()">
-								<img ng-src="{{photo.media_url | thumbnailUrl}}" alt="" class="img-responsive">
+								<img ng-src="{{photo.media_url | thumbnailUrl}}" alt=""
+								style="position: absolute;" imageonload >
 							</a>
 							<div class="tools tools-bottom">
 								{{photo.authors}}, {{photo.begin_date | date:'yyyy'}} <br/>
@@ -34,7 +35,36 @@
 
 		</div>
 
-	</div>
+	</div> -->
+
+
+			<div class="row">
+
+					<div ng-repeat="photo in pagedPhotos[currentPage-1]" class="col-md-3 col-sm-4 gallery-img">
+						<div class="wrap-image">
+							<a href="#/detail/{{photo.record}}" ng-click="showModal(photo.record)" ng-mouseenter="selectMarker(photo)" ng-mouseleave="unselectMarker()">
+								<img ng-src="{{photo.media_url | thumbnailUrl}}" alt=""
+								style="position: absolute;" imageonload >
+							</a>
+							<div class="tools tools-bottom">
+								{{photo.authors}}, {{photo.begin_date | date:'yyyy'}} <br/>
+								{{photo.county}}
+							</div>
+						</div>
+					</div>
+
+			</div>
+
+
+			<div class="row" ng-show ="pagedPhotos.length>0">
+				<div class="col-md-12" style="text-align:center">
+					
+					<pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm pagination" boundary-links="false" rotate="false" num-pages="numPages" on-select-page="setPage(page)"></pagination>
+
+	    			<p><small>Page: {{currentPage}}/{{numPages}} </small></p>
+				</div>
+			</div>
+
 </div>
 
 

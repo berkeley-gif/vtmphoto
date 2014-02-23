@@ -1,8 +1,8 @@
-<div ng-controller="MapCtrl" >
-	<div class="panel panel-default" >
-	    <div class="panel-heading">
+<div ng-controller="MapCtrl" style="height:100%;">
+<!-- 	<div class="panel panel-default" >
+	    <div class="panel-heading"> -->
 	     <!-- start: BREADCRUMB -->
-				<form role="search" name="form-geo" >
+<!-- 				<form role="search" name="form-geo" >
 						<fieldset>
  							<div class="input-group">
  								<span class="input-group-btn">
@@ -14,13 +14,20 @@
 								</span>
   							</div>
 							</fieldset>
-						</form>
+						</form> -->
 	    <!-- end: BREADCRUMB -->
-	    </div>
+<!-- 	    </div>
 	    <div class="panel-body">
 	        <leaflet  class="map" center="center" defaults="defaults" bounds="bounds"  layers="layers" markers="markers" max-bounds="maxBounds">
 	         </leaflet>
 	    </div>
-	</div>
+	</div> -->
+
+
+	    <div style="height:100%;">
+	        <leaflet  id="map" center="center" defaults="defaults" bounds="bounds"  layers="layers" markers="markers" max-bounds="maxBounds">
+	         </leaflet>
+	    </div>
+
 </div>
 			

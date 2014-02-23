@@ -20,7 +20,8 @@ angular.module( 'gallery', [
 'ui.bootstrap',
 'detail',
 'resources.photos',
-'filters.thumbnail'
+'filters.thumbnail',
+'directives.imageonload'
 
 ])
 
@@ -34,16 +35,16 @@ angular.module( 'gallery', [
 .controller('GalleryCtrl', ['$scope', '$location', '$rootScope', 'markerData', '$modal', '$log' ,
 	function ($scope, $location, $rootScope, markerData, $modal, $log) {
 
-    console.log('reached gallery control');
+	console.log('reached gallery control');
 
-    $scope.gallery = {
+	$scope.gallery = {
 		markers : markerData.getFilteredMarkers()
-    };
+	};
 
 
 	////////////////////////
-    //    PAGINATION      //
-    ////////////////////////
+	//    PAGINATION      //
+	////////////////////////
 
 	$scope.totalItems = 0;
 	$scope.currentPage = 1;
@@ -57,7 +58,6 @@ angular.module( 'gallery', [
 		$scope.currentPage = 1;
 		$scope.groupToPages();
 		console.log('photos', $scope.totalItems);
-		console.log('currentPage', $scope.currentPage);
 	});
 
 	// Calculate pages in place
@@ -76,13 +76,13 @@ angular.module( 'gallery', [
 	};
 
 	////////////////////////
-    //  OVERLAY HANDLING  //
-    ////////////////////////
+	//  OVERLAY HANDLING  //
+	////////////////////////
 
-    
+	
 
 	//we want to cancel the state change to detail, and instead launch an overlay
-    //however we must keep the URL to detail
+	//however we must keep the URL to detail
 	/*$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 		//state change is prevented from home to detail
 		//but the URL is preserved
@@ -93,12 +93,12 @@ angular.module( 'gallery', [
 
 
 	/**
-     * Opens the overlay. This modifies the dialog options just as it is
-     * opening to inject the ideaId and locationParams. This also registers
-     * a closing callback when the overlay closes.
-     * @param  {Number} ideaId Id of the Idea
-     * @return {Void}
-     */
+	 * Opens the overlay. This modifies the dialog options just as it is
+	 * opening to inject the ideaId and locationParams. This also registers
+	 * a closing callback when the overlay closes.
+	 * @param  {Number} ideaId Id of the Idea
+	 * @return {Void}
+	 */
 	/*$scope.showModal = function(recordID){
 
 		//setting up the overlay options
@@ -159,14 +159,14 @@ angular.module( 'gallery', [
 			backdropClick: true,
 			dialogFade: false,
 			keyboard: true,
-			templateUrl: 'detail/detail.tpl.html',
+			templateUrl: 'detail/detail.modal.tpl.html',
 			controller: 'DetailCtrl',
 			resolve: {
-				photos:['Photos', function (Photos) {
+				detailRecord: ['Photos', function (Photos) {
 					return Photos.getById (record);
-				}]
+				}],
+				recordList: function() {return $scope.gallery.markers;}
 			}
-			
 		});
 
 		
@@ -192,13 +192,16 @@ angular.module( 'gallery', [
 		
 	};
 
-    
+
+
+	
   ////////////////////////////////////////////////////////////
   // HANDLERS FOR IMAGE MOUSELEAVE AND MOUSEENTER EVENTS   //
   ///////////////////////////////////////////////////////////
 
 	$scope.selectMarker = function (marker){
 		//console.log('in mouseover', marker);
+		console.log('marker', marker.lat, marker.lng);
 		markerData.selectMarker(marker);
 	};
 	$scope.unselectMarker = function (){
@@ -235,6 +238,8 @@ angular.module( 'gallery', [
 			}
 		}
 	};*/
+
+	
 
 }])
 

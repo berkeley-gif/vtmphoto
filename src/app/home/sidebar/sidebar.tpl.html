@@ -2,9 +2,14 @@
 		<div ng-controller="SidebarCtrl" >
 			<div class="panel panel-default" >
 			    <div class="panel-heading">
-			    	Filters
+  					<form class="form-horizontal" role="form">
+  						<div class="input-group">
+  							<button class="btn btn-default btn-sm col-sm-5" ng-click="isCollapsed = !isCollapsed">Filters</button>
+					  		<p class ="col-sm-7 pull-right" ng-cloak >{{filteredCount}} photos</p>
+  						</div>
+					</form>						
 			    <div>
-				<div class="panel-body">
+				<div class="panel-body" collapse="isCollapsed">
 					<!-- start: LOCATION SEARCH BLOCK -->
 					<div class="search-block">
 						<form role="search" name="form-search" >
@@ -56,11 +61,6 @@
   						</form>
   					</div>
   					<!-- end: FILTER BLOCK -->
-					<!-- start: RESULTS BLOCK -->
-  					<div class="results-block">
-  						Displaying {{filteredCount}} of {{markerCount}} results
-  					</div> 						
-					<!-- end: RESULTS BLOCK -->
 				</div>
 			</div>
 		</div>

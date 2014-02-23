@@ -50,7 +50,7 @@ module.exports = {
   vendor_files: {
     js: [
       // Jquery
-      'vendor/jquery/jquery.min.js',    
+      'vendor/jquery/dist/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
       'vendor/jquery.ui.touch-punch.min.js', //enables touch support for jquery-ui widgets (slider)
       'vendor/jquery-throttle-debounce-plugin.js',

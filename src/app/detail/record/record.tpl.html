@@ -1,28 +1,26 @@
 
 
-			<div ng-controller="RecordCtrl" >
+			<div>
 
-				<div class="row">
-	                <div class="col-md-12 page-header" >
-	                	<div class="description-block">
-							<p class="notes">{{record.photog_notes}}.</p>
-							<ul>
-								<li>{{record.authors}}, {{record.begin_date | date:'yyyy'}} </li>
-								<li>{{record.county}} </li>
-								<li>{{record.geojson.coordinates[1]}},{{record.geojson.coordinates[0]}} </li>
-
-						</ul>
-	                	</div>
-	                </div>
-	            </div>
 	            <div class="row text-center">
 	                <div class="col-md-12" >
-	                    <!-- start: PAGE HEADER -->
-	                     <img src="{{record.media_url}}" alt="" >
-	                    <!-- end: PAGE HEADER -->
+		                <carousel interval="-1">
+	      					<slide ng-repeat="slide in slides" active="slide.active">
+	      						<div class="description-block">
+									<p class="notes">{{slide.photog_notes}}.</p>
+									<ul>
+										<li>{{slide.authors}}, {{slide.begin_date | date:'yyyy'}} </li>
+										<li>{{slide.county}} </li>
+										<li>{{slide.geojson.coordinates[1]}},{{slide.geojson.coordinates[0]}} </li>
+
+									</ul>
+	                			</div>
+		        				<img ng-src="{{slide.media_url}}" style="margin:auto;">
+	      					</slide>
+	    				</carousel>
 	                </div>
+
 	            </div>
 
 			           
-
 			</div>

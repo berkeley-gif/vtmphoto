@@ -211,24 +211,28 @@ angular.module( 'map', [
                   });
   };
 
-  ////////////////////////////////////////////////////////////
-  //    HGHLIGHT PHOTO/S IN GALLERY ON MAP MARKER CLICK     //
-  ///////////////////////////////////////////////////////////
+////////////////////////////////////////////
+  //    OPEN POPUP ON MAP MARKER CLICK     //
+  ///////////////////////////////////////////
 
   $scope.$on('leafletDirectiveMarker.click', function(event, args) {
 
     var temp_marker = $scope.markers[args.markerName];
-    temp_marker.focus = true;
+    var latLng = [temp_marker.lat, temp_marker.lng];
+    var url = temp_marker.media_url;
+    var thumbnailUrl = url.replace(/imgs\/(.*?)(\/)/, "imgs/128x192/");
+    var popupContent =  '<a target="_blank" class="popup" href="#/detail/' + temp_marker.record + '">' +
+                            '<img src="' + thumbnailUrl + '" class="img-responsive">' +
+                        '   <p>' + temp_marker.authors + '</h2>' +
+                        '</a>';
+    var popup =  L.popup({'autoPan': false, 'minWidth': 200});
+    popup.setContent(popupContent);
+    popup.setLatLng(latLng);
+
+
+    $scope.map.openPopup(popup);
 
   }); 
-
-  $scope.$on('leafletDirectiveMarker.mouseover', function(e, args) {
-    // Args will contain the marker name and other relevant information
-    //do nothing.
-    console.log(e);
-    console.log(args);
-    e.preventDefault();
-  });
 
 
 /*  $scope.markerClusterGrp.on('clustermouseover', function(a){
@@ -258,13 +262,6 @@ angular.module( 'map', [
 
   var highlightMarker;
 
-  var highlightIcon = L.icon({
-    iconUrl: 'assets/img/cluster-icon-select.svg',
-    iconSize: [10, 10],
-    iconAnchor: [5, 5],
-    className: 'highlight-icon'
-  });
-
   $scope.removeHighlightMarker = function (){
     if ($scope.map) {
       $scope.map.removeLayer(highlightMarker);
@@ -276,34 +273,62 @@ angular.module( 'map', [
   //Iterate through all leaflet marker objects
   //console.log($scope.markerClusterGrp.getLayers());
     var clusters = $scope.markerClusterGrp.getLayers();
+
+    var highlightIcon = L.icon({
+      iconUrl: 'assets/img/cluster-icon-select.svg',
+      iconSize: [15, 15],
+      iconAnchor: [0, 0],
+      className: 'highlight-icon'
+    });
+
+    var childMarker;
+
+    //Iterate through all the markers
     for (var i in clusters){
-
       if ($scope.selectedMarker[0].title == clusters[i].options.title) {
-        var temp_marker = clusters[i];
-        var visibleOne = $scope.markerClusterGrp.getVisibleParent(temp_marker);
-        var pos = {
-            lat: visibleOne._latlng.lat,
-            lng: visibleOne._latlng.lng
-        };
-        if (visibleOne._childCount){
-          var childCount = visibleOne._childCount;
-          if (childCount < 10) {
-            highlightIcon.options.iconSize = [25,25];
-            highlightIcon.options.iconAnchor = [13,13];
-          } else if (childCount < 100) {
-            highlightIcon.options.iconSize = [35,35];
-            highlightIcon.options.iconAnchor = [17,17];
-          } else {
-            highlightIcon.options.iconSize = [45,45];
-            highlightIcon.options.iconAnchor = [22,22];
-          }
-        }
-        console.log(highlightIcon);
-        highlightMarker = L.marker([pos.lat, pos.lng], {icon:highlightIcon});
-        $scope.map.addLayer(highlightMarker);
-
+        childMarker = clusters[i];
+        break;
+      } else {
+        childMarker = null;
       }
     }
+
+    //Get parent of childMarker, returns marker if childMarker is not in a cluster
+    var visibleParent = $scope.markerClusterGrp.getVisibleParent(childMarker);
+
+    var pos = {
+        lat: visibleParent._latlng.lat,
+        lng: visibleParent._latlng.lng
+    };
+    console.log('cluster', pos.lat, pos.lng);
+
+    var childCount = 1; //default value when no children
+
+    if (visibleParent._childCount){
+      childCount = visibleParent.getChildCount();
+    }
+    
+    //change highlightIcon size depending on size of cluster 
+    if (childCount == 1) {
+      highlightIcon.options.iconSize = [15,15];
+      highlightIcon.options.iconAnchor = [0,0];
+    } else if (childCount < 10) {
+      highlightIcon.options.iconSize = [25,25];
+      highlightIcon.options.iconAnchor = [13,13];
+    } else if (childCount < 100) {
+      highlightIcon.options.iconSize = [35,35];
+      highlightIcon.options.iconAnchor = [17,17];
+    } else {
+      highlightIcon.options.iconSize = [45,45];
+      highlightIcon.options.iconAnchor = [22,22];
+    }
+
+
+    highlightMarker = L.marker([pos.lat, pos.lng], {icon:highlightIcon});
+    $scope.map.addLayer(highlightMarker);
+
+
+
   };
 
 

@@ -5,8 +5,6 @@ angular.module( 'detail', [
   //angular modules
   'ui.router',
   'ui.bootstrap',
-  'record',
-  'sidebar',
    //services
   'resources.photos'
 ])
@@ -21,44 +19,77 @@ angular.module( 'detail', [
       controller: 'DetailCtrl',
       templateUrl: 'detail/detail.tpl.html',
       resolve:{
-          photos:['Photos', '$stateParams', function (Photos, $stateParams) {
+          detailRecord:['Photos', '$stateParams', function (Photos, $stateParams) {
             return Photos.getById ($stateParams.record);
-          }]
+          }],
+          recordList: function() { return []; },
+          '$modalInstance': function() { 
+            return function() { 
+              if (modalInstance) {return modalInstance; }
+              
+            }; 
+          }
       }
     });
 })
 
-/*.controller('DetailCtrl', ['$scope', '$rootScope', 'Photos', '$modalInstance',  'recordID', 'locationParamsAndHash',
-  function ($scope, $rootScope, Photos, $modalInstance, recordID, locationParamsAndHash) {
 
-    $rootScope.viewingOverlay = true;
-    console.log(recordID);
-    console.log(locationParamsAndHash);
 
-    $scope.closeOverlay = function(){
-    //this can only pass in a single param
-      $modalInstance.close(locationParamsAndHash);
-    };
 
-    //and load in the appropriate data
-    $scope.record = {};
+.controller('DetailCtrl', ['$scope', '$modalInstance', 'detailRecord', 'recordList' ,function ($scope, $modalInstance, detailRecord, recordList) {
 
-    Photos.getById(
-      recordID,
-      function(response){
-        console.log(response);
-        $scope.record = response.data;
-      },
-      function(response){
-        console.log(response.data);
+  // if (detailRecord.data) {
+    $scope.record = detailRecord.data;
+  // } else {
+  //   $scope.record = detailRecord;
+  // }
+  
+  //console.log('from parent', $scope.record);
+  $scope.slides = recordList;
+
+  $scope.setActive = function(idx) {
+    $scope.slides[idx].active=true;
+  };
+
+  if ($scope.slides.length === 0) {
+    $scope.slides.push($scope.record);
+  } else {
+    var detailIdx;
+    for (var i=0; i < $scope.slides.length; i++) {
+      if ($scope.slides[i].record === $scope.record.record) {
+        console.log($scope.slides[i].record);
+        console.log($scope.record);
+        detailIdx = i;
+        console.log(i);
+        break;
       }
-    );*/
+    }
+    $scope.setActive(detailIdx);
+    //arraymove($scope.slides, detailIdx, 0); 
 
+  }
+  //console.log(recordList);
 
-.controller('DetailCtrl', ['$scope', 'photos', function ($scope, photos) {
+ 
 
-       $scope.record = photos.data;
-       console.log('from parent', $scope.record);
+  function arraymove(arr, fromIndex, toIndex) {
+    var element = arr[fromIndex]; 
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+  }
+
+  
+  //////////////////////////////////////////////////////////////////
+  //  EVENT HANDLERS FOR DETAIL STATE WHEN IT IS OPENED AS MODAL  //
+  /////////////////////////////////////////////////////////////////
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+
 
 
 
