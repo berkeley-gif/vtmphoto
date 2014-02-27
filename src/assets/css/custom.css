@@ -31,6 +31,7 @@ body {
 
 #map {
      height: 95%;
+     min-height: 500px;
 }
 
 .row.sidebar, .row.gallery {
@@ -93,6 +94,28 @@ body {
  /* ---------------------------------------------------------------------- */
 .detail {
 	margin-top: 20px;
+}
+.modal-header {
+	border-bottom: none;
+}
+.carousel-inner > .item > .description-block {
+	text-align: left !important;
+}
+.carousel-inner > .item > .details-block {
+	text-align: left !important;
+}
+.detail .carousel-nav > ul {
+	width:100%;
+    background:red;
+	height:50px;
+	text-align:center;
+}
+.detail .carousel-nav > ul > li {
+		width: 50px;
+		height: 100%;
+        background:blue;
+        color:white;
+        padding-right:100px;
 }
 /* ---------------------------------------------------------------------- */
 /*	Map
@@ -517,16 +540,23 @@ body {
 /*	Detail page styles
  /* ---------------------------------------------------------------------- */
 
-.detail .page-header {
-	margin: 20px 0 0;
-	border-bottom: none;
+.detail .carousel-control {
+	width: 8%;
 }
-.detail .page-header .notes {
-/*	font-weight: 200;
-	letter-spacing: -1px;*/
-	margin: 0 0 15px;
-	padding: 0;
-	font-family:Worstveld;
-	font-size: 30px;
-	line-height:1;
+
+div .carousel-inner .item .details-block,
+div .carousel-inner .item .description-block {
+	text-align: left !important!
+}
+
+.btn-circle-info {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 10px;
+  background-image: url(../img/info-64.png);
+  background-color: white;
 }

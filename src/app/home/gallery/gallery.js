@@ -200,12 +200,9 @@ angular.module( 'gallery', [
   ///////////////////////////////////////////////////////////
 
 	$scope.selectMarker = function (marker){
-		//console.log('in mouseover', marker);
-		console.log('marker', marker.lat, marker.lng);
 		markerData.selectMarker(marker);
 	};
 	$scope.unselectMarker = function (){
-		//console.log('in mouseover', marker);
 		markerData.unselectMarker();
 	};
 

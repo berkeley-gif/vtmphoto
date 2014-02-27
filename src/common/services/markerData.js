@@ -29,10 +29,6 @@ angular.module( 'services.markerData', [])
               marker[k] = jsonObject[k];
               marker['icon'] = local_icons.defaultIcon;
               marker['title'] = index;
-              var url = jsonObject['media_url'];
-              var thumbnailUrl = url.replace(/imgs\/(.*?)(\/)/, "imgs/128x192/");
-              var content = '<img src="' + thumbnailUrl + '" alt="" class="img-responsive">';
-              //marker['message'] = content;
             }
           } 
         }

@@ -300,7 +300,6 @@ angular.module( 'map', [
         lat: visibleParent._latlng.lat,
         lng: visibleParent._latlng.lng
     };
-    console.log('cluster', pos.lat, pos.lng);
 
     var childCount = 1; //default value when no children
 
