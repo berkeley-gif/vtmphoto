@@ -40,84 +40,57 @@ angular.module( 'detail', [
 
 .controller('DetailCtrl', ['$scope', '$modalInstance', 'detailRecord', 'recordList' ,function ($scope, $modalInstance, detailRecord, recordList) {
 
-  // if (detailRecord.data) {
-    $scope.record = detailRecord.data;
-  // } else {
-  //   $scope.record = detailRecord;
-  // }
 
   $scope.isCollapsed = true;
   
-  //console.log('from parent', $scope.record);
   $scope.slides = recordList;
 
-  $scope.setActive = function(idx) {
-    $scope.slides[idx].active=true;
+  
+
+
+
+  $scope.setActive = function (idx) {
+    $scope.slides[idx].active = true;
   };
 
-  if ($scope.slides.length === 0) {
-    $scope.slides.push($scope.record);
-  } else {
-    var detailIdx;
-    for (var i=0; i < $scope.slides.length; i++) {
-      if ($scope.slides[i].record === $scope.record.record) {
-        console.log($scope.slides[i].record);
-        console.log($scope.record);
-        detailIdx = i;
-        console.log('slideposition',i);
-        console.log($scope.record);
-        break;
-      }
+  $scope.getActiveSlide = function () {
+    return $scope.slides.filter(function (s) { return s.active; })[0];
+  };
+
+  $scope.activeIdx = $scope.getActiveSlide();
+
+  for (var i=0; i < $scope.slides.length; i++) {
+    if ($scope.slides[i].record === detailRecord) {
+      console.log('slideposition',i);
+      $scope.setActive(i);
+      break;
     }
-    $scope.setActive(detailIdx);
-    //arraymove($scope.slides, detailIdx, 0); 
-
   }
 
-  
-  /* SLIDE ON CLICK */ 
+   $scope.$watch('activeIdx', function(newValue, oldValue){
 
-$('.carousel-linked-nav > li > a').click(function() {
+    // Ignore initial setup
+    if ( newValue === oldValue) {
+      return;
+    }
 
-    // grab href, remove pound sign, convert to number
-    var item = Number($(this).attr('href').substring(1));
-
-    // slide to number -1 (account for zero indexing)
-    $('#myCarousel').carousel(item - 1);
-
-    // remove current active class
-    $('.carousel-linked-nav .active').removeClass('active');
-
-    // add active class to just clicked on item
-    $(this).parent().addClass('active');
-
-    // don't follow the link
-    return false;
-});
-
-/* AUTOPLAY NAV HIGHLIGHT */
-
-// bind 'slid' function
-$('.carousel').bind('slid', function() {
-
-    // remove active class
-    $('.carousel-linked-nav .active').removeClass('active');
-
-    // get index of currently active item
-    var idx = $('#myCarousel .item.active').index();
-
-    // select currently active item and add active class
-    $('.carousel-linked-nav li:eq(' + idx + ')').addClass('active');
-
-});
-
- 
-
-  function arraymove(arr, fromIndex, toIndex) {
-    var element = arr[fromIndex]; 
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
+    // Load data from service
+    if ( newValue ) {
+      var active = $scope.getActiveSlide();
+      console.log('active', active);
   }
+
+
+  });
+
+
+
+
+
+
+
+
+
 
   
   //////////////////////////////////////////////////////////////////

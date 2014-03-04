@@ -50,7 +50,7 @@ module.exports = {
   vendor_files: {
     js: [
       // Jquery
-      'vendor/jquery/dist/jquery.min.js',    
+      'vendor/jquery/jquery.min.js',    
       'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
       'vendor/jquery.ui.touch-punch.min.js', //enables touch support for jquery-ui widgets (slider)
       'vendor/jquery-throttle-debounce-plugin.js',
@@ -81,8 +81,7 @@ module.exports = {
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
-      'vendor/angular-bootstrap/ui-bootstrap.js',
-      'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+      'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0.js',
 
 
       // Leaflet

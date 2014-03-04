@@ -3,62 +3,44 @@
 			<div>
 	            <div class="row">
 	                <div class="col-md-12" >
+            		   	<div class="description-block">
+  							<h4 class="text-muted">{{active.authors}}, 	      								{{active.county}}, {{active.begin_date | date:'M/d/yyyy'}}
+  							</h4>
+  							<h4>{{active.photog_notes}} 
+								<a href ng-click="isCollapsed = !isCollapsed"><img src="assets/img/info-64.png" style="height:20px;"></a>
+							</h4>
+            			</div>
+            			<div class="details-block" collapse="isCollapsed">	
+            				<dl class="horizontal">
+            					<dt>Calphotos Record:</dt>
+            					<dd><a href="{{active.remote_resource}}" target="_newtab">{{active.record}}</a></dd>
+            					<dt>Coordinates:</dt>
+            					<dd>{{active.lat}},{{active.lng}}</dd>
+            					<dt>Associated Observations:</dt>
+            					<dd>
+            						<ul class="list-inline">
+            							<li ng-repeat="obs in active.observations" >
+            								{{obs.scientific_name}}
+										</li>
+            						</ul>
+            					</dd>
+            					<dt>Associated Resources:</dt>
+            					<dd>
+            						<ul class="list-inline">
+            							<li ng-repeat="obs in active.associated_resources" >
+                							<a href="{{obs.url}}" target="_newtab">{{obs.scientific_name}}
+                							</a>
+										</li>
+            						</ul>
+            					</dd>
+            				</dl>							
+            			</div>
 		                <carousel interval="-1">
 	      					<slide ng-repeat="slide in slides" active="slide.active">
-	      						<div class="description-block">
-	      							<h4 class="text-muted">{{slide.authors}}, 	      								{{slide.county}}, {{slide.begin_date | date:'M/d/yyyy'}}
-	      							</h4>
-	      							<h4>{{slide.photog_notes}} 
-										<a href ng-click="isCollapsed = !isCollapsed"><img src="assets/img/info-64.png" style="height:20px;"></a>
-									</h4>
-	                			</div>
-	                			<div class="details-block" collapse="isCollapsed">	
-	                				<dl class="horizontal">
-	                					<dt>Calphotos Record:</dt>
-	                					<dd><a href="{{slide.remote_resource}}" target="_newtab">{{slide.record}}</a></dd>
-	                					<dt>Coordinates:</dt>
-	                					<dd>{{slide.geojson.coordinates[1]}},{{slide.geojson.coordinates[0]}}</dd>
-	                					<dt>Associated Observations:</dt>
-	                					<dd>
-	                						<ul class="list-inline">
-	                							<li ng-repeat="obs in slide.observations" >
-                    								{{obs.scientific_name}}
-												</li>
-	                						</ul>
-	                					</dd>
-	                					<dt>Associated Resources:</dt>
-	                					<dd>
-	                						<ul class="list-inline">
-	                							<li ng-repeat="obs in slide.associated_resources" >
-                        							<a href="{{obs.url}}" target="_newtab">{{obs.scientific_name}}
-                        							</a>
-												</li>
-	                						</ul>
-	                					</dd>
-	                				</dl>							
-	                			</div>
 		        				<img ng-src="{{slide.media_url}}" style="margin:auto;">
 	      					</slide>
 	    				</carousel>
 	                </div>
-	            </div>
-	            <div class="row carousel-nav hidden-xs">
-	            	<ul class="list-inline">
-	            		<li ng-repeat="photo in slides | limitTo:6">
-	            				<a href="" ng-click="">
-									<img ng-src="{{photo.media_url | thumbnailUrl}}" alt=""
-									style="position: absolute;">
-								</a>
-	            		</li>
-	            	</ul>
-	            	<!-- <div ng-repeat="photo in slides |limitTo:6" class="col-md-1 col-sm-1 hidden-xs gallery-img">
-						<div class="wrap-image">
-							<a href="" ng-click="">
-								<img ng-src="{{photo.media_url | thumbnailUrl}}" alt=""
-								style="position: absolute;" imageonload >
-							</a>
-						</div>
-					</div> -->
 	            </div>
 
 			           

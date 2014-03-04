@@ -162,9 +162,10 @@ angular.module( 'gallery', [
 			templateUrl: 'detail/detail.modal.tpl.html',
 			controller: 'DetailCtrl',
 			resolve: {
-				detailRecord: ['Photos', function (Photos) {
+/*				detailRecord: ['Photos', function (Photos) {
 					return Photos.getById (record);
-				}],
+				}],*/
+				detailRecord: function() {return record;},
 				recordList: function() {return $scope.gallery.markers;}
 			}
 		});

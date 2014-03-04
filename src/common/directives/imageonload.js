@@ -61,9 +61,12 @@ angular.module('directives.imageonload', [])
                     var h = $(img).height();
                     var tw = $(img).offsetParent().width();
                     var th = $(img).offsetParent().height();
-                    tw = tw + (tw * 0.15);
-                    th = th + (th * 0.15);
-                    
+                    //for landscape oriented photos increase target ht & w
+                    //to clip out bottom strip
+                    if (w > h) {
+                        tw = tw + (tw * 0.25);
+                        th = th + (th * 0.25);
+                    }
 
                     // compute the new size and offsets
                     var result = new ScaleImage(w, h, tw, th, false);
@@ -75,13 +78,8 @@ angular.module('directives.imageonload', [])
                     //Position the photos
                     if (w < h) {
                         $(img).css("top", -10); //For portraits
-                    } else {                   
-                        //$(img).css("top", -10); //For landscapes
                     }
 
-                    $(img).css("left", -5);
-                    
-                    //console.log('element width', w, h, tw, th, result.width, result.height );
 
                 });
             }
