@@ -35,11 +35,39 @@
             					</dd>
             				</dl>							
             			</div>
-		                <carousel interval="-1">
+<!-- 		                <carousel interval="-1" id="photocarousel">
 	      					<slide ng-repeat="slide in slides" active="slide.active">
 		        				<img ng-src="{{slide.media_url}}" style="margin:auto;">
 	      					</slide>
-	    				</carousel>
+	    				</carousel> -->
+
+	    				<div class="slider">
+
+						    <img ng-repeat="slide in slides" class="slide"
+						         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+						         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.media_url}}">
+
+						    <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
+						    <a class="arrow next" href="#" ng-click="prevSlide()"></a>
+
+						</div>
+						<div class="slider-nav">
+						        <div class="wrapper">
+						        	<ul class="dots">
+						        		<a class="arr prev" href="#" ng-click="nextSlide()"></a>
+						                <li class="dot" ng-repeat="slide in slides | limitTo: 5">
+
+						                    <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}"
+						                       ng-click="setCurrentSlideIndex($index);">
+						                    	<img ng-src="{{slide.media_url | thumbnailUrl}}" alt=""imageonload >
+						                   </a>
+						                   
+						                </li>
+										<a class="arr next" href="#" ng-click="nextSlide()"></a>
+						            </ul>
+						        </div>
+						</div>
+
 	                </div>
 	            </div>
 

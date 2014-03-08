@@ -97,44 +97,162 @@ body {
 .modal-header {
 	border-bottom: none;
 }
-.carousel-inner > .item > .description-block {
-	text-align: left !important;
+
+.slider {
+    height: 50%;
+    /*overflow: hidden;
+    position: relative;*/
+    background: #e6e6e6;
+    border: 20px solid #FFF;
+    margin-top: 10px;
+    text-align: center;
 }
-.carousel-inner > .item > .details-block {
-	text-align: left !important;
-}
-/* Indicators list style */
-.carousel-indicators {
-    bottom: 0;
+
+.slide {
+    /*position: absolute;*/
+    top: 0;
     left: 0;
-    margin-left: 5px;
+}
+
+.arrow {
+    position: absolute;
+    z-index: 1002;
+    display: block;
+    top: 50%;
+    margin-top: -35px;
+    width: 36px;
+    height: 71px;
+    outline: none;
+    cursor: pointer;
+    background: url(../img/blank.gif) no-repeat;
+}
+
+.arrow.prev {
+    opacity: 0.2;
+    left: 20px;
+    background-image: url(../img/paddle_prev_999.png);
+    transition: 0.2s linear all;
+}
+
+.arrow.next {
+    opacity: 0.2;
+    right: 20px;
+    background-image: url(../img/paddle_next_999.png);
+    transition: 0.2s linear all;
+}
+
+.arrow.prev:hover {
+    opacity: 1;
+    background-image: url(../img/paddle_prev_fff.png);
+}
+
+.arrow.next:hover {
+    opacity: 1;
+    background-image: url(../img/paddle_next_fff.png);
+}
+
+
+/*---------------------------------------------------------
+NAV
+---------------------------------------------------------*/
+
+.slider-nav {
+    text-align: center;
+    display: block;
+    z-index: 1002;
+    height: 10%;
+}
+
+.nonDraggableImage{
+    -webkit-user-drag: none;
+}
+
+.slider-nav .wrapper {
+    margin: 0 auto;
     width: 100%;
+    padding: 1em 0 .8em;
 }
-/* Indicators list style */
-.carousel-indicators li {
-    border: medium none;
-    border-radius: 0;
-    float: left;
-    height: 54px;
-    margin-bottom: 5px;
-    margin-left: 0;
-    margin-right: 5px !important;
-    margin-top: 0;
+
+.slider-nav ul {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+}
+
+.slider-nav .dot, .nav .dot a {
+    display: inline-block;
+    zoom: 1;
+}
+
+.dots .dot {
+    position: relative;
+    margin: 0 8px;
     width: 100px;
+    height:60px;
 }
-/* Indicators images style */
-.carousel-indicators img {
-    border: 2px solid #FFFFFF;
-    float: left;
-    height: 54px;
-    left: 0;
-    width: 100px;
+
+.dots .dot a {
+	position: absolute;
+	width: 100%;
+	height: 80px;
+	overflow: hidden;
+	border: 6px solid #fff;
+  	border-bottom: 6px solid #fff;
+  	-webkit-box-shadow: 3px 3px 3px #777;
+    -moz-box-shadow: 3px 3px 3px #777;
+    box-shadow: 3px 3px 3px #777;
 }
-/* Indicators active image style */
-.carousel-indicators .active img {
-    border: 2px solid #428BCA;
-    opacity: 0.7;
+
+.slider-nav .arr {
+	display: inline-block;
+    width: 36px;
+    height: 50px;
+    outline: none;
+    cursor: pointer;
+    background: url(../img/blank.gif) no-repeat;
 }
+
+.slider-nav .arr.prev {
+    opacity: 0.2;
+    left: 20px;
+    background-image: url(../img/paddle_prev_999.png);
+    transition: 0.2s linear all;
+}
+
+.slider-nav .arr.next {
+    opacity: 0.2;
+    right: 20px;
+    background-image: url(../img/paddle_next_999.png);
+    transition: 0.2s linear all;
+}
+
+/*.dots .dot a {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    background: #FFF;
+    border: 1px solid transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: background-color 0.25s, border-color 0.25s;
+    -moz-transition: background-color 0.25s, border-color 0.25s;
+    transition: background-color 0.25s, border-color 0.25s;
+}
+
+.dots .dot a.active {
+    border-color: #FFF;
+    background-color: transparent;
+}*/
 /* ---------------------------------------------------------------------- */
 /*	Map
  /* ---------------------------------------------------------------------- */

@@ -79,6 +79,7 @@ module.exports = {
       'vendor/angular-route/angular-route.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
+      'vendor/angular-animate/angular-animate.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
       'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0.js',

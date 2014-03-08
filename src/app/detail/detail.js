@@ -45,11 +45,11 @@ angular.module( 'detail', [
   
   $scope.slides = recordList;
 
-  
+  $scope.currentIndex = 0;
 
 
 
-  $scope.setActive = function (idx) {
+/*  $scope.setActive = function (idx) {
     $scope.slides[idx].active = true;
   };
 
@@ -57,17 +57,41 @@ angular.module( 'detail', [
     return $scope.slides.filter(function (s) { return s.active; })[0];
   };
 
-  $scope.activeIdx = $scope.getActiveSlide();
+  $scope.activeIdx = $scope.getActiveSlide();*/
 
   for (var i=0; i < $scope.slides.length; i++) {
     if ($scope.slides[i].record === detailRecord) {
       console.log('slideposition',i);
-      $scope.setActive(i);
+      //$scope.setActive(i);
+      $scope.currentIndex = i;
+      $scope.active = $scope.slides[i];
       break;
     }
   }
 
-   $scope.$watch('activeIdx', function(newValue, oldValue){
+  $scope.direction = 'left';
+
+
+        $scope.setCurrentSlideIndex = function (index) {
+            $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
+            $scope.currentIndex = index;
+        };
+
+        $scope.isCurrentSlideIndex = function (index) {
+            return $scope.currentIndex === index;
+        };
+
+        $scope.prevSlide = function () {
+            $scope.direction = 'left';
+            $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+        };
+
+        $scope.nextSlide = function () {
+            $scope.direction = 'right';
+            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+        };
+
+/*   $scope.$watch('activeIdx', function(newValue, oldValue){
 
     // Ignore initial setup
     if ( newValue === oldValue) {
@@ -81,7 +105,7 @@ angular.module( 'detail', [
   }
 
 
-  });
+  });*/
 
 
 
