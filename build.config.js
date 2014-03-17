@@ -61,20 +61,6 @@ module.exports = {
       // Angular
       'vendor/angular/angular.js',    
 
-/*      //Angular-Masonry and it's dependecies
-      'vendor/jquery-bridget/jquery.bridget.js',
-      'vendor/get-style-property/get-style-property.js',
-      'vendor/get-size/get-size.js',
-      'vendor/eventEmitter/EventEmitter.js',
-      'vendor/eventie/eventie.js',
-      'vendor/doc-ready/doc-ready.js',
-      'vendor/matches-selector/matches-selector.js',
-      'vendor/outlayer/item.js',
-      'vendor/outlayer/outlayer.js',
-      'vendor/masonry/masonry.js',
-      'vendor/imagesloaded/imagesloaded.js',
-      'vendor/angular-masonry/angular-masonry.js',*/
-
       //Other Angular modules
       'vendor/angular-route/angular-route.js',
       'vendor/angular-resource/angular-resource.js',
@@ -82,8 +68,7 @@ module.exports = {
       'vendor/angular-animate/angular-animate.js',
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
-      'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0.js',
-
+      'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0_nocarousel.js',
 
       // Leaflet
       'vendor/leaflet-dist/leaflet-src.js',     
@@ -91,7 +76,11 @@ module.exports = {
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js'
     ],
     css: [
-      'vendor/leaflet-dist/leaflet.css'
+      'vendor/leaflet-dist/leaflet.css',
+      'vendor/flexslider/flexslider.css',
+    ],
+    assets: [
+
     ]
   },
 };

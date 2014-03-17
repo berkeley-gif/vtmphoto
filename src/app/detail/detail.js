@@ -8,7 +8,10 @@ angular.module( 'detail', [
    //services
   'resources.photos',
   'filters.thumbnail',
-  'directives.imageonload'
+  'filters.sublist',
+  'directives.imageonload',
+  'services.markerData',
+  'directives.scroll'
 ])
 
 /**
@@ -24,6 +27,7 @@ angular.module( 'detail', [
           detailRecord:['Photos', '$stateParams', function (Photos, $stateParams) {
             return Photos.getById ($stateParams.record);
           }],
+          //TODO: Get nearby photos to populate recordList after detailRecord is resolved (for non-modal view)
           recordList: function() { return []; },
           '$modalInstance': function() { 
             return function() { 
@@ -38,85 +42,91 @@ angular.module( 'detail', [
 
 
 
-.controller('DetailCtrl', ['$scope', '$modalInstance', 'detailRecord', 'recordList' ,function ($scope, $modalInstance, detailRecord, recordList) {
+.controller('DetailCtrl', ['$scope', '$location','$modalInstance', 'detailRecord', 'markerData' ,function ($scope, $location, $modalInstance, detailRecord, markerData) {
 
-
+  //////////////////////////////////////////////////////////////////
+  //  HANDLE SHOW AND HIDE EVENTS FOR FILTERS TAB  //
+  /////////////////////////////////////////////////////////////////
   $scope.isCollapsed = true;
+
+
+  //////////////////////////////////////////////////////////////////
+  //  SLIDESHOW SETUP                                            //
+  /////////////////////////////////////////////////////////////////
   
-  $scope.slides = recordList;
+  $scope.slides = markerData.getFilteredMarkers();
 
-  $scope.currentIndex = 0;
+  $scope.currentIndex = 0; //Default value
 
-
-
-/*  $scope.setActive = function (idx) {
-    $scope.slides[idx].active = true;
+  $scope.setCurrentSlideIndex = function (index) {
+      $scope.currentIndex = index;
   };
 
-  $scope.getActiveSlide = function () {
-    return $scope.slides.filter(function (s) { return s.active; })[0];
-  };
-
-  $scope.activeIdx = $scope.getActiveSlide();*/
-
-  for (var i=0; i < $scope.slides.length; i++) {
-    if ($scope.slides[i].record === detailRecord) {
-      console.log('slideposition',i);
-      //$scope.setActive(i);
-      $scope.currentIndex = i;
-      $scope.active = $scope.slides[i];
-      break;
-    }
-  }
-
-  $scope.direction = 'left';
-
-
-        $scope.setCurrentSlideIndex = function (index) {
-            $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
-            $scope.currentIndex = index;
-        };
-
-        $scope.isCurrentSlideIndex = function (index) {
+  $scope.isCurrentSlideIndex = function (index) {
             return $scope.currentIndex === index;
-        };
+  };
 
-        $scope.prevSlide = function () {
-            $scope.direction = 'left';
-            $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
-        };
+  $scope.prevSlide = function () {
+    $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+  };
 
-        $scope.nextSlide = function () {
-            $scope.direction = 'right';
-            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
-        };
+  $scope.nextSlide = function () {
+    $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+  };
 
-/*   $scope.$watch('activeIdx', function(newValue, oldValue){
-
-    // Ignore initial setup
-    if ( newValue === oldValue) {
-      return;
+  //Set active slide to record id passed through modal/detail view 
+  if (detailRecord.data) {
+    var record = {};
+    for (var k in detailRecord.data) {
+      if (detailRecord.data.hasOwnProperty(k)){
+        if (k === 'geojson') {
+          record.lat = detailRecord.data.geojson.coordinates[1];
+          record.lng = detailRecord.data.geojson.coordinates[0];
+        } else {
+          record[k] = detailRecord.data[k];
+        }
+      } 
     }
-
-    // Load data from service
-    if ( newValue ) {
-      var active = $scope.getActiveSlide();
-      console.log('active', active);
+    $scope.slides.push(record);
+  } else {
+      for (var i=0; i < $scope.slides.length; i++) {
+        if ($scope.slides[i].record === detailRecord) {
+          $scope.setCurrentSlideIndex(i);
+          break;
+        }
+      }
   }
 
 
-  });*/
+  //Watches $scope.currentIdex to update active slide
+  $scope.$watch('currentIndex', function(){
+      $scope.active = $scope.slides[$scope.currentIndex];
+      //$scope.updateLocation($scope.active.record);
+
+  });
+
+  ////////////////////////
+  // THUMBNAIL SETUP    //
+  ////////////////////////
+  $scope.counter = 6;
+  $scope.thumbStartIndex = 0;
+
+  $scope.loadMore = function() {
+    $scope.counter += 2;
+  };
 
 
 
 
+  //TODO: Fix digest errors when updating history
+  $scope.updateLocation = function(record){
+    $location.path('/detail/'+record);
+    history.replaceState({}, '#/detail/'+ record, '#/detail/'+ record);
+    console.log($location.path());
+    
+  };
 
 
-
-
-
-
-  
   //////////////////////////////////////////////////////////////////
   //  EVENT HANDLERS FOR DETAIL STATE WHEN IT IS OPENED AS MODAL  //
   /////////////////////////////////////////////////////////////////

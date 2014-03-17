@@ -27,7 +27,7 @@ angular.module( 'map', [
  * this way makes each module more "self-contained".
  */
  
-.controller('MapCtrl', ['$scope', '$timeout', '$debounce', 'markerData', 'holosData', 'leafletData', 'leafletBoundsHelpers', 'leafletMarkersHelpers',function ($scope, $timeout, $debounce, markerData, holosData, leafletData, leafletBoundsHelpers, leafletMarkersHelpers) {
+.controller('MapCtrl', ['$scope', '$timeout', '$location', '$debounce', 'markerData', 'holosData', 'leafletData', 'leafletBoundsHelpers', 'leafletMarkersHelpers', function ($scope, $timeout, $location, $debounce, markerData, holosData, leafletData, leafletBoundsHelpers, leafletMarkersHelpers) {
 
   ////////////////////////////
   //    INITIALIZE MAP     //
@@ -58,6 +58,9 @@ angular.module( 'map', [
         lng: -125.0
       }
     },
+    controls: {
+        custom: []
+      },
     layers: {
       baselayers: {
           streets: {
@@ -126,6 +129,11 @@ angular.module( 'map', [
 
   });
 
+  $scope.$on("centerUrlHash", function(event, centerHash) {
+                console.log("url", centerHash);
+                $location.search({ c: centerHash });
+            });
+
   $scope.markers = markerData.getFilteredMarkers();
 
   /////////////////////////////////////////////////////
@@ -142,9 +150,29 @@ angular.module( 'map', [
       $scope.map = map;
     });
 
+
+
+/*    $scope.map.controls.custom.push(L.control.locate({
+      follow: true
+    }));*/
+
   },1000);
 
 
+/*  var MyControl = L.control();
+    MyControl.setPosition('bottomleft');
+    MyControl.onAdd = function () {
+        var className = 'leaflet-control-my-location', 
+             container = L.DomUtil.create('div', className + ' leaflet-bar');
+        return container;
+  };*/
+
+/*  $scope.controls.custom.push(MyControl);*/
+
+/*$scope.controls.custom.push(L.control.locate({
+    follow: true
+}));
+*/
   $scope.$watch('user', function(newValue, oldValue){
 
     // Ignore initial setup
@@ -242,7 +270,7 @@ angular.module( 'map', [
 
 
   ////////////////////////////////////////////////////////////
-  //    HGHLIGHT MAP MARKER ON IMAGE GALLERY MOUSEOVER     //
+  //    HANDLERS FOR HGHLIGHT MAP MARKER ON IMAGE GALLERY MOUSEOVER     //
   ///////////////////////////////////////////////////////////
 
   $scope.selectedMarker = markerData.getSelectedMarker();
@@ -271,7 +299,6 @@ angular.module( 'map', [
 
   $scope.addHighlightMarker = function (){
   //Iterate through all leaflet marker objects
-  //console.log($scope.markerClusterGrp.getLayers());
     var clusters = $scope.markerClusterGrp.getLayers();
 
     var highlightIcon = L.icon({

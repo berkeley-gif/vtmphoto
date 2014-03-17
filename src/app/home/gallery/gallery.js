@@ -58,6 +58,7 @@ angular.module( 'gallery', [
 		$scope.currentPage = 1;
 		$scope.groupToPages();
 		console.log('photos', $scope.totalItems);
+/*		console.log('numpages', $scope.numPages);*/
 	});
 
 	// Calculate pages in place
@@ -73,6 +74,8 @@ angular.module( 'gallery', [
 		}
 
 		$scope.numPages = $scope.pagedPhotos.length;
+/*		console.log('pagesphotos',  $scope.pagedPhotos.length);
+		console.log('2 numpages', $scope.numPages);*/
 	};
 
 	////////////////////////
@@ -152,7 +155,7 @@ angular.module( 'gallery', [
 	$scope.showModal = function (record) {
 		
 		//console.log($location.path());
-		$scope.updateLocation(record);
+		//$scope.updateLocation(record);
 
 		var modalInstance = $modal.open({
 			backdrop: true,
@@ -179,14 +182,14 @@ angular.module( 'gallery', [
 			//on cancel button press
 			//history.pushState({}, '#', '#/detail/'+ record);
 			$log.info('Modal dismissed at: ' + new Date());
-			history.replaceState({}, '#/detail/'+ record, '#');
+			//history.replaceState({}, '#/detail/'+ record, '#');
 		});
 
 	};
 
 	$scope.updateLocation = function(record){
 		$location.path('/detail/'+record);
-		var currentState = history.state;
+		//var currentState = history.state;
 		//console.log(currentState);
 		history.replaceState({}, '#', '#/detail/'+ record);
 		console.log($location.path());

@@ -1,11 +1,13 @@
 html {
 	height: 100%;
+  background-color: #FAFAFA;
 }
 
 body {
 	height: 100%;
 	margin: 0; 
 	padding: 0;
+  background-color: #FAFAFA;
 }
 
 .navbar {
@@ -94,25 +96,88 @@ body {
 .detail {
 	margin-top: 20px;
 }
+
+.btn-circle-info {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 10px;
+  background-image: url(../img/info-64.png);
+  background-color: white;
+}
+
+.modal-dialog {
+  width: 97%;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+section {
+  /*background-color: #FFFFFF;*/
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.18);
+  margin-bottom: 14px;
+  overflow: hidden;
+  padding: 5px;
+}
+
 .modal-header {
-	border-bottom: none;
+  border-bottom: none;
+}
+
+.modal-header button.close {
+  font-size: 27.5px;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.modal-header button.close:hover, 
+.modal-header button.close:focus {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+.modal-body {
+  padding: 5px 20px;
 }
 
 .slider {
-    height: 50%;
-    /*overflow: hidden;
-    position: relative;*/
-    background: #e6e6e6;
-    border: 20px solid #FFF;
-    margin-top: 10px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
     text-align: center;
 }
 
 .slide {
     /*position: absolute;*/
-    top: 0;
-    left: 0;
+    display:block;
+margin-left: auto;
+margin-right: auto;
+position:relative;
+text-align:center;
+    max-height: 90%;
 }
+
+/*@media screen and (orientation: portrait) {
+  img { 
+      width: 100%; 
+      height:auto !important;
+  }
+}
+@media screen and (orientation: landscape) {
+  img { 
+      height: 100%;
+      min-width:10%;
+      max-width:100%;
+  }
+}*/
+
 
 .arrow {
     position: absolute;
@@ -155,7 +220,20 @@ body {
 /*---------------------------------------------------------
 NAV
 ---------------------------------------------------------*/
+section.slider-nav {
+  height: 200px;
+  overflow: auto;
 
+}
+
+section.slider-nav .wrap-image {
+  height: 70px;
+}
+
+section.slider-nav .wrap-image.active {
+    box-shadow: 3px 3px 3px #18bc9c; 
+}
+/*
 .slider-nav {
     text-align: center;
     display: block;
@@ -191,7 +269,7 @@ NAV
     height:60px;
 }
 
-.dots .dot a {
+.dots .dot .thumb {
 	position: absolute;
 	width: 100%;
 	height: 80px;
@@ -201,30 +279,31 @@ NAV
   	-webkit-box-shadow: 3px 3px 3px #777;
     -moz-box-shadow: 3px 3px 3px #777;
     box-shadow: 3px 3px 3px #777;
+  cursor: pointer;
 }
 
-.slider-nav .arr {
+.slider-nav .group {
 	display: inline-block;
-    width: 36px;
-    height: 50px;
-    outline: none;
-    cursor: pointer;
-    background: url(../img/blank.gif) no-repeat;
+  width: 25px;
+  height: 50px;
+  outline: none;
+  cursor: pointer;
+  background: url(../img/blank.gif) no-repeat;
 }
 
-.slider-nav .arr.prev {
-    opacity: 0.2;
-    left: 20px;
-    background-image: url(../img/paddle_prev_999.png);
-    transition: 0.2s linear all;
+.slider-nav .group.prev {
+  opacity: 0.2;
+  left: 20px;
+  background-image: url(../img/paddle_prev_999.png);
+  transition: 0.2s linear all;
 }
 
-.slider-nav .arr.next {
-    opacity: 0.2;
-    right: 20px;
-    background-image: url(../img/paddle_next_999.png);
-    transition: 0.2s linear all;
-}
+.slider-nav .group.next {
+  opacity: 0.2;
+  right: 20px;
+  background-image: url(../img/paddle_next_999.png);
+  transition: 0.2s linear all;
+}*/
 
 /*.dots .dot a {
     position: absolute;
@@ -253,6 +332,9 @@ NAV
     border-color: #FFF;
     background-color: transparent;
 }*/
+
+
+
 /* ---------------------------------------------------------------------- */
 /*	Map
  /* ---------------------------------------------------------------------- */
@@ -306,7 +388,7 @@ NAV
 
 /* ---------------------------------------------------------------------- */
 /*	Modal Window
- /* ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 /* modified styles in bootswatch-flatly.css for modal-dialog*/
 
 /* ---------------------------------------------------------------------- */
@@ -409,6 +491,8 @@ NAV
 /*	Pagination 
 /*  (overwriting bootswatch-flatly.css styles with default bootstrap styles)
  /* ---------------------------------------------------------------------- */
+
+
 .pagination {
 	margin: 5px 0;
 }
@@ -481,24 +565,6 @@ NAV
   border-color: transparent;
 }
 
-.pagination-lg > li > a,
-.pagination-lg > li > span {
-  padding: 18px 27px;
-  font-size: 19px;
-}
-
-.pagination-lg > li:first-child > a,
-.pagination-lg > li:first-child > span {
-  border-bottom-left-radius: 6px;
-  border-top-left-radius: 6px;
-}
-
-.pagination-lg > li:last-child > a,
-.pagination-lg > li:last-child > span {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
 .pagination-sm > li > a,
 .pagination-sm > li > span {
   padding: 6px 9px;
@@ -530,7 +596,7 @@ NAV
 }
 .ui-slider .ui-slider-handle {
 	position: absolute;
-	z-index: 2;
+	z-index: 3;
 	width: 1em;
 	height: 1em;
 	cursor: default;
@@ -545,6 +611,18 @@ NAV
 	top: 4px;
 	left: 4px;
 	border-radius: 1em/1em;
+}
+
+.ui-slider .tick {
+  z-index: 2; 
+  position: absolute; 
+  height: 100%; 
+  font-size: 0.6em; 
+  line-height: 0.5em; 
+  display: block;
+  border: 0;
+  background: none;
+  color: #7f9293;
 }
 
 .ui-slider .ui-slider-range {
@@ -676,23 +754,3 @@ NAV
 /*	Detail page styles
  /* ---------------------------------------------------------------------- */
 
-.detail .carousel-control {
-	width: 8%;
-}
-
-div .carousel-inner .item .details-block,
-div .carousel-inner .item .description-block {
-	text-align: left !important!
-}
-
-.btn-circle-info {
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 13px;
-  line-height: 1;
-  border-radius: 10px;
-  background-image: url(../img/info-64.png);
-  background-color: white;
-}

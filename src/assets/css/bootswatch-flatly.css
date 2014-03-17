@@ -6357,7 +6357,7 @@ button.close {
 .modal-dialog {
   position: relative;
   z-index: 1050;
-  width: 90%;
+  width: auto;
   padding: 10px;
   margin-right: auto;
   margin-left: auto;
@@ -6487,9 +6487,9 @@ button.close {
 
 @media screen and (min-width: 768px) {
   .modal-dialog {
-    width: 90%;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    width: 600px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);

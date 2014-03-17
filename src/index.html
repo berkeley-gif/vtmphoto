@@ -30,57 +30,48 @@
 	<!-- end: HEAD -->
 	<!-- start: BODY -->
 	<body ng-controller="AppCtrl">
-
+		
+		<!-- start: HEADER -->
 		<div class="container-fluid">
 			<h4>Wieslander's Vegetation Type Mapping Project</h4>
-			<!-- start: HEADER -->
 			<div class="navbar navbar-default">
-				<!-- start: TOP NAVIGATION CONTAINER -->
-				<div class="container">
-					<div class="navbar-header">
-						<!-- start: RESPONSIVE MENU TOGGLER -->
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-header-collapse"   >
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<!-- end: RESPONSIVE MENU TOGGLER -->
-						<!-- start: LOGO -->
-						<a class="navbar-brand" ui-sref="home">
-							Explore Photos
-						</a>
-						<!-- end: LOGO -->
-					</div>
-					<div class="navbar-collapse collapse navbar-header-collapse">
-	                	<ul class="nav navbar-nav pull-right">
-	                    	<li ng-class="{ active: $state.includes('upload') }">
-	                    		<a ui-sref="upload" data-toggle="collapse" data-target=".navbar-collapse.in">
-	                    			<i class="fa fa-arrow-circle-up"></i>&nbsp;&nbsp;Upload Retakes
-	                    		</a>
-	                    	</li>
-	                   		<li ng-class="{ active: $state.includes('about') }">
-	                   			<a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">
-	                   				<i class="fa fa-question-circle"></i>&nbsp;&nbsp;About VTM
-	                   			</a>
-	                   		</li>
-	                   	</ul>
-	            	</div><!--/.navbar-collapse -->
-						<!-- end: TOP NAVIGATION MENU -->
+				<div class="navbar-header">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-header-collapse"   >
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: LOGO -->
+					<a class="navbar-brand" ui-sref="home">
+						Explore Photos
+					</a>
+					<!-- end: LOGO -->
 				</div>
-				<!-- end: TOP NAVIGATION CONTAINER -->
+				<div class="navbar-collapse collapse navbar-header-collapse">
+                	<ul class="nav navbar-nav pull-right">
+                    	<li ng-class="{ active: $state.includes('upload') }">
+                    		<a ui-sref="upload" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    			<i class="fa fa-arrow-circle-up"></i>&nbsp;&nbsp;Upload Retakes
+                    		</a>
+                    	</li>
+                   		<li ng-class="{ active: $state.includes('about') }">
+                   			<a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">
+                   				<i class="fa fa-question-circle"></i>&nbsp;&nbsp;About VTM
+                   			</a>
+                   		</li>
+                   	</ul>
+            	</div><!--/.navbar-collapse -->
 			</div>
-			<!-- end: HEADER -->
 		</div>
-
+		<!-- end: HEADER -->
 
 		<!-- start: MAIN CONTAINER -->
 		<div ui-view class="container-fluid main">
 		</div>
 
 		<!-- end: MAIN CONTAINER -->
-
-
-
 
 		<!-- start: COMPILED JAVASCRIPT FILES -->
     	<!-- compiled JS -->

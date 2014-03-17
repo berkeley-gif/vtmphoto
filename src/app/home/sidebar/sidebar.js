@@ -32,7 +32,7 @@ angular.module( 'sidebar', [
 
 	$scope.isCollapsed = true;
  
-
+	$scope.dateRange = [];
 
 	// Initialize markers		
 	$scope.sidebar = {
@@ -64,8 +64,20 @@ angular.module( 'sidebar', [
 		$scope.markerCount = $scope.sidebar.markers.length;
 		$scope.filteredMarkers = $scope.sidebar.markers;
 		$scope.filteredCount = $scope.filteredMarkers.length;
-
+		//$scope.updateDateRange();
 	});
+
+/*	$scope.updateDateRange = function (){
+		for (var i = 0; i < $scope.filteredCount; i++){
+			var date = new Date($scope.filteredMarkers[i].begin_date).getFullYear();
+			$scope.dateRange.push(date);
+		}
+	};
+
+	$scope.myStyleFunction = function($index) {
+
+		return {left: $index + "%"};
+	};*/
 
 
 	$scope.$watch('slider.range', function(newValue, oldValue) {
@@ -107,6 +119,7 @@ angular.module( 'sidebar', [
 			$scope.filteredCount = filtered.length;
 			$scope.filteredMarkers = filtered;
 			markerData.updateFilteredMarkers($scope.filteredMarkers);
+			//$scope.updateDateRange();
 		}
 
 		

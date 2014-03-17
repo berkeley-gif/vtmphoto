@@ -54,9 +54,9 @@
 	    							<label class="control-label" for="date">Year Range</label>
 	    							<div class="controls">
 	    								<p>{{slider.range[0]}} - {{slider.range[1]}}</p>
-	    								<div ui-slider="slider.options" ng-model="slider.range"></div>
-
-	    								<!-- "{range:true}" min="{{yearSlider.min}}" max="{{yearSlider.max}}" step="1" --> 
+	    								<div ui-slider="slider.options" ng-model="slider.range">
+<!-- 		    								<div class="tick" ng-repeat="date in dateRange"><span ng-style="myStyleFunction($index)">|</span></div> -->
+										</div>
 
 	    							</div>
 	  							</div>

@@ -3,20 +3,20 @@
 			<div>
 	            <div class="row">
 	                <div class="col-md-12" >
-            		   	<div class="description-block">
+            		   	<section class="description-block">
   							<h4 class="text-muted">{{active.authors}}, 	      								{{active.county}}, {{active.begin_date | date:'M/d/yyyy'}}
   							</h4>
   							<h4>{{active.photog_notes}} 
 								<a href ng-click="isCollapsed = !isCollapsed"><img src="assets/img/info-64.png" style="height:20px;"></a>
 							</h4>
-            			</div>
-            			<div class="details-block" collapse="isCollapsed">	
-            				<dl class="horizontal">
+            			</section>
+            			<section class="details-block" collapse="isCollapsed">	
+            				<dl class="dl-horizontal">
             					<dt>Calphotos Record:</dt>
             					<dd><a href="{{active.remote_resource}}" target="_newtab">{{active.record}}</a></dd>
             					<dt>Coordinates:</dt>
-            					<dd>{{active.lat}},{{active.lng}}</dd>
-            					<dt>Associated Observations:</dt>
+            					<dd>{{active.lat}},{{active.lng}} <a href="https://maps.google.com/maps?source=earth&ll={{active.lat}},{{active.lng}}&layer=" target="_newtab">Google Streetview</a></dd>
+            					<dt>Observations:</dt>
             					<dd>
             						<ul class="list-inline">
             							<li ng-repeat="obs in active.observations" >
@@ -24,52 +24,55 @@
 										</li>
             						</ul>
             					</dd>
-            					<dt>Associated Resources:</dt>
-            					<dd>
-            						<ul class="list-inline">
-            							<li ng-repeat="obs in active.associated_resources" >
-                							<a href="{{obs.url}}" target="_newtab">{{obs.scientific_name}}
-                							</a>
-										</li>
-            						</ul>
-            					</dd>
             				</dl>							
-            			</div>
-<!-- 		                <carousel interval="-1" id="photocarousel">
-	      					<slide ng-repeat="slide in slides" active="slide.active">
-		        				<img ng-src="{{slide.media_url}}" style="margin:auto;">
-	      					</slide>
-	    				</carousel> -->
+            			</section>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col-md-9">
+	    				<section class="slider">
 
-	    				<div class="slider">
-
-						    <img ng-repeat="slide in slides" class="slide"
-						         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
-						         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.media_url}}">
+						    <img class="slide" ng-src="{{active.media_url}}">
 
 						    <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
 						    <a class="arrow next" href="#" ng-click="prevSlide()"></a>
 
-						</div>
-						<div class="slider-nav">
-						        <div class="wrapper">
-						        	<ul class="dots">
-						        		<a class="arr prev" href="#" ng-click="nextSlide()"></a>
-						                <li class="dot" ng-repeat="slide in slides | limitTo: 5">
-
-						                    <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}"
-						                       ng-click="setCurrentSlideIndex($index);">
-						                    	<img ng-src="{{slide.media_url | thumbnailUrl}}" alt=""imageonload >
-						                   </a>
-						                   
-						                </li>
-										<a class="arr next" href="#" ng-click="nextSlide()"></a>
-						            </ul>
-						        </div>
-						</div>
+						</section>
+					</div>
+					<div class="col-md-3" >
+						<section class="slider-nav" when-scrolled="loadMore()">
+							<h5 class="text-muted">Nearby Photos</h5>
+							<div ng-repeat="thumb in slides | sublist:counter:0" class="col-md-6 col-sm-12 gallery-img">
+								<div class="wrap-image" ng-class="{'active':isCurrentSlideIndex($index)}">
+									<a href ng-click="setCurrentSlideIndex($index);" >
+										<img ng-src="{{thumb.media_url}}" alt="" imageonload>
+									</a>
+								</div>
+							</div>
+						</section>
 
 	                </div>
 	            </div>
 
 			           
 			</div>
+
+
+
+
+
+
+
+<!-- 
+									<section class="slider-nav">
+						        <div class="wrapper">
+						        	<ul class="dots" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+						                <li class="dot" ng-repeat="s in slides |sublist:4:2*counter">
+						                	<div class="thumb" ng-click="setCurrentSlideIndex($index);">
+						                    	<img ng-src="{{s.media_url | thumbnailUrl}}" alt="" imageonload >
+						                   	</div>
+						                </li>
+
+						            </ul>
+						        </div>
+						</section> -->

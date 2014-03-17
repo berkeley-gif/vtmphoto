@@ -43,8 +43,8 @@ angular.module( 'home', [
     ;
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', '$location', 'geolocation' , 'geolocation_msgs', 'geocoder', 
-  function ($scope, $timeout, $location, geolocation, geolocation_msgs, geocoder) {
+.controller('HomeCtrl', ['$scope', '$timeout', 'geolocation' , 'geolocation_msgs', 'geocoder', 
+  function ($scope, $timeout, geolocation, geolocation_msgs, geocoder) {
 
   
     $scope.selectedMarker = [];
