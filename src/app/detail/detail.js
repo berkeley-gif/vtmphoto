@@ -4,7 +4,7 @@
 angular.module( 'detail', [
   //angular modules
   'ui.router',
-  'ui.bootstrap',
+  'ui.bootstrap.collapse',
    //services
   'resources.photos',
   'filters.thumbnail',

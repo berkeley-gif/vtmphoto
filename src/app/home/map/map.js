@@ -129,10 +129,6 @@ angular.module( 'map', [
 
   });
 
-  $scope.$on("centerUrlHash", function(event, centerHash) {
-                console.log("url", centerHash);
-                $location.search({ c: centerHash });
-            });
 
   $scope.markers = markerData.getFilteredMarkers();
 
@@ -310,6 +306,18 @@ angular.module( 'map', [
 
     var childMarker;
 
+    console.log('selected marker in map', $scope.selectedMarker[0].title );
+    var clustertitle = [];
+    for (var j in clusters){
+      clustertitle.push(clusters[j].options.title);
+    }
+    console.log('cluster', clustertitle );
+    var markertitle = [];
+    for (var k in $scope.markers){
+      markertitle.push( $scope.markers[k].title);
+    }
+    console.log('map markers', clustertitle );
+
     //Iterate through all the markers
     for (var i in clusters){
       if ($scope.selectedMarker[0].title == clusters[i].options.title) {
@@ -319,6 +327,9 @@ angular.module( 'map', [
         childMarker = null;
       }
     }
+
+
+
 
     //Get parent of childMarker, returns marker if childMarker is not in a cluster
     var visibleParent = $scope.markerClusterGrp.getVisibleParent(childMarker);

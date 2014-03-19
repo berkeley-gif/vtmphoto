@@ -118,6 +118,7 @@ angular.module( 'sidebar', [
 		if (filtered){
 			$scope.filteredCount = filtered.length;
 			$scope.filteredMarkers = filtered;
+			console.log('filtered markers',$scope.filteredMarkers);
 			markerData.updateFilteredMarkers($scope.filteredMarkers);
 			//$scope.updateDateRange();
 		}

@@ -51,6 +51,7 @@ angular.module( 'gallery', [
 	$scope.maxSize = 5;
 	$scope.itemsPerPage = 12;
 	$scope.pagedPhotos = [];
+	$scope.numPages = 0;
 
 
 	$scope.$watchCollection('gallery.markers', function(){
@@ -204,6 +205,7 @@ angular.module( 'gallery', [
   ///////////////////////////////////////////////////////////
 
 	$scope.selectMarker = function (marker){
+		console.log('selected marker in gallery', marker.title );
 		markerData.selectMarker(marker);
 	};
 	$scope.unselectMarker = function (){
