@@ -15,6 +15,7 @@
 angular.module( 'gallery', [
 //angular modules
 'ui.router',
+'ngAnimate',
 //services
 'services.markerData',
 'ui.bootstrap',
@@ -36,6 +37,8 @@ angular.module( 'gallery', [
 	function ($scope, $location, $rootScope, markerData, $modal, $log) {
 
 	console.log('reached gallery control');
+
+	//$scope.session.galleryCollapsed = !$scope.session.filtersCollapsed;
 
 	$scope.gallery = {
 		markers : markerData.getFilteredMarkers()

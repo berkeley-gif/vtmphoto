@@ -5,13 +5,16 @@ angular.module( 'detail', [
   //angular modules
   'ui.router',
   'ui.bootstrap.collapse',
-   //services
+   //resource
   'resources.photos',
+  //filters
   'filters.thumbnail',
   'filters.sublist',
+  //directives
   'directives.imageonload',
   'services.markerData',
-  'directives.scroll'
+  'directives.scroll',
+  'FBAngular' //fullscreen directive
 ])
 
 /**
@@ -108,7 +111,7 @@ angular.module( 'detail', [
   ////////////////////////
   // THUMBNAIL SETUP    //
   ////////////////////////
-  $scope.counter = 6;
+  $scope.counter = 10;
   $scope.thumbStartIndex = 0;
 
   $scope.loadMore = function() {

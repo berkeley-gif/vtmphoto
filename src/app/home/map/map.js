@@ -121,7 +121,19 @@ angular.module( 'map', [
                 maxClusterRadius: 50,
                 zoomToBoundsOnClick: true
               }
-          }
+          },
+          biomass: {
+                  name: 'Biomass',
+                  type: 'xyz',
+                  url: 'http://landcarbon.org/tiles/frstc_cent_miroc_a1b/{z}/{x}/{y}.png',
+                  visible: true,
+                  layerParams: {
+                      dtstart: 2005
+                  },
+                  layerOptions: {
+                      dtstart: 2005
+                  }
+           }    
       }
     },
     defaults : {
@@ -140,6 +152,9 @@ angular.module( 'map', [
 
     leafletData.getLayers().then(function(layers) {
       $scope.markerClusterGrp = layers.overlays.locations;
+      $scope.markerClusterGrp.on('clustermouseover', function(a){
+        console.log('cluster ', a.layer.getAllChildMarkers());
+    });
     });
 
     leafletData.getMap().then(function(map) {
@@ -147,6 +162,9 @@ angular.module( 'map', [
     });
 
 
+/*    $scope.markerClusterGrp.on('clustermouseover', function(a){
+        console.log('cluster ', a.layer.getAllChildMarkers());
+    });*/
 
 /*    $scope.map.controls.custom.push(L.control.locate({
       follow: true
@@ -259,9 +277,7 @@ angular.module( 'map', [
   }); 
 
 
-/*  $scope.markerClusterGrp.on('clustermouseover', function(a){
-        console.log('cluster ', a.layer.getAllChildMarkers());
-  });*/
+
 
 
 
@@ -293,7 +309,30 @@ angular.module( 'map', [
 
   };
 
+/*  $scope.addHighlightMarker = function (){
+
+    var highlightIcon = L.icon({
+      iconUrl: 'assets/img/cluster-icon-select.svg',
+      iconSize: [15, 15],
+      iconAnchor: [0, 0],
+      className: 'highlight-icon'
+    });
+
+    console.log('selected marker in map', $scope.selectedMarker[0].title );
+
+    var pos = {
+        lat: $scope.selectedMarker[0].lat,
+        lng: $scope.selectedMarker[0].lng
+    };
+
+    highlightMarker = L.marker([pos.lat, pos.lng], {icon:highlightIcon});
+    $scope.map.addLayer(highlightMarker);
+
+  };*/
+
   $scope.addHighlightMarker = function (){
+
+    console.log('title of selected marker in map controller', $scope.selectedMarker[0].title );
   //Iterate through all leaflet marker objects
     var clusters = $scope.markerClusterGrp.getLayers();
 
@@ -306,21 +345,31 @@ angular.module( 'map', [
 
     var childMarker;
 
-    console.log('selected marker in map', $scope.selectedMarker[0].title );
-    var clustertitle = [];
-    for (var j in clusters){
-      clustertitle.push(clusters[j].options.title);
+/*    //List title attribute from $scope.markers
+    function debugMarkers(){
+      var markerTitles = [];
+      for (var k in $scope.markers) {
+          markerTitles.push($scope.markers[k].lat);
+      }
+      console.log('marker.lat in $scope.markers', markerTitles);   
     }
-    console.log('cluster', clustertitle );
-    var markertitle = [];
-    for (var k in $scope.markers){
-      markertitle.push( $scope.markers[k].title);
+     
+    //List title attribute from clusters
+    function debugClusters() {
+      var clusterTitles = [];
+      for (var j in clusters){
+          clusterTitles.push(clusters[j]._latlng.lat);
+      }
+      console.log('_latlng.lat in cluster obj', clusterTitles );
     }
-    console.log('map markers', clustertitle );
+    debugMarkers();
+    debugClusters();*/
+
 
     //Iterate through all the markers
     for (var i in clusters){
-      if ($scope.selectedMarker[0].title == clusters[i].options.title) {
+      if (($scope.selectedMarker[0].lat == clusters[i]._latlng.lat) &&
+        ($scope.selectedMarker[0].lng == clusters[i]._latlng.lng)) {
         childMarker = clusters[i];
         break;
       } else {

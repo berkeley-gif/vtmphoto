@@ -69,6 +69,7 @@ module.exports = {
       'vendor/angular-ui/build/angular-ui.js',
       'vendor/angular-ui-slider/src/slider.js',
       'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0.js',
+      'vendor/angular-fullscreen/src/angular-fullscreen.js',
 
       // Leaflet
       'vendor/leaflet-dist/leaflet-src.js',     

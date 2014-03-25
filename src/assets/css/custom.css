@@ -28,15 +28,19 @@ body {
 .container-fluid.main {
 	margin-left: 25px;
 	margin-right: 25px;
-	height: 90%;
+  height: 90%
 }
 
 #map {
-     height: 95%;
+     height: 90%;
 }
 
 .row.sidebar, .row.gallery {
 	margin-right: -5px;
+}
+
+.row.sidebar .panel {
+  height: 95%;
 }
 /*.header-default .main-container {
 	margin-top: 0 !important;
@@ -53,8 +57,14 @@ body {
 .footer-fixed .main-content .container{
 	margin-bottom: 22px;
 }*/
-.panel .panel-default {
+/*.panel.panel-default {
 	box-shadow: 0 2px 3px rgba(0,0,0,.3);
+}*/
+
+.panel.panel-default .panel-heading .panel-info{
+  position: absolute;
+  right: 40px;
+  top: 20px;
 }
 
 @font-face {
@@ -157,11 +167,11 @@ section {
 .slide {
     /*position: absolute;*/
     display:block;
-margin-left: auto;
-margin-right: auto;
+margin: 0 auto;
 position:relative;
 text-align:center;
-    max-height: 90%;
+    width: 100%;
+    max-height: 100%;
 }
 
 /*@media screen and (orientation: portrait) {
@@ -220,19 +230,97 @@ text-align:center;
 /*---------------------------------------------------------
 NAV
 ---------------------------------------------------------*/
-section.slider-nav {
-  height: 200px;
+.slider-nav {
+  height: 300px;
   overflow: auto;
-
 }
 
-section.slider-nav .wrap-image {
-  height: 70px;
+.cbp-rfgrid {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+ 
+.cbp-rfgrid li {
+    float: left;
+    width: 33.33%; /* Fallback */
+    width: -webkit-calc(100% / 3);
+    width: calc(100% / 3);
+    height: 100px; /* Fallback */
+    position: relative;
 }
 
-section.slider-nav .wrap-image.active {
-    box-shadow: 3px 3px 3px #18bc9c; 
+.cbp-rfgrid li.active img {
+    opacity:0.3; filter:alpha(opacity=30);
 }
+ 
+.cbp-rfgrid li a,
+.cbp-rfgrid li a img {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+ 
+.cbp-rfgrid li a img {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+}
+
+.cbp-rfgrid li a:hover img {
+  opacity:0.3; filter:alpha(opacity=30);
+}
+
+/* Example for media query: change number of items per row */
+ 
+@media screen and (max-width: 1190px) {
+    .cbp-rfgrid li {
+        width: 20%; /* Fallback */
+        width: -webkit-calc(100% / 5);
+        width: calc(100% / 5);
+    }
+}
+ 
+@media screen and (max-width: 945px) {
+    .cbp-rfgrid li {
+        width: 25%; /* Fallback */
+        width: -webkit-calc(100% / 4);
+        width: calc(100% / 4);
+    }
+}
+ 
+@media screen and (max-width: 660px) {
+    .cbp-rfgrid li {
+        width: 33.3333333%; /* Fallback */
+        width: -webkit-calc(100% / 3);
+        width: calc(100% / 3);
+    }
+}
+ 
+@media screen and (max-width: 660px) {
+    .cbp-rfgrid li {
+        width: 33.3333333%; /* Fallback */
+        width: -webkit-calc(100% / 3);
+        width: calc(100% / 3);
+    }
+}
+ 
+@media screen and (max-width: 400px) {
+    .cbp-rfgrid li {
+        width: 50%; /* Fallback */
+        width: -webkit-calc(100% / 2);
+        width: calc(100% / 2);
+    }
+}
+ 
+@media screen and (max-width: 300px) {
+    .cbp-rfgrid li {
+        width: 100%;
+    }
+}
+
 /*
 .slider-nav {
     text-align: center;
@@ -754,3 +842,23 @@ section.slider-nav .wrap-image.active {
 /*	Detail page styles
  /* ---------------------------------------------------------------------- */
 
+.fade-hide, .fade-show {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.fade-hide {
+  opacity:1;
+}
+.fade-hide.fade-hide-active {
+  opacity:0;
+}
+
+.fade-show {
+  opacity:0;
+}
+.fade-show.fade-show-active {
+  opacity:1;
+}

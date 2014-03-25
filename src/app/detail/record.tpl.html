@@ -32,14 +32,14 @@
             		<div class="col-md-9">
 	    				<section class="slider">
 
-						    <img class="slide" ng-src="{{active.media_url}}">
+						    <img id="{{active.record}}" class="slide" ng-src="{{active.media_url}}">
 
 						    <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
 						    <a class="arrow next" href="#" ng-click="prevSlide()"></a>
 
 						</section>
 					</div>
-					<div class="col-md-3" >
+<!-- 					<div class="col-md-3" >
 						<section class="slider-nav" when-scrolled="loadMore()">
 							<h5 class="text-muted">Nearby Photos</h5>
 							<div ng-repeat="thumb in slides | sublist:counter:0" class="col-md-6 col-sm-12 gallery-img">
@@ -49,6 +49,26 @@
 									</a>
 								</div>
 							</div>
+						</section>
+
+	                </div> -->
+
+
+	                <div class="col-md-3" >
+						<section >
+							<h5 class="text-muted">Nearby Photos</h5>
+								<div class="slider-nav" when-scrolled="loadMore()">
+									<ul class="cbp-rfgrid">
+										<li ng-repeat="thumb in slides | sublist:counter:0" ng-class="{'active':isCurrentSlideIndex($index)}">
+											<a href ng-click="setCurrentSlideIndex($index);" >
+												<img ng-src="{{thumb.media_url}}" alt="" imageonload>
+											</a>
+
+										</li>
+									</ul>
+								</div>
+
+
 						</section>
 
 	                </div>

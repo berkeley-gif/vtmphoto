@@ -49,7 +49,18 @@ angular.module( 'home', [
   
     $scope.selectedMarker = [];
 
+    $scope.session = {};
+
+    // I toggle the value of isVisible.
+                $scope.toggle = function() {
  
+                    $scope.isVisible = ! $scope.isVisible;
+ 
+                };
+ 
+                // Default the blocks to be visible.
+                $scope.isVisible = false;
+    
 
     /////////////////////////////////
     //  USER GEOLOCATION HANDLING  //

@@ -13,9 +13,10 @@
  * specified, as shown below.
  */
 angular.module( 'sidebar', [
+	'ngAnimate',
 'ui.filters',
 'ui.slider',
-'ui.bootstrap',
+'ui.bootstrap.collapse',
 //services
 'services.markerData',
 'services.debounce'
@@ -30,8 +31,9 @@ angular.module( 'sidebar', [
 
 .controller('SidebarCtrl', ['$scope', '$filter', '$debounce', 'markerData', function ($scope, $filter, $debounce, markerData) {
 
-	$scope.isCollapsed = true;
- 
+
+
+
 	$scope.dateRange = [];
 
 	// Initialize markers		

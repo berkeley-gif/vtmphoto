@@ -1,6 +1,6 @@
 angular.module( 'services.markerData', [])
 
-.factory('markerData', ['$filter', function($filter) {
+.factory('markerData', [function() {
 
      // private data vars
      var markerArray = [];
@@ -27,12 +27,12 @@ angular.module( 'services.markerData', [])
               marker.lng = jsonObject.geojson.coordinates[0];
             } else {
               marker[k] = jsonObject[k];
-              marker['icon'] = local_icons.defaultIcon;
-              marker['title'] = index;
             }
           } 
         }
         marker.layer = 'locations';
+        marker.icon = local_icons.defaultIcon;
+        marker.title = index;
         return marker;      
      };
 
