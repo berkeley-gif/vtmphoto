@@ -9,7 +9,7 @@ angular.module( 'vtmphotoApp', [
 ])
 
 .constant('HOLOS_CONFIG', {
-  baseUrl: 'http://ecoengine.berkeley.edu'
+  baseUrl: 'http://dev.ecoengine.berkeley.edu'
 })
 
 .run(['$rootScope', '$state', '$stateParams', function ($rootScope,   $state,   $stateParams) {

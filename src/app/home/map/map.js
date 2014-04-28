@@ -121,19 +121,7 @@ angular.module( 'map', [
                 maxClusterRadius: 50,
                 zoomToBoundsOnClick: true
               }
-          },
-          biomass: {
-                  name: 'Biomass',
-                  type: 'xyz',
-                  url: 'http://landcarbon.org/tiles/frstc_cent_miroc_a1b/{z}/{x}/{y}.png',
-                  visible: true,
-                  layerParams: {
-                      dtstart: 2005
-                  },
-                  layerOptions: {
-                      dtstart: 2005
-                  }
-           }    
+          } 
       }
     },
     defaults : {
@@ -244,7 +232,7 @@ angular.module( 'map', [
             var northEast = $scope.bounds.northEast;
             var boundsStr = southWest.lng + ',' + southWest.lat + ',' + northEast.lng + ',' + northEast.lat;
             console.log('boundsStr', boundsStr);
-            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + boundsStr)
+            holosData.loadData('http://dev-ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + boundsStr)
                  .then(function() {
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
                       var data = holosData.getData();
@@ -332,7 +320,7 @@ angular.module( 'map', [
 
   $scope.addHighlightMarker = function (){
 
-    console.log('title of selected marker in map controller', $scope.selectedMarker[0].title );
+    //console.log('title of selected marker in map controller', $scope.selectedMarker[0].title );
   //Iterate through all leaflet marker objects
     var clusters = $scope.markerClusterGrp.getLayers();
 

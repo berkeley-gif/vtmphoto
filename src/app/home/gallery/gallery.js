@@ -15,10 +15,9 @@
 angular.module( 'gallery', [
 //angular modules
 'ui.router',
-'ngAnimate',
 //services
 'services.markerData',
-'ui.bootstrap',
+//'ui.bootstrap',
 'detail',
 'resources.photos',
 'filters.thumbnail',
@@ -50,19 +49,24 @@ angular.module( 'gallery', [
 	////////////////////////
 
 	$scope.totalItems = 0;
-	$scope.currentPage = 1;
+	$scope.currentPage = 0;
 	$scope.maxSize = 5;
 	$scope.itemsPerPage = 12;
 	$scope.pagedPhotos = [];
-	$scope.numPages = 0;
+	//$scope.numPages = 0;
 
 
 	$scope.$watchCollection('gallery.markers', function(){
 		$scope.totalItems = $scope.gallery.markers.length;
 		$scope.currentPage = 1;
 		$scope.groupToPages();
-		console.log('photos', $scope.totalItems);
-/*		console.log('numpages', $scope.numPages);*/
+		$scope.numPages = $scope.pagedPhotos.length;
+
+	});
+
+	$scope.$watch('numPages', function(oldValue, newValue){
+		console.log('numpages', oldValue, newValue);
+
 	});
 
 	// Calculate pages in place
@@ -73,13 +77,9 @@ angular.module( 'gallery', [
 			if (i % $scope.itemsPerPage === 0) {
 				$scope.pagedPhotos[Math.floor(i / $scope.itemsPerPage)] = [ $scope.gallery.markers[i] ];
 		} else {
-				$scope.pagedPhotos[Math.floor(i / $scope.itemsPerPage)].push($scope.gallery.markers[i]);
+				$scope.pagedPhotos[Math.floor(i / $scope.itemsPerPage)].push($scope.gallery.markers[i]);			
 			}
 		}
-
-		$scope.numPages = $scope.pagedPhotos.length;
-/*		console.log('pagesphotos',  $scope.pagedPhotos.length);
-		console.log('2 numpages', $scope.numPages);*/
 	};
 
 	////////////////////////
@@ -208,7 +208,7 @@ angular.module( 'gallery', [
   ///////////////////////////////////////////////////////////
 
 	$scope.selectMarker = function (marker){
-		console.log('selected marker in gallery', marker.title );
+		//console.log('selected marker in gallery', marker.title );
 		markerData.selectMarker(marker);
 	};
 	$scope.unselectMarker = function (){

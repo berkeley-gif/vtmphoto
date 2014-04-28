@@ -16,7 +16,6 @@ angular.module( 'sidebar', [
 	'ngAnimate',
 'ui.filters',
 'ui.slider',
-'ui.bootstrap.collapse',
 //services
 'services.markerData',
 'services.debounce'
