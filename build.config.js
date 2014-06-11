@@ -62,18 +62,20 @@ module.exports = {
       'vendor/angular/angular.js',    
 
       //Other Angular modules
-      'vendor/angular-route/angular-route.js',
-      'vendor/angular-resource/angular-resource.js',
+      //'vendor/angular-route/angular-route.js',
+      //'vendor/angular-resource/angular-resource.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-animate/angular-animate.js',
-      'vendor/angular-ui/build/angular-ui.js',
+      //'vendor/angular-animate/angular-animate.js',
+      'vendor/angular-ui-utils/ui-utils.js',
       'vendor/angular-ui-slider/src/slider.js',
       'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0.js',
       'vendor/angular-fullscreen/src/angular-fullscreen.js',
+      'vendor/restangular/dist/restangular.js',
+      'vendor/lodash/dist/lodash.js',
 
       // Leaflet
       'vendor/leaflet-dist/leaflet-src.js',     
-      'vendor/leaflet.markerclusterer/dist/leaflet.markercluster-src.js',  
+      'vendor/leaflet.markercluster/dist/leaflet.markercluster-src.js',  
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js'
     ],
     css: [

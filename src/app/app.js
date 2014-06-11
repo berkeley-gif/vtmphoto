@@ -22,7 +22,7 @@ angular.module( 'vtmphotoApp', [
         $rootScope.$stateParams = $stateParams;
 }])
 
-.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider ) {
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider ) {
     
     /////////////////////////////
     // Redirects and Otherwise //
@@ -38,6 +38,10 @@ angular.module( 'vtmphotoApp', [
 
       // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
       .otherwise('/');
+
+      $httpProvider.defaults.useXDomain = true;
+      delete $httpProvider.defaults.headers
+        .common['X-Requested-With'];
 
 }])
 

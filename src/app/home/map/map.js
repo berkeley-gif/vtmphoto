@@ -232,7 +232,7 @@ angular.module( 'map', [
             var northEast = $scope.bounds.northEast;
             var boundsStr = southWest.lng + ',' + southWest.lat + ',' + northEast.lng + ',' + northEast.lat;
             console.log('boundsStr', boundsStr);
-            holosData.loadData('http://dev-ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + boundsStr)
+            holosData.loadData('http://ecoengine.berkeley.edu/api/photos/?format=json&georeferenced=True&collection_code=VTM&bbox=' + boundsStr)
                  .then(function() {
                       console.log('loadData.then(), here the holosData should have loaded the values from the storageService.');
                       var data = holosData.getData();
@@ -385,7 +385,7 @@ angular.module( 'map', [
     //change highlightIcon size depending on size of cluster 
     if (childCount == 1) {
       highlightIcon.options.iconSize = [15,15];
-      highlightIcon.options.iconAnchor = [0,0];
+      highlightIcon.options.iconAnchor = [2,2];
     } else if (childCount < 10) {
       highlightIcon.options.iconSize = [25,25];
       highlightIcon.options.iconAnchor = [13,13];

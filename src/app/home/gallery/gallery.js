@@ -17,7 +17,7 @@ angular.module( 'gallery', [
 'ui.router',
 //services
 'services.markerData',
-//'ui.bootstrap',
+'ui.bootstrap',
 'detail',
 'resources.photos',
 'filters.thumbnail',

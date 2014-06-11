@@ -13,8 +13,8 @@
  * specified, as shown below.
  */
 angular.module( 'sidebar', [
-	'ngAnimate',
-'ui.filters',
+	//'ngAnimate',
+'ui.unique',
 'ui.slider',
 //services
 'services.markerData',
