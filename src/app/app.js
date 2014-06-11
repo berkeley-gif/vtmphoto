@@ -5,14 +5,16 @@ angular.module( 'vtmphotoApp', [
   'services.httpRequestTracker',
   'home',
   'about',
-  'upload'
+  'upload',
+  'restangular'
 ])
 
 .constant('HOLOS_CONFIG', {
-  baseUrl: 'http://dev.ecoengine.berkeley.edu'
+  baseUrl: 'http://ecoengine.berkeley.edu',
+  apiKey: ''
 })
 
-.run(['$rootScope', '$state', '$stateParams', function ($rootScope,   $state,   $stateParams) {
+.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
 
         // It's very handy to add references to $state and $stateParams to the $rootScope
         // so that you can access them from any scope within your applications.For example,
@@ -22,7 +24,8 @@ angular.module( 'vtmphotoApp', [
         $rootScope.$stateParams = $stateParams;
 }])
 
-.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider ) {
+.config(['$stateProvider', '$urlRouterProvider', 'RestangularProvider', 'HOLOS_CONFIG',
+  function ($stateProvider, $urlRouterProvider, RestangularProvider, HOLOS_CONFIG) {
     
     /////////////////////////////
     // Redirects and Otherwise //
@@ -30,18 +33,41 @@ angular.module( 'vtmphotoApp', [
 
     // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
     $urlRouterProvider
-
-      // The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
-      // Here we are just setting up some convenience urls.
-      //.when('/c?id', '/contacts/:id')
-      //.when('/user/:id', '/contacts/:id')
-
-      // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
       .otherwise('/');
 
-      $httpProvider.defaults.useXDomain = true;
-      delete $httpProvider.defaults.headers
-        .common['X-Requested-With'];
+
+    ///////////////////////////////
+    // Restangular Configuration //
+    ///////////////////////////////
+    RestangularProvider.setBaseUrl(HOLOS_CONFIG.baseUrl);
+    RestangularProvider.setDefaultRequestParams({
+      //apiKey: HOLOS_CONFIG.apiKey,
+      format: json
+    });
+    //Add a Response Interceptor
+    RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+      var extractedData;
+      // .. to look for getList operations
+      if (operation === "getList") {
+        // .. and handle the data and meta data
+        extractedData = data.results;
+        extractedData.count = data.count;
+      } else {
+        extractedData = data;
+      }
+      return extractedData;
+    });
+    //On error
+    RestangularProvider.setErrorInterceptor(
+      function(resp) {
+        //displayError();
+        console.log('error getting data');
+        return false; // stop the promise chain
+    });
+    //Cache requests
+    RestangularProvider.setDefaultHttpFields({cache: true});
+
+
 
 }])
 
