@@ -227,7 +227,7 @@ angular.module( 'map', [
 
   $scope.updateData = function() {
        //if(!holosData.isDataLoaded()) {                                        
-            console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
+/*            console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
             var southWest = $scope.bounds.southWest;
             var northEast = $scope.bounds.northEast;
             var boundsStr = southWest.lng + ',' + southWest.lat + ',' + northEast.lng + ',' + northEast.lat;
@@ -238,7 +238,7 @@ angular.module( 'map', [
                       var data = holosData.getData();
                       markerData.updateMarkers(data);
                       markerData.resetFilteredMarkers();
-                  });
+                  });*/
   };
 
 ////////////////////////////////////////////

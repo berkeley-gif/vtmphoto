@@ -10,8 +10,8 @@ angular.module( 'vtmphotoApp', [
 ])
 
 .constant('HOLOS_CONFIG', {
-  baseUrl: 'http://ecoengine.berkeley.edu',
-  apiKey: ''
+  baseUrl: 'http://ecoengine.berkeley.edu/api/'
+  //apiKey: ''
 })
 
 .run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
@@ -42,7 +42,8 @@ angular.module( 'vtmphotoApp', [
     RestangularProvider.setBaseUrl(HOLOS_CONFIG.baseUrl);
     RestangularProvider.setDefaultRequestParams({
       //apiKey: HOLOS_CONFIG.apiKey,
-      format: json
+      format: 'json'
+      //bbox: 
     });
     //Add a Response Interceptor
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
@@ -50,8 +51,7 @@ angular.module( 'vtmphotoApp', [
       // .. to look for getList operations
       if (operation === "getList") {
         // .. and handle the data and meta data
-        extractedData = data.results;
-        extractedData.count = data.count;
+        extractedData += data.results;
       } else {
         extractedData = data;
       }

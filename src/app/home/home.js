@@ -16,6 +16,7 @@ angular.module( 'home', [
   //angular modules
   'ui.router',
   'ui.bootstrap',
+  'restangular',
   //controllers
   'map',
   'gallery',
@@ -43,10 +44,17 @@ angular.module( 'home', [
     ;
 })
 
-.controller('HomeCtrl', ['$scope', '$timeout', 'geolocation' , 'geolocation_msgs', 'geocoder', 
-  function ($scope, $timeout, geolocation, geolocation_msgs, geocoder) {
+.controller('HomeCtrl', ['$scope', '$timeout', 'Restangular','geolocation' , 'geolocation_msgs', 'geocoder', 
+  function ($scope, $timeout, Restangular, geolocation, geolocation_msgs, geocoder) {
 
-  
+    var data = Restangular.one('photos');
+    // This will query /accounts and return a promise.
+    data.getList().then(function(photos) {
+      $scope.allPhotos = photos;
+      //console.log($scope.allPhotos);
+    });
+    
+/*  
     $scope.selectedMarker = [];
 
     $scope.session = {};
@@ -59,7 +67,7 @@ angular.module( 'home', [
                 };
  
                 // Default the blocks to be visible.
-                $scope.isVisible = false;
+                $scope.isVisible = false;*/
     
 
     /////////////////////////////////
