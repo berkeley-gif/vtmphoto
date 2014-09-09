@@ -10,7 +10,7 @@ angular.module( 'vtmphotoApp', [
 ])
 
 .constant('HOLOS_CONFIG', {
-  baseUrl: 'http://ecoengine.berkeley.edu/api/'
+  baseUrl: 'https://dev-ecoengine.berkeley.edu/api/'
   //apiKey: ''
 })
 
@@ -51,7 +51,10 @@ angular.module( 'vtmphotoApp', [
       // .. to look for getList operations
       if (operation === "getList") {
         // .. and handle the data and meta data
-        extractedData += data.results;
+        extractedData = data.results;
+        extractedData.count = data.count;
+        extractedData.next = data.next;
+        extractedData.prev = data.prev;
       } else {
         extractedData = data;
       }
@@ -72,6 +75,7 @@ angular.module( 'vtmphotoApp', [
 }])
 
 .controller('AppCtrl', ['$scope', function ($scope) {
+
 
 }])
 

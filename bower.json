@@ -1,39 +1,25 @@
 {
   "name": "vtmphoto",
   "version": "0.0.2",
-  "homepage": "https://github.com/berkeley-gif/vtmphoto",
-  "authors": [
-    "Shruti Mukhtyar <mukhtyar@berkeley.edu>"
-  ],
-  "description": "Map and explore photos from the Wieslander Vegetation Type Mapping project compiled in the 1920s and 30s and compare with recent photo retakes",
-  "keywords": [
-    "vtm",
-    "photo",
-    "retakes"
-  ],
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "vendor"
-  ],
+  "devDependencies": {
+    "angular-mocks": "~1.2"
+  },
   "dependencies": {
-    "angular": "1.2.8",
-    "jquery-ui": "~1.10.3",
-    "angular-ui-slider": "~0.0.1",
-    "jquery": "~2.1.0",
-    "angular-fullscreen": "*",
-    "angular-ui-router": "~0.2.10",
-    "angular-ui-utils": "~0.1.1",
-    "angular-ui-bootstrap": "~0.11.0",
-    "angular-leaflet-directive": "~0.7.7",
+    "angular": "~1.2",
+    "bootstrap": "~3.1",
+    "angular-bootstrap": "~0.10.0",
+    "angular-ui-router": "~0.2",
+    "angular-leaflet": "~0.7.7",
+    "jquery": "1.11",
+    "restangular": "~1.4.0",
+    "angular-touch": "~1.2.21",
+    "angular-socialshare": "~0.0.2",
+    "angular-ui-slider": "~0.0.2",
     "leaflet.markercluster": "~0.4.0",
-    "restangular": "~1.4.0"
+    "angular-fullscreen": "~1.0.0",
+    "angular-ui-utils": "~0.1.1"
   },
   "resolutions": {
-    "angular": "1.2.8",
-    "jquery": "~2.1.0"
+    "angular": "1.2.23"
   }
 }

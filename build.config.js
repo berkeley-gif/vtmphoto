@@ -20,9 +20,9 @@ module.exports = {
    * app's unit tests.
    */
   app_files: {
-    js: [ 'src/**/*.js', '!src/**/*.spec.js' ],
+    js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**/*.js' ],
     jsunit: [ 'src/**/*.spec.js' ],
-
+    
     coffee: [ 'src/**/*.coffee', '!src/**/*.spec.coffee' ],
     coffeeunit: [ 'src/**/*.spec.coffee' ],
 
@@ -31,6 +31,15 @@ module.exports = {
 
     html: [ 'src/index.html' ],
     less: 'src/less/main.less'
+  },
+
+  /**
+   * This is a collection of files used during testing only.
+   */
+  test_files: {
+    js: [
+      'vendor/angular-mocks/angular-mocks.js'
+    ]
   },
 
   /**
@@ -46,44 +55,41 @@ module.exports = {
    *
    * The `vendor_files.css` property holds any CSS files to be automatically
    * included in our app.
+   *
+   * The `vendor_files.assets` property holds any assets to be copied along
+   * with our app's assets. This structure is flattened, so it is not
+   * recommended that you use wildcards.
    */
   vendor_files: {
     js: [
-      // Jquery
-      'vendor/jquery/dist/jquery.min.js',    
-      'vendor/jquery-ui/ui/minified/jquery-ui.min.js', 
-      'vendor/jquery.ui.touch-punch.min.js', //enables touch support for jquery-ui widgets (slider)
-      'vendor/jquery-throttle-debounce-plugin.js',
-      'vendor/dragslider.js',
-      // Bootstrap
-      //'vendor/bootstrap/dist/js/bootstrap.js',
-
-      // Angular
-      'vendor/angular/angular.js',    
-
-      //Other Angular modules
-      //'vendor/angular-route/angular-route.js',
-      //'vendor/angular-resource/angular-resource.js',
-      'vendor/angular-ui-router/release/angular-ui-router.js',
-      //'vendor/angular-animate/angular-animate.js',
-      'vendor/angular-ui-utils/ui-utils.js',
+      'vendor/jquery/dist/jquery.min.js',
+      'vendor/jquery/dist/jquery.min.map',
+      'vendor/jquery-ui/ui/jquery.ui.js',
+      'vendor/angular/angular.js',
       'vendor/angular-ui-slider/src/slider.js',
-      'vendor/angular-ui-bootstrap/ui-bootstrap-tpls-0.10.0.js',
-      'vendor/angular-fullscreen/src/angular-fullscreen.js',
+      'vendor/angular-animate/angular-animate.js',
+      'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
+      'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/restangular/dist/restangular.js',
       'vendor/lodash/dist/lodash.js',
-
-      // Leaflet
-      'vendor/leaflet-dist/leaflet-src.js',     
-      'vendor/leaflet.markercluster/dist/leaflet.markercluster-src.js',  
-      'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js'
+      'vendor/leaflet/dist/leaflet-src.js',
+      'vendor/leaflet.markercluster/dist/leaflet.markercluster-src.js',
+      'vendor/angular-leaflet/dist/angular-leaflet-directive.js',
+      'vendor/angular-touch/angular-touch.js',
+      'vendor/angular-socialshare/angular-socialshare.js',
+      'vendor/angular-fullscreen/src/angular-fullscreen.js',
+      'vendor/angular-ui-utils/ui-utils.js'
     ],
     css: [
-      'vendor/leaflet-dist/leaflet.css',
-      'vendor/flexslider/flexslider.css',
+     'vendor/bootstrap/dist/css/bootstrap.css',
+     'vendor/bootstrap/dist/css/bootstrap.css.map',
+     'vendor/leaflet/dist/leaflet.css',
+     'vendor/leaflet.markercluster/dist/leaflet.markercluster.css',
+     'vendor/animate.css/animate.css',
+     'vendor/angular-socialshare/angular-socialshare.css'
     ],
     assets: [
-
     ]
   },
 };

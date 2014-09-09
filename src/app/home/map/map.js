@@ -17,6 +17,7 @@ angular.module( 'map', [
   'services.markerData',
   'services.holosData',
   'services.debounce',
+  'services.holosPhotoService',
   //directives
   'leaflet-directive'
 ])
@@ -27,7 +28,8 @@ angular.module( 'map', [
  * this way makes each module more "self-contained".
  */
  
-.controller('MapCtrl', ['$scope', '$timeout', '$location', '$debounce', 'markerData', 'holosData', 'leafletData', 'leafletBoundsHelpers', 'leafletMarkersHelpers', function ($scope, $timeout, $location, $debounce, markerData, holosData, leafletData, leafletBoundsHelpers, leafletMarkersHelpers) {
+.controller('MapCtrl', ['$scope', '$timeout', '$location', '$debounce', 'markerData', 'holosData', 'holosPhotoService','leafletData', 'leafletBoundsHelpers', 'leafletMarkersHelpers', 
+  function ($scope, $timeout, $location, $debounce, markerData, holosData, holosPhotoService, leafletData, leafletBoundsHelpers, leafletMarkersHelpers) {
 
   ////////////////////////////
   //    INITIALIZE MAP     //
@@ -226,6 +228,16 @@ angular.module( 'map', [
   }, true);
 
   $scope.updateData = function() {
+
+    var southWest = $scope.bounds.southWest;
+    var northEast = $scope.bounds.northEast;
+    var boundsStr = southWest.lng + ',' + southWest.lat + ',' + northEast.lng + ',' + northEast.lat;
+
+    holosPhotoService.loadData().then(function(){
+      //var data = holosPhotoService.getData();
+      console.log('data', data);
+    });
+    
        //if(!holosData.isDataLoaded()) {                                        
 /*            console.log('Data hasn\'t been loaded, invoking holosData.loadData()');
             var southWest = $scope.bounds.southWest;

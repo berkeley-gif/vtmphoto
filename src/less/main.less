@@ -5,24 +5,411 @@
  */
 
 
-
-
 /**
  * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
  * project should be imported as the rest are just wasting space.
-*/
-
-
-
-
-/**
- * This is our main variables file. It in turn imports the `variables` file from
- * Twitter Bootstrap. We must include it last so we can overwrite any variable
- * definitions in our imported stylesheets.
  */
 
 
 
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+
+@import 'variables.less';
+
+
+/* 
+* GLOBAL STYLES 
+*/
+
+html {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+/**
+ * Typography
+ */
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+}
+
+.title {
+  font-family: "EB Garamond", Times, Georgia, serif;
+/*  text-shadow: 1px 2px 3px #A09C9C;*/
+  font-size: 1.8em;
+  text-align: center;
+}
+
+.title-first-letter {
+  font-size: 1.5em;
+  top: .15em;
+}
+
+code, pre, .pre {
+  padding: 5px;
+  margin: 10px 0;
+  background-color: #EFEFEF;
+  border: 1px solid #DADADA;
+  border-radius: 3px;
+}
+
+code {
+  padding: 0 3px;
+}
+
+pre {
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.page-header {
+  margin-top: 60px;
+
+  &:first-child {
+    margin-top: 20px;
+  }
+}
+
+.boxed-layout {
+  padding: 0;
+  box-shadow: 0 0 5px #ccc;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  /*background: url(img/23-white-cardboard-background-sml.jpg) repeat;*/
+  background-color: #FFFFF7;
+}
+.wrapper {
+  background: #fff;
+  height: 100%;
+}
+
+/**
+ * NAVIGATION
+ */
+/*Top Bar (login, search etc.)
+------------------------------------*/
+.topbar {
+  z-index: 12;
+  padding: 8px 0;
+  position: relative;
+}
+
+.topbar ul.loginbar {
+  margin: 0;
+}
+
+.topbar ul.loginbar > li {
+  display: inline;
+  list-style: none;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.topbar ul.loginbar > li > a, 
+.topbar ul.loginbar > li > a:hover {
+  color: #7c8082;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.topbar ul.loginbar li i.fa { 
+  color: #bbb;
+}
+
+.topbar ul.loginbar li.topbar-devider { 
+  top: -1px;
+  padding: 0;
+  font-size: 8px;
+  position: relative;
+  margin: 0 9px 0 5px;
+  font-family: Tahoma;
+  border-right: solid 1px #bbb;
+}
+
+
+/*Responsive Topbar v1*/
+@media (max-width: 992px) {
+  .topbar-v1 ul {
+    text-align: center !important;
+  }
+
+  .topbar-v1 .top-v1-contacts {
+    margin: 10px 0;
+  }
+
+  .topbar-v1 .top-v1-data li {
+    top: 1px;
+    padding: 6px 16px;
+    margin-left: -5px;
+    position: relative;
+    border: solid 1px #eee;
+  }   
+}
+
+/*Header Default
+------------------------------------*/
+.header {
+  z-index: 99;
+  position: relative;
+  border-bottom: solid 2px #eee;
+  background-color: #402F3F;
+}
+
+.header .navbar {
+  margin: 0;
+  min-height: inherit;
+}
+
+.header .navbar-default {
+  border: none;
+  background: none;
+}
+
+.header .navbar-collapse {
+  position: relative;
+  /*max-height: inherit;*/
+}
+
+/*Brand*/
+.header .navbar-brand { 
+  color: #B9485A;
+  z-index: 1;
+  top: -10px;
+  position: relative;
+  padding: 0 28px 10px;
+}
+
+@media (max-width: 992px) {
+  .header .navbar-brand { 
+    top: 0;
+    height: 50px;
+  }
+}
+
+/*Navbar*/
+@media (min-width: 992px) {
+  .header .navbar-nav {
+    float: right;
+    margin-left: 120px;
+  } 
+}
+
+.header .navbar-nav {
+    float: right;
+  } 
+
+.header .navbar-default .navbar-nav > li > a {
+  color: #FFFFF9;
+  font-size: 12px;
+  font-weight:400;
+  text-transform: uppercase;
+}
+
+.header .navbar-default .navbar-nav > .active > a {
+  color:  #B9485A;
+}
+
+/*Dropdown*/
+.header .navbar-right .dropdown-menu {
+  right: inherit;
+}
+
+/*Navbar Toggle*/
+.navbar-toggle,
+.navbar-default .navbar-toggle:hover, 
+.navbar-default .navbar-toggle:focus {
+  background:  #B9485A;
+  padding: 6px 10px 2px;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #5fb611;
+}
+
+.navbar-default .navbar-toggle:hover {
+  background: #5fb611;
+}
+
+.navbar-default .navbar-toggle .fa {
+  color: #fff;
+  font-size: 19px;
+}
+
+/*Responsive Navbar*/
+@media (max-width: 767px) {
+  .header .navbar-default .navbar-nav > li > a {
+    font-size: 14px;
+    padding: 9px 10px;
+  }
+
+  .header .navbar-default .navbar-nav > li a {
+    /*margin-bottom: 1px;*/
+    border-bottom: solid 1px #eee;
+  }
+
+  .header .navbar-default .navbar-nav > li > a:focus {
+    background: none;
+  }
+
+  .header .navbar-default .navbar-nav > li > a:hover {
+    color:  #B9485A;
+  }
+
+  .header .navbar-default .navbar-nav > .active > a,
+  .header .navbar-default .navbar-nav > .active > a:hover,
+  .header .navbar-default .navbar-nav > .active > a:focus {
+    color: #fff;
+    background:  #B9485A;
+    /*border-bottom: solid 2px  #B9485A;*/
+  }
+
+  .header .dropdown-submenu li a { 
+    font-size: 12px;
+  } 
+}
+
+@media (min-width: 767px) {
+  /*Navbar Collapse*/
+  .header .navbar-collapse {
+    padding: 0;
+  }
+
+  /*Navbar*/
+  .header .navbar-nav {
+    top: 2px;
+    position: relative;
+  }
+
+  .header .navbar-default .navbar-nav > li > a {
+    padding: 17px 20px 9px 20px;   
+  }
+
+  .header .navbar-default .navbar-nav > li > a,
+  .header .navbar-default .navbar-nav > li > a:focus {  
+    border-bottom: solid 2px transparent;
+  }
+
+  .header .navbar-default .navbar-nav > li > a:hover,
+  .header .navbar-default .navbar-nav > .active > a {
+    border-bottom: solid 2px #B9485A;
+  }
+  
+  .header .navbar-default .navbar-nav > li > a,
+  .header .navbar-default .navbar-nav > li > a:hover,
+  .header .navbar-default .navbar-nav > li > a:focus, 
+  .header .navbar-default .navbar-nav > .active > a, 
+  .header .navbar-default .navbar-nav > .active > a:hover, 
+  .header .navbar-default .navbar-nav > .active > a:focus {
+    background: none;
+  }
+  
+
+  .header .navbar-default .navbar-nav > .open > a,
+  .header .navbar-default .navbar-nav > .open > a:hover,
+  .header .navbar-default .navbar-nav > .open > a:focus {
+    color: #B9485A;
+  }
+
+    /*Dropdown Menu*/
+  .header .dropdown-menu { 
+    padding: 0;
+    border: none;
+    min-width: 200px;
+    border-radius: 0; 
+    z-index: 9999 !important;
+    margin-top: -2px !important; 
+    border-top: solid 2px  #B9485A; 
+    border-bottom: solid 2px #687074; 
+  }
+
+  .header .dropdown-menu li a { 
+    color: #687074; 
+    font-size: 13px; 
+    font-weight: 400; 
+    padding: 6px 15px; 
+    border-bottom: solid 1px #eee;
+  }
+
+  .header .dropdown-menu .active > a,
+  .header .dropdown-menu li > a:hover {
+    color: #fff;
+    filter: none !important;
+    background: #687074 !important;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .header .dropdown-menu li > a:focus {
+    background: none;
+    filter: none !important;
+  }
+
+  .header .navbar-nav > li.dropdown:hover > .dropdown-menu {
+    display: block;
+  } 
+}
+
+
+@media (min-width: 767px) {
+  .header .open > .dropdown-menu,
+  .header-v1 .open > .dropdown-menu {
+    display: none;
+  }
+}
+
+/**
+ * SUB NAVIGATION
+ */
+.sub-nav-links, .sub-nav-links a {
+  font-family: Raleway;
+  color: #999;
+}
+
+
+/**
+ * FOOTER
+ */
+
+.footer-inner {
+  padding: 40px 0;
+  border-top: 1px solid #DDD;
+}
+
+.social {
+    float: right;
+    margin: 0;
+    list-style: none;
+}
+
+.social li {
+      float: left;
+      margin-left: 20px;
+}
+
+
+.social li a, .social li a:visited {
+        color: grey;
+        text-decoration: none;
+        font-size: 40px;
+        transition: 250ms ease-in-out ;
+}
+
+.social li a:hover {
+  color: black;
+}
 
 
 
@@ -31,7 +418,9 @@
  * all the submodules and components we are using. 
  *
  * TODO: In a later version of this boilerplate, I'd like to automate this.
-*/
-
+ */
+/*
 @import '../app/home/home.less';
-@import '../app/home/map/map.less';
+@import '../app/about/about.less';
+@import '../app/data/data.less';
+*/

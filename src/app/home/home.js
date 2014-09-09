@@ -47,12 +47,13 @@ angular.module( 'home', [
 .controller('HomeCtrl', ['$scope', '$timeout', 'Restangular','geolocation' , 'geolocation_msgs', 'geocoder', 
   function ($scope, $timeout, Restangular, geolocation, geolocation_msgs, geocoder) {
 
-    var data = Restangular.one('photos');
-    // This will query /accounts and return a promise.
-    data.getList().then(function(photos) {
+/*    //var photos = Restangular.one('photos');
+    var params = {'bbox': '-118.36189270019531,34.116352469972746,-118.00071716308594,34.49580500560864'};
+    // This will query /photos and return a promise.
+    Restangular.all('photos').getList(params).then(function(photos) {
       $scope.allPhotos = photos;
-      //console.log($scope.allPhotos);
-    });
+      console.log($scope.allPhotos);
+    });*/
     
 /*  
     $scope.selectedMarker = [];
